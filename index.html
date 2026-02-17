@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PJ Company Contact Page</title>
+<style>
+    /* Fullscreen and background */
+    body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle at center, #ffe5f0, #fff0ff);
+        overflow: hidden;
+        perspective: 1000px;
+    }
+
+    /* Flower animation container */
+    .flowers {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        top: 0; left: 0;
+        z-index: -1;
+    }
+
+    .flower {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background: radial-gradient(circle at 30% 30%, #ff6ec7, #a5008c);
+        border-radius: 50%;
+        animation: float 10s linear infinite;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity: 0.7; }
+        50% { transform: translateY(50vh) rotate(180deg) scale(1); opacity: 1; }
+        100% { transform: translateY(-50vh) rotate(360deg) scale(0.5); opacity: 0.7; }
+    }
+
+    /* Buttons container */
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        z-index: 10;
+        align-items: center;
+    }
+
+    /* Circular buttons */
+    .circle-btn {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #ff69b4, #ff1493);
+        color: white;
+        font-size: 14px;
+        text-align: center;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .circle-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 25px rgba(0,0,0,0.5);
+    }
+
+    .circle-btn img {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 5px;
+    }
+
+    .btn-label {
+        font-size: 12px;
+    }
+
+    /* Layout for icon and label */
+    .circle-btn-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+</style>
+</head>
+<body>
+
+<!-- Flower background -->
+<div class="flowers" id="flowers"></div>
+
+<!-- Buttons -->
+<div class="button-container">
+    <!-- Call Button -->
+    <div class="circle-btn" onclick="callNumber()">
+        <div class="circle-btn-content">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/phone.png" alt="Call">
+            <div class="btn-label">Call</div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Button -->
+    <div class="circle-btn" onclick="whatsappMessage()">
+        <div class="circle-btn-content">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp">
+            <div class="btn-label">WhatsApp</div>
+        </div>
+    </div>
+
+    <!-- Email Button -->
+    <div class="circle-btn" onclick="sendEmail()">
+        <div class="circle-btn-content">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email">
+            <div class="btn-label">Email</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Generate multiple floating flowers
+    const flowersContainer = document.getElementById('flowers');
+    for(let i=0;i<20;i++){
+        let flower = document.createElement('div');
+        flower.classList.add('flower');
+        flower.style.left = Math.random() * 100 + 'vw';
+        flower.style.animationDelay = Math.random() * 5 + 's';
+        flower.style.width = 30 + Math.random() * 50 + 'px';
+        flower.style.height = flower.style.width;
+        flowersContainer.appendChild(flower);
+    }
+
+    // Call button logic
+    function callNumber() {
+        window.location.href = "tel:+919434274060";
+    }
+
+    // WhatsApp button logic
+    function whatsappMessage() {
+        const message = encodeURIComponent("Hey!");
+        window.open("https://wa.me/919476091829?text=" + message, "_blank");
+    }
+
+    // Email button logic
+    function sendEmail() {
+        window.location.href = "mailto:pjcompanyofficial@gmail.com";
+    }
+</script>
+
+</body>
+</html>
