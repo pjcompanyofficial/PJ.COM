@@ -65,87 +65,38 @@ body, html {
 
 /* --------- shopping button improved --------- */
 .shopping-btn{
-    width:180px; padding:12px 0;
-    background: linear-gradient(135deg, #ff9e00, #ffc04d);
-    color:#fff; font-weight:bold; text-align:center;
-    cursor:pointer; border-radius:10px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.3);
-    position:relative;
-    transition: transform .3s, box-shadow .3s;
+    width:200px; padding:15px 0;
+    background: linear-gradient(135deg, #ff8c00, #ffb84d);
+    color:#fff; font-weight:bold; font-size:16px;
+    text-align:center; cursor:pointer; border-radius:12px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.4);
+    position:relative; transition: transform .3s, box-shadow .3s;
     z-index:10;
 }
 .shopping-btn:hover{
     transform:scale(1.05);
-    box-shadow:0 6px 25px rgba(0,0,0,0.5);
+    box-shadow:0 8px 25px rgba(0,0,0,0.5);
 }
-/* subtle underline inside the button */
 .shopping-btn::after{
     content:"";
     position:absolute;
-    bottom:4px; left:20px;
-    width:calc(100% - 40px); height:3px;
+    bottom:6px; left:25px;
+    width:calc(100% - 50px); height:4px;
     background:#fff;
     border-radius:2px;
 }
 
-/* --------- top plus icon --------- */
-.top-plus{
-    position:absolute;
-    top:20px; right:20px;
-    width:50px; height:50px;
-    background: linear-gradient(135deg, #ff8c00, #ffa500);
-    color:#fff; border-radius:50%;
-    display:flex; justify-content:center; align-items:center;
-    cursor:pointer; box-shadow:0 4px 15px rgba(0,0,0,0.3);
-    transition: transform .3s, box-shadow .3s;
-    z-index:20;
-}
-.top-plus:hover{
-    transform:scale(1.1);
-    box-shadow:0 6px 25px rgba(0,0,0,0.5);
-}
-.top-plus::before{
-    content:"+";
-    font-size:30px; line-height:0;
-}
-
-/* --------- overlays --------- */
+/* --------- overlay --------- */
 .overlay{
     position:absolute; top:0; left:0;
     width:100%; height:100%;
     background:rgba(255,255,255,0.95);
-    display:none; /* show/hide via JS */
+    display:none;
     flex-direction:column;
     align-items:center;
     overflow-y:auto;
     padding:20px;
     z-index:15;
-}
-
-/* --------- form styling --------- */
-.form-group{ width:100%; max-width:400px; margin-bottom:15px; }
-.form-group label{ display:block; margin-bottom:5px; font-weight:bold; }
-.form-group input[type="text"],
-.form-group input[type="number"],
-.form-group textarea{
-    width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;
-    font-size:14px;
-}
-.form-group textarea{ resize:vertical; min-height:80px; }
-.form-buttons{ display:flex; gap:15px; margin-top:10px; }
-
-/* create post button */
-.btn-primary{
-    padding:10px 20px;
-    background: linear-gradient(135deg, #ff8c00, #ffa500);
-    color:#fff; font-weight:bold;
-    border:none; border-radius:6px;
-    cursor:pointer; box-shadow:0 3px 10px rgba(0,0,0,0.2);
-    transition: transform .2s, box-shadow .2s;
-}
-.btn-primary:hover{
-    transform:scale(1.03);
-    box-shadow:0 5px 15px rgba(0,0,0,0.3);
 }
 
 /* feed cards */
@@ -169,7 +120,7 @@ body, html {
 }
 .like-btn.liked{ color:#e74c3c; } /* red when liked */
 
-/* buy-like button text */
+/* send request button */
 .order-btn{
     flex-grow:1;
     padding:8px 12px;
@@ -184,11 +135,18 @@ body, html {
     box-shadow:0 5px 15px rgba(0,0,0,0.3);
 }
 
-/* close button inside overlay */
+/* close button */
 .close-btn{
     position:absolute; top:10px; right:15px;
     font-size:24px; cursor:pointer; color:#333;
 }
+
+/* top-right liked icon */
+.top-like{
+    position:absolute; top:20px; right:20px;
+    font-size:28px; cursor:pointer; z-index:20;
+}
+.top-like.liked{ color:red; }
 </style>
 </head>
 <body>
@@ -196,7 +154,7 @@ body, html {
 <!-- flower background -->
 <div class="flowers" id="flowers"></div>
 
-<!-- contact buttons -->
+<!-- main buttons -->
 <div class="button-container" id="main-buttons">
     <div class="circle-btn" onclick="callNumber()">
         <div class="circle-btn-content">
@@ -222,20 +180,17 @@ body, html {
     <div class="shopping-btn" onclick="openShop()">Shopping</div>
 </div>
 
-<!-- top plus icon for admin post -->
-<div class="top-plus" onclick="promptPassword()" title="Add product"></div>
+<!-- top-right heart icon for liked products -->
+<div class="top-like" id="topLike" onclick="showLiked()">&#10084;</div>
 
-<!-- overlay: password / form / feed -->
+<!-- overlay -->
 <div class="overlay" id="overlay">
-
     <span class="close-btn" onclick="closeOverlay()">×</span>
-
-    <!-- dynamic content injected here -->
     <div id="overlay-content"></div>
 </div>
 
 <script>
-/* --------- flower generation --------- */
+/* --------- flowers --------- */
 const flowersContainer = document.getElementById('flowers');
 for(let i=0;i<25;i++){
     let f = document.createElement('div');
@@ -248,127 +203,50 @@ for(let i=0;i<25;i++){
     flowersContainer.appendChild(f);
 }
 
-/* --------- contact button logic --------- */
-function callNumber(){
-    window.location.href="tel:+919434274060";
-}
-function whatsappMessage(){
-    const msg = encodeURIComponent("Hey!");
-    window.open("https://wa.me/919476091829?text="+msg,"_blank");
-}
-function sendEmail(){
-    window.location.href="mailto:pjcompanyofficial@gmail.com";
-}
+/* --------- contact --------- */
+function callNumber(){ window.location.href="tel:+919434274060"; }
+function whatsappMessage(){ window.open("https://wa.me/919476091829?text=Hey!", "_blank"); }
+function sendEmail(){ window.location.href="mailto:pjcompanyofficial@gmail.com"; }
 
-/* --------- SHOP logic --------- */
+/* --------- shopping --------- */
 const shopOverlay = document.getElementById('overlay');
 const overlayContent = document.getElementById('overlay-content');
-const ADMIN_PASSWORD = "sonu@jeet"; // your password
-
-let posts = []; // in-memory posts
-
-// open shopping feed
-function openShop(){
-    showOverlay();
-    renderShopFeed();
-}
-
-// close overlay
-function closeOverlay(){
-    shopOverlay.style.display='none';
-}
-
-// show overlay
-function showOverlay(){
-    shopOverlay.style.display='flex';
-}
-
-/* --------- password and post creation --------- */
-function promptPassword(){
-    // ask for password; if correct -> show post creation form
-    const pwd = prompt("Enter password:");
-    if(pwd === ADMIN_PASSWORD){
-        showOverlay();
-        renderPostForm();
-    }else if(pwd !== null){
-        alert("Wrong password.");
+let posts = [
+    {
+        id:1,
+        img:"1000042164.png",
+        name:"D middle Flute only",
+        price:450,
+        desc:"handcraft D middle flute with reasonable price, perfect for every occasion and flow with flute Vibes",
+        liked:false
+    },
+    {
+        id:2,
+        img:"1000042165.png",
+        name:"C middle flute",
+        price:1500,
+        desc:"Flow with C middle Flute magical sound and relax your mind reasonable price only one 1500",
+        liked:false
     }
-}
+];
 
-// render post creation form
-function renderPostForm(){
-    overlayContent.innerHTML = `
-        <h2>Create new product post</h2>
-        <div class="form-group">
-            <label>Upload product image</label>
-            <input type="file" id="img-input" accept="image/*"/>
-        </div>
-        <div class="form-group">
-            <label>Product name</label>
-            <input type="text" id="name-input" placeholder="Name"/>
-        </div>
-        <div class="form-group">
-            <label>Price ₹</label>
-            <input type="number" id="price-input" placeholder="e.g., 1500"/>
-        </div>
-        <div class="form-group">
-            <label>Description</label>
-            <textarea id="desc-input" placeholder="Description"></textarea>
-        </div>
-        <div class="form-buttons">
-            <button class="btn-primary" onclick="submitPost()">Post</button>
-        </div>
-    `;
-}
+// overlay functions
+function openShop(){ showOverlay(); renderShop(posts); }
+function closeOverlay(){ shopOverlay.style.display='none'; }
+function showOverlay(){ shopOverlay.style.display='flex'; }
 
-// handle post submission
-function submitPost(){
-    const imgFile = document.getElementById('img-input').files[0];
-    const name = document.getElementById('name-input').value.trim();
-    const price = document.getElementById('price-input').value.trim();
-    const desc = document.getElementById('desc-input').value.trim();
-
-    if(!imgFile || !name || !price){
-        alert("Image, name, and price are required.");
-        return;
-    }
-
-    // read image as data URL
-    const reader = new FileReader();
-    reader.onload = function(e){
-        const imgData = e.target.result;
-        const newPost = {
-            id: Date.now(),
-            img: imgData,
-            name,
-            price,
-            desc,
-            liked: false
-        };
-        posts.unshift(newPost); // add to top
-        alert("Posted successfully!");
-        renderShopFeed();
-    };
-    reader.readAsDataURL(imgFile);
-}
-
-/* --------- display feed --------- */
-function renderShopFeed(){
-    if(posts.length===0){
-        overlayContent.innerHTML = "<h2>No products yet.</h2><p>Admin can add by clicking the top + icon.</p>";
-        return;
-    }
+/* --------- render shopping feed --------- */
+function renderShop(list){
     let html = "<h2>Shopping Feed</h2>";
-    posts.forEach(p => {
-        html += `
-        <div class="card" id="post-${p.id}">
+    list.forEach(p=>{
+        html += `<div class="card" id="post-${p.id}">
             <img src="${p.img}" alt="Product"/>
             <div class="card-content">
                 <div class="card-title">${escapeHtml(p.name)}</div>
                 <div class="card-price">₹ ${escapeHtml(p.price)}</div>
                 <div class="card-desc">${escapeHtml(p.desc)}</div>
                 <div class="card-actions">
-                    <span class="like-btn ${p.liked? 'liked':''}" onclick="toggleLike(${p.id})">&#10084;</span>
+                    <span class="like-btn ${p.liked?'liked':''}" onclick="toggleLike(${p.id})">&#10084;</span>
                     <button class="order-btn" onclick="sendOrder(${p.id})">Send Request</button>
                 </div>
             </div>
@@ -377,33 +255,29 @@ function renderShopFeed(){
     overlayContent.innerHTML = html;
 }
 
-// like toggle
-function toggleLike(postId){
-    const post = posts.find(p=>p.id===postId);
-    if(!post) return;
-    post.liked = !post.liked;
-    renderShopFeed();
+/* --------- like & top-liked page --------- */
+function toggleLike(id){
+    const p = posts.find(x=>x.id===id);
+    p.liked = !p.liked;
+    renderShop(posts);
+}
+function showLiked(){
+    const likedPosts = posts.filter(x=>x.liked);
+    if(likedPosts.length===0){ alert("No liked products yet"); return; }
+    showOverlay();
+    renderShop(likedPosts);
 }
 
-// send order via WhatsApp
-function sendOrder(postId){
-    const post = posts.find(p=>p.id===postId);
-    if(!post) return;
-    const msg = encodeURIComponent(
-        `I am interested in this product:\nName: ${post.name}\nPrice: ₹${post.price}\nDescription: ${post.desc}`
-    );
-    // number to send to admin/owner
-    const ownerNumber = "919476091829"; // WhatsApp digits without + or spaces
-    const waUrl = `https://wa.me/${ownerNumber}?text=${msg}`;
-    window.open(waUrl, "_blank");
+/* --------- send order via WhatsApp --------- */
+function sendOrder(id){
+    const p = posts.find(x=>x.id===id);
+    const msg = encodeURIComponent(`I am interested in this product:\nName: ${p.name}\nPrice: ₹${p.price}\nDescription: ${p.desc}`);
+    window.open("https://wa.me/919476091829?text="+msg,"_blank");
 }
 
-/* --------- utility --------- */
-function escapeHtml(text){
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
+/* --------- escape html --------- */
+function escapeHtml(text){ const div=document.createElement('div'); div.textContent=text; return div.innerHTML; }
 </script>
+
 </body>
 </html>
