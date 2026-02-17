@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PJ Company Contact QR</title>
+
+<!-- QR Code Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f0f0f0;
+    overflow: hidden;
+  }
+
+  /* 3D Flowers Background */
+  .flower-bg {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(circle at center, #ffe6f0, #d0f0ff);
+    animation: moveFlowers 20s linear infinite;
+  }
+
+  @keyframes moveFlowers {
+    0% {background-position: 0 0;}
+    50% {background-position: 100% 100%;}
+    100% {background-position: 0 0;}
+  }
+
+  .container {
+    text-align: center;
+    background: rgba(255,255,255,0.85);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  }
+
+  #qrcode {
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 25px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+
+  .call { background: #28a745; }
+  .call:hover { background: #218838; }
+
+  .whatsapp { background: #25D366; }
+  .whatsapp:hover { background: #1ebe5d; }
+
+  .email { background: #007bff; }
+  .email:hover { background: #0069d9; }
+</style>
+</head>
+<body>
+
+<div class="flower-bg"></div>
+
+<div class="container">
+  <div id="qrcode"></div>
+  <a href="tel:9434274060" class="btn call">Call</a>
+  <a href="https://wa.me/919476091829?text=Hay" class="btn whatsapp">WhatsApp</a>
+  <a href="mailto:pjcompanyofficial@gmail.com" class="btn email">Email</a>
+</div>
+
+<script>
+  // Generate QR Code with links
+  var qrcode = new QRCode(document.getElementById("qrcode"), {
+    text: "Call: 9434274060\nWhatsApp: https://wa.me/919476091829?text=Hay\nEmail: pjcompanyofficial@gmail.com",
+    width: 200,
+    height: 200,
+    colorDark : "#000000",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.H
+  });
+</script>
+
+</body>
+</html>
