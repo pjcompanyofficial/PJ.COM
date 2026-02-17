@@ -1,140 +1,203 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PJ Company Contact Page</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PJ Company Contact + Shop</title>
+
 <style>
-    /* Fullscreen and background */
-    body, html {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: radial-gradient(circle at center, #ffe5f0, #fff0ff);
-        overflow: hidden;
-        perspective: 1000px;
-    }
+/* --------- base styles --------- */
+* { box-sizing: border-box; }
+body, html {
+    margin:0; padding:0;
+    width:100%; height:100%;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #ffe5f0, #fff0ff);
+    perspective:1000px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
 
-    /* Flower animation container */
-    .flowers {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        top: 0; left: 0;
-        z-index: -1;
-    }
+/* --------- animated flowers --------- */
+.flowers{
+    position:absolute; top:0; left:0;
+    width:100%; height:100%; overflow:hidden;
+    z-index:-1;
+}
+.flower{
+    position:absolute;
+    background: radial-gradient(circle at 30% 30%, #ff9000, #ff4500);
+    border-radius:50%;
+    animation: float 10s linear infinite;
+}
+@keyframes float{
+    0%   { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity:0.7; }
+    50%  { transform: translateY(50vh) rotate(180deg) scale(1); opacity:1; }
+    100% { transform: translateY(-50vh) rotate(360deg) scale(0.5); opacity:0.7; }
+}
 
-    .flower {
-        position: absolute;
-        width: 50px;
-        height: 50px;
-        background: radial-gradient(circle at 30% 30%, #ffa500, #ff7f00); /* Orange gradient flowers */
-        border-radius: 50%;
-        animation: float 10s linear infinite;
-    }
+/* --------- main buttons --------- */
+.button-container{
+    display:flex; flex-direction:column; gap:25px;
+    align-items:center; z-index:10;
+}
+.circle-btn{
+    width:90px; height:90px; border-radius:50%;
+    display:flex; justify-content:center; align-items:center;
+    background: linear-gradient(135deg, #ff8c00, #ffa500);
+    color:#fff; font-size:14px; text-align:center;
+    cursor:pointer; box-shadow:0 4px 15px rgba(0,0,0,0.3);
+    transition: transform .3s, box-shadow .3s;
+}
+.circle-btn:hover{
+    transform:scale(1.1);
+    box-shadow:0 6px 25px rgba(0,0,0,0.5);
+}
+.circle-btn img{
+    width:40px; height:40px; margin-bottom:5px;
+}
+.btn-label{ font-size:12px; }
+.circle-btn-content{
+    display:flex; flex-direction:column; align-items:center;
+}
 
-    @keyframes float {
-        0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity: 0.7; }
-        50% { transform: translateY(50vh) rotate(180deg) scale(1); opacity: 1; }
-        100% { transform: translateY(-50vh) rotate(360deg) scale(0.5); opacity: 0.7; }
-    }
+/* --------- shopping button improved --------- */
+.shopping-btn{
+    width:180px; padding:12px 0;
+    background: linear-gradient(135deg, #ff9e00, #ffc04d);
+    color:#fff; font-weight:bold; text-align:center;
+    cursor:pointer; border-radius:10px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.3);
+    position:relative;
+    transition: transform .3s, box-shadow .3s;
+    z-index:10;
+}
+.shopping-btn:hover{
+    transform:scale(1.05);
+    box-shadow:0 6px 25px rgba(0,0,0,0.5);
+}
+/* subtle underline inside the button */
+.shopping-btn::after{
+    content:"";
+    position:absolute;
+    bottom:4px; left:20px;
+    width:calc(100% - 40px); height:3px;
+    background:#fff;
+    border-radius:2px;
+}
 
-    /* Buttons container */
-    .button-container {
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
-        z-index: 10;
-        align-items: center;
-    }
+/* --------- top plus icon --------- */
+.top-plus{
+    position:absolute;
+    top:20px; right:20px;
+    width:50px; height:50px;
+    background: linear-gradient(135deg, #ff8c00, #ffa500);
+    color:#fff; border-radius:50%;
+    display:flex; justify-content:center; align-items:center;
+    cursor:pointer; box-shadow:0 4px 15px rgba(0,0,0,0.3);
+    transition: transform .3s, box-shadow .3s;
+    z-index:20;
+}
+.top-plus:hover{
+    transform:scale(1.1);
+    box-shadow:0 6px 25px rgba(0,0,0,0.5);
+}
+.top-plus::before{
+    content:"+";
+    font-size:30px; line-height:0;
+}
 
-    /* Circular buttons */
-    .circle-btn {
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(135deg, #ff8c00, #ffb347); /* Orange gradient */
-        color: white;
-        font-size: 14px;
-        text-align: center;
-        cursor: pointer;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
+/* --------- overlays --------- */
+.overlay{
+    position:absolute; top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(255,255,255,0.95);
+    display:none; /* show/hide via JS */
+    flex-direction:column;
+    align-items:center;
+    overflow-y:auto;
+    padding:20px;
+    z-index:15;
+}
 
-    .circle-btn:hover {
-        transform: scale(1.1);
-        box-shadow: 0 6px 25px rgba(0,0,0,0.5);
-    }
+/* --------- form styling --------- */
+.form-group{ width:100%; max-width:400px; margin-bottom:15px; }
+.form-group label{ display:block; margin-bottom:5px; font-weight:bold; }
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group textarea{
+    width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;
+    font-size:14px;
+}
+.form-group textarea{ resize:vertical; min-height:80px; }
+.form-buttons{ display:flex; gap:15px; margin-top:10px; }
 
-    .circle-btn img {
-        width: 40px;
-        height: 40px;
-        margin-bottom: 5px;
-    }
+/* create post button */
+.btn-primary{
+    padding:10px 20px;
+    background: linear-gradient(135deg, #ff8c00, #ffa500);
+    color:#fff; font-weight:bold;
+    border:none; border-radius:6px;
+    cursor:pointer; box-shadow:0 3px 10px rgba(0,0,0,0.2);
+    transition: transform .2s, box-shadow .2s;
+}
+.btn-primary:hover{
+    transform:scale(1.03);
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
 
-    .btn-label {
-        font-size: 12px;
-    }
+/* feed cards */
+.card{
+    width:100%; max-width:400px;
+    background:#fff; border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom:25px; overflow:hidden;
+}
+.card img{ width:100%; display:block; }
+.card-content{ padding:15px; }
+.card-title{ font-size:18px; font-weight:bold; margin-bottom:8px; }
+.card-price{ font-size:16px; font-weight:bold; color:#ff6600; margin-bottom:8px; }
+.card-desc{ font-size:14px; margin-bottom:12px; }
+.card-actions{ display:flex; gap:10px; }
 
-    /* Layout for icon and label */
-    .circle-btn-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+/* heart like */
+.like-btn{
+    font-size:20px; color:#888;
+    cursor:pointer; transition: color .2s;
+}
+.like-btn.liked{ color:#e74c3c; } /* red when liked */
 
-    /* Shopping rectangular box */
-    .shopping-btn {
-        width: 180px;
-        padding: 12px 0;
-        background: linear-gradient(135deg, #ff8c00, #ffa500);
-        color: white;
-        font-weight: bold;
-        text-align: center;
-        cursor: pointer;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        position: relative;
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
+/* buy-like button text */
+.order-btn{
+    flex-grow:1;
+    padding:8px 12px;
+    background: #ffa500;
+    color:#fff; font-weight:bold;
+    border:none; border-radius:6px;
+    cursor:pointer; box-shadow:0 3px 10px rgba(0,0,0,0.2);
+    transition: transform .2s, box-shadow .2s;
+}
+.order-btn:hover{
+    transform:scale(1.03);
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
 
-    .shopping-btn:hover {
-        transform: scale(1.05);
-        box-shadow: 0 6px 25px rgba(0,0,0,0.5);
-    }
-
-    /* Underline style */
-    .shopping-btn::after {
-        content: "";
-        position: absolute;
-        bottom: 4px;
-        left: 20px;
-        width: calc(100% - 40px);
-        height: 3px;
-        background-color: white;
-        border-radius: 2px;
-    }
-
+/* close button inside overlay */
+.close-btn{
+    position:absolute; top:10px; right:15px;
+    font-size:24px; cursor:pointer; color:#333;
+}
 </style>
 </head>
 <body>
 
-<!-- Flower background -->
+<!-- flower background -->
 <div class="flowers" id="flowers"></div>
 
-<!-- Buttons -->
-<div class="button-container">
-    <!-- Call Button -->
+<!-- contact buttons -->
+<div class="button-container" id="main-buttons">
     <div class="circle-btn" onclick="callNumber()">
         <div class="circle-btn-content">
             <img src="https://img.icons8.com/ios-filled/50/ffffff/phone.png" alt="Call">
@@ -142,7 +205,6 @@
         </div>
     </div>
 
-    <!-- WhatsApp Button -->
     <div class="circle-btn" onclick="whatsappMessage()">
         <div class="circle-btn-content">
             <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp">
@@ -150,7 +212,6 @@
         </div>
     </div>
 
-    <!-- Email Button -->
     <div class="circle-btn" onclick="sendEmail()">
         <div class="circle-btn-content">
             <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email">
@@ -158,46 +219,191 @@
         </div>
     </div>
 
-    <!-- Shopping Button -->
-    <div class="shopping-btn" onclick="openShopping()">
-        Shop Now
-    </div>
+    <div class="shopping-btn" onclick="openShop()">Shopping</div>
+</div>
+
+<!-- top plus icon for admin post -->
+<div class="top-plus" onclick="promptPassword()" title="Add product"></div>
+
+<!-- overlay: password / form / feed -->
+<div class="overlay" id="overlay">
+
+    <span class="close-btn" onclick="closeOverlay()">×</span>
+
+    <!-- dynamic content injected here -->
+    <div id="overlay-content"></div>
 </div>
 
 <script>
-    // Generate multiple floating flowers
-    const flowersContainer = document.getElementById('flowers');
-    for(let i=0;i<25;i++){
-        let flower = document.createElement('div');
-        flower.classList.add('flower');
-        flower.style.left = Math.random() * 100 + 'vw';
-        flower.style.animationDelay = Math.random() * 5 + 's';
-        flower.style.width = 30 + Math.random() * 50 + 'px';
-        flower.style.height = flower.style.width;
-        flowersContainer.appendChild(flower);
+/* --------- flower generation --------- */
+const flowersContainer = document.getElementById('flowers');
+for(let i=0;i<25;i++){
+    let f = document.createElement('div');
+    f.className='flower';
+    f.style.left = Math.random()*100+'vw';
+    f.style.animationDelay = Math.random()*5+'s';
+    let size = 30 + Math.random()*50;
+    f.style.width = size+'px';
+    f.style.height = size+'px';
+    flowersContainer.appendChild(f);
+}
+
+/* --------- contact button logic --------- */
+function callNumber(){
+    window.location.href="tel:+919434274060";
+}
+function whatsappMessage(){
+    const msg = encodeURIComponent("Hey!");
+    window.open("https://wa.me/919476091829?text="+msg,"_blank");
+}
+function sendEmail(){
+    window.location.href="mailto:pjcompanyofficial@gmail.com";
+}
+
+/* --------- SHOP logic --------- */
+const shopOverlay = document.getElementById('overlay');
+const overlayContent = document.getElementById('overlay-content');
+const ADMIN_PASSWORD = "sonu@jeet"; // your password
+
+let posts = []; // in-memory posts
+
+// open shopping feed
+function openShop(){
+    showOverlay();
+    renderShopFeed();
+}
+
+// close overlay
+function closeOverlay(){
+    shopOverlay.style.display='none';
+}
+
+// show overlay
+function showOverlay(){
+    shopOverlay.style.display='flex';
+}
+
+/* --------- password and post creation --------- */
+function promptPassword(){
+    // ask for password; if correct -> show post creation form
+    const pwd = prompt("Enter password:");
+    if(pwd === ADMIN_PASSWORD){
+        showOverlay();
+        renderPostForm();
+    }else if(pwd !== null){
+        alert("Wrong password.");
+    }
+}
+
+// render post creation form
+function renderPostForm(){
+    overlayContent.innerHTML = `
+        <h2>Create new product post</h2>
+        <div class="form-group">
+            <label>Upload product image</label>
+            <input type="file" id="img-input" accept="image/*"/>
+        </div>
+        <div class="form-group">
+            <label>Product name</label>
+            <input type="text" id="name-input" placeholder="Name"/>
+        </div>
+        <div class="form-group">
+            <label>Price ₹</label>
+            <input type="number" id="price-input" placeholder="e.g., 1500"/>
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea id="desc-input" placeholder="Description"></textarea>
+        </div>
+        <div class="form-buttons">
+            <button class="btn-primary" onclick="submitPost()">Post</button>
+        </div>
+    `;
+}
+
+// handle post submission
+function submitPost(){
+    const imgFile = document.getElementById('img-input').files[0];
+    const name = document.getElementById('name-input').value.trim();
+    const price = document.getElementById('price-input').value.trim();
+    const desc = document.getElementById('desc-input').value.trim();
+
+    if(!imgFile || !name || !price){
+        alert("Image, name, and price are required.");
+        return;
     }
 
-    // Call button logic
-    function callNumber() {
-        window.location.href = "tel:+919434274060";
-    }
+    // read image as data URL
+    const reader = new FileReader();
+    reader.onload = function(e){
+        const imgData = e.target.result;
+        const newPost = {
+            id: Date.now(),
+            img: imgData,
+            name,
+            price,
+            desc,
+            liked: false
+        };
+        posts.unshift(newPost); // add to top
+        alert("Posted successfully!");
+        renderShopFeed();
+    };
+    reader.readAsDataURL(imgFile);
+}
 
-    // WhatsApp button logic
-    function whatsappMessage() {
-        const message = encodeURIComponent("Hey!");
-        window.open("https://wa.me/919476091829?text=" + message, "_blank");
+/* --------- display feed --------- */
+function renderShopFeed(){
+    if(posts.length===0){
+        overlayContent.innerHTML = "<h2>No products yet.</h2><p>Admin can add by clicking the top + icon.</p>";
+        return;
     }
+    let html = "<h2>Shopping Feed</h2>";
+    posts.forEach(p => {
+        html += `
+        <div class="card" id="post-${p.id}">
+            <img src="${p.img}" alt="Product"/>
+            <div class="card-content">
+                <div class="card-title">${escapeHtml(p.name)}</div>
+                <div class="card-price">₹ ${escapeHtml(p.price)}</div>
+                <div class="card-desc">${escapeHtml(p.desc)}</div>
+                <div class="card-actions">
+                    <span class="like-btn ${p.liked? 'liked':''}" onclick="toggleLike(${p.id})">&#10084;</span>
+                    <button class="order-btn" onclick="sendOrder(${p.id})">Send Request</button>
+                </div>
+            </div>
+        </div>`;
+    });
+    overlayContent.innerHTML = html;
+}
 
-    // Email button logic
-    function sendEmail() {
-        window.location.href = "mailto:pjcompanyofficial@gmail.com";
-    }
+// like toggle
+function toggleLike(postId){
+    const post = posts.find(p=>p.id===postId);
+    if(!post) return;
+    post.liked = !post.liked;
+    renderShopFeed();
+}
 
-    // Shopping button logic
-    function openShopping() {
-        window.open("https://www.pjcompanyshop.com", "_blank"); // Replace with actual shopping URL
-    }
+// send order via WhatsApp
+function sendOrder(postId){
+    const post = posts.find(p=>p.id===postId);
+    if(!post) return;
+    const msg = encodeURIComponent(
+        `I am interested in this product:\nName: ${post.name}\nPrice: ₹${post.price}\nDescription: ${post.desc}`
+    );
+    // number to send to admin/owner
+    const ownerNumber = "919476091829"; // WhatsApp digits without + or spaces
+    const waUrl = `https://wa.me/${ownerNumber}?text=${msg}`;
+    window.open(waUrl, "_blank");
+}
+
+/* --------- utility --------- */
+function escapeHtml(text){
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
 </script>
-
 </body>
 </html>
