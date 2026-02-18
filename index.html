@@ -1,395 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PJ Shopping Web</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PJ Shopping Web | Premium Flute Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-orange: #ff8c00;
+            --dark-bg: #0a0a0a;
+            --glass-white: rgba(255, 255, 255, 0.1);
+            --text-white: #ffffff;
+        }
 
-<link rel="manifest" href="manifest.json">
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
-<style>
+        body {
+            background: var(--dark-bg);
+            background-image: url('https://www.transparenttextures.com/patterns/leaf.png'); /* Subtle floral pattern */
+            color: var(--text-white);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
 
-:root{
---bg:#ffffff;
---text:#000;
---card:#ffffffcc;
---accent:#ff7a00;
-}
+        /* --- Header & Navigation --- */
+        header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+        }
 
-.dark{
---bg:#0d0d0d;
---text:#fff;
---card:#1a1a1acc;
-}
+        .logo { font-size: 1.2rem; font-weight: bold; color: var(--primary-orange); }
 
-body{
-margin:0;
-font-family:Segoe UI;
-background:var(--bg);
-color:var(--text);
-transition:.4s;
-}
+        .nav-icons { display: flex; gap: 20px; align-items: center; }
 
-/* header */
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 25px;
-font-size:26px;
-font-weight:700;
-background:linear-gradient(90deg,#000,#222);
-color:var(--accent);
-}
+        .heart-main {
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+        }
 
-/* menu */
-.menu{
-font-size:26px;
-cursor:pointer;
-}
+        .heart-glow { color: red !important; text-shadow: 0 0 15px red; }
 
-.dropdown{
-position:absolute;
-right:20px;
-top:70px;
-background:var(--card);
-backdrop-filter:blur(20px);
-padding:20px;
-border-radius:20px;
-display:none;
-box-shadow:0 20px 50px rgba(0,0,0,.3);
-animation:fade .4s;
-}
+        /* --- Home Page Section --- */
+        #home-page {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
 
-.dropdown button{
-display:block;
-margin:10px 0;
-padding:12px 18px;
-border:none;
-border-radius:12px;
-background:var(--accent);
-color:white;
-cursor:pointer;
-font-weight:bold;
-}
+        h1.hero-text {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
-@keyframes fade{
-from{opacity:0; transform:translateY(-20px)}
-}
+        .btn-3d {
+            background: var(--primary-orange);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 140, 0, 0.4);
+            transition: 0.3s;
+        }
 
-/* pages */
-.page{
-display:none;
-padding:40px 20px;
-text-align:center;
-min-height:100vh;
-}
-.active{display:block}
+        .btn-3d:hover { transform: translateY(-5px); box-shadow: 0 15px 25px rgba(255, 140, 0, 0.6); }
 
-/* hero */
-.hero{
-font-size:38px;
-margin-top:120px;
-font-weight:800;
-}
+        /* --- AI Chat Button --- */
+        .ai-btn {
+            background: black;
+            color: white;
+            border: 1px solid white;
+            padding: 10px 25px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+        }
 
-/* buttons */
-.btn{
-margin-top:30px;
-padding:18px 45px;
-border:none;
-border-radius:16px;
-font-size:20px;
-cursor:pointer;
-color:white;
-background:linear-gradient(145deg,#ffa033,#ff6a00);
-box-shadow:0 10px 30px rgba(255,120,0,.6);
-transition:.3s;
-}
-.btn:hover{transform:scale(1.05)}
+        /* --- Shopping Page --- */
+        #shop-page { display: none; padding: 50px 20px; text-align: center; }
 
-/* card */
-.card{
-max-width:320px;
-margin:40px auto;
-background:var(--card);
-backdrop-filter:blur(20px);
-border-radius:25px;
-box-shadow:0 30px 60px rgba(0,0,0,.3);
-overflow:hidden;
-animation:fade .8s;
-}
+        .product-card {
+            background: var(--glass-white);
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 350px;
+            margin: 0 auto;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
 
-.card img{width:100%}
-.price{color:var(--accent);font-size:22px;font-weight:bold}
+        .product-img { width: 100%; border-radius: 15px; margin-bottom: 15px; }
 
-.actions{
-display:flex;
-justify-content:space-around;
-padding:15px;
-}
+        .price { color: var(--primary-orange); font-size: 1.5rem; font-weight: bold; margin: 10px 0; }
 
-/* heart */
-.favTop{
-position:absolute;
-right:20px;
-top:80px;
-font-size:30px;
-cursor:pointer;
-}
+        .buy-btn {
+            background: #25d366;
+            color: white;
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+        }
 
-/* flying heart */
-.fly{
-position:fixed;
-color:red;
-font-size:25px;
-pointer-events:none;
-animation:fly 2s forwards;
-}
-@keyframes fly{
-100%{
-transform:translate(var(--x),var(--y)) rotate(720deg);
-opacity:0;
-}
-}
+        /* --- Heart Animation --- */
+        .floating-heart {
+            position: fixed;
+            color: red;
+            font-size: 20px;
+            z-index: 9999;
+            pointer-events: none;
+        }
 
-/* chat */
-.chat{
-max-width:600px;
-margin:auto;
-background:var(--card);
-padding:20px;
-border-radius:20px;
-height:60vh;
-overflow:auto;
-box-shadow:0 20px 50px rgba(0,0,0,.3);
-}
+        @keyframes leafFall {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+            50% { transform: translate(-20px, -150px) rotate(45deg); opacity: 0.8; }
+            100% { transform: translate(var(--target-x), var(--target-y)) rotate(90deg); opacity: 0; }
+        }
 
-.msg{margin:12px 0}
-.user{color:var(--accent)}
-.bot{color:var(--text)}
+        /* --- AI Chat Modal --- */
+        #ai-modal {
+            display: none;
+            position: fixed;
+            bottom: 20px; right: 20px;
+            width: 300px; height: 400px;
+            background: #111; border: 1px solid var(--primary-orange);
+            border-radius: 15px; flex-direction: column; z-index: 2000;
+        }
+        #chat-box { flex: 1; padding: 10px; overflow-y: auto; font-size: 0.9rem; }
+        #chat-input { padding: 10px; background: #222; border: none; color: white; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; }
 
-input{
-padding:12px;
-width:70%;
-border-radius:10px;
-border:1px solid #ccc;
-}
-.send{
-padding:12px 20px;
-border:none;
-background:var(--accent);
-color:white;
-border-radius:10px;
-cursor:pointer;
-}
+        /* --- Footer --- */
+        footer { padding: 40px; text-align: center; font-size: 0.7rem; color: #555; }
+        .contact-icons { display: flex; justify-content: center; gap: 20px; margin: 20px 0; }
+        .glass-icon {
+            width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
+            border-radius: 12px; backdrop-filter: blur(10px); text-decoration: none; font-size: 20px;
+        }
+        .whatsapp-glass { background: rgba(37, 211, 102, 0.2); border: 1px solid #25d366; color: #25d366; }
+        .phone-glass { background: rgba(255, 255, 255, 0.1); border: 1px solid #fff; color: #fff; }
+        .email-glass { background: rgba(255, 140, 0, 0.2); border: 1px solid var(--primary-orange); color: var(--primary-orange); }
 
-/* footer */
-footer{
-font-size:12px;
-text-align:center;
-padding:20px;
-opacity:.7;
-}
-
-</style>
+    </style>
 </head>
-
 <body>
 
-<header>
-PJ Shopping Web
-<div class="menu" onclick="toggleMenu()">⋮</div>
-</header>
+    <header>
+        <div class="logo" onclick="goHome()" style="cursor:pointer">← PJ Shopping</div>
+        <div class="nav-icons">
+            <span id="main-heart" class="heart-main" onclick="showSaved()">❤</span>
+            <div id="three-dots" style="font-size:24px; cursor:pointer">⋮</div>
+        </div>
+    </header>
 
-<div class="dropdown" id="menuBox">
+    <div id="home-page">
+        <h1 class="hero-text">PJ Classical Flutes Shop</h1>
+        <button class="btn-3d" onclick="openShop()">SHOP NOW</button>
+        <button class="ai-btn" onclick="toggleAI()">AI CHAT</button>
 
-<button onclick="toggleDark()">🌙 Toggle Mode</button>
+        <div class="contact-icons">
+            <a href="https://wa.me/919476091829?text=hey%20I%20am%20interested%20in%20shopping" class="glass-icon whatsapp-glass">W</a>
+            <a href="tel:9434274060" class="glass-icon phone-glass">☏</a>
+            <a href="mailto:pjcompanyofficial@gmail.com?subject=Shopping%20Inquiry&body=hy%20I%20am%20interested%20in%20shopping" class="glass-icon email-glass">✉</a>
+        </div>
+    </div>
 
-<button onclick="openPage('track')">📦 Order Tracking</button>
+    <div id="shop-page">
+        <div class="product-card">
+            <img src="https://i.postimg.cc/g2VBTyPP/Screenshot-20260218-002911-Whats-App-Business.png" alt="C Middle Flute" class="product-img">
+            <h3>C Middle Flute</h3>
+            <p class="price">₹1500</p>
+            <p style="font-size: 0.8rem; margin-bottom: 15px;">C middle flute match with your magical Vibes.</p>
+            
+            <div style="display:flex; gap:10px;">
+                <button onclick="animateHeart(this)" style="background:none; border:none; font-size:25px; cursor:pointer; color:white;">❤</button>
+                <button class="buy-btn" onclick="buyWhatsApp()">Buy Now (WhatsApp)</button>
+            </div>
+        </div>
+    </div>
 
-<button id="installBtn" style="display:none">⬇ Install App</button>
+    <div id="ai-modal">
+        <div style="padding:10px; background:var(--primary-orange); border-top-left-radius:15px; border-top-right-radius:15px; font-weight:bold;">PJ Assistant</div>
+        <div id="chat-box"></div>
+        <input type="text" id="chat-input" placeholder="Ask me something..." onkeypress="handleChat(event)">
+    </div>
 
-</div>
+    <footer>
+        <p>© PJ OFFICIAL SHOPPING WEBSITE</p>
+    </footer>
 
-<!-- HOME -->
-<div id="home" class="page active">
+    <script>
+        let savedProducts = [];
+        const apiKey = "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";
 
-<div class="hero">PJ classical flutes Shop</div>
+        function openShop() {
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById('shop-page').style.display = 'block';
+        }
 
-<button class="btn" onclick="openPage('shop')">Shop Now</button><br>
-<button class="btn" onclick="openPage('ai')">AI Assistant</button>
+        function goHome() {
+            document.getElementById('home-page').style.display = 'flex';
+            document.getElementById('shop-page').style.display = 'none';
+        }
 
-</div>
+        function buyWhatsApp() {
+            window.location.href = "https://wa.me/919476091829?text=I%20want%20to%20buy%20C%20Middle%20Flute%20for%20Rs.1500";
+        }
 
-<!-- SHOP -->
-<div id="shop" class="page">
+        // --- Heart Animation Logic ---
+        function animateHeart(btn) {
+            btn.style.color = "red";
+            const heart = document.createElement('div');
+            heart.innerHTML = "❤";
+            heart.className = "floating-heart";
+            
+            // Start Position (Button)
+            const rect = btn.getBoundingClientRect();
+            heart.style.left = rect.left + "px";
+            heart.style.top = rect.top + "px";
 
-<div class="favTop" id="favTop">🤍</div>
+            // Target Position (Top Main Heart)
+            const target = document.getElementById('main-heart').getBoundingClientRect();
+            const tx = target.left - rect.left;
+            const ty = target.top - rect.top;
 
-<div class="card">
+            heart.style.setProperty('--target-x', tx + "px");
+            heart.style.setProperty('--target-y', ty + "px");
+            heart.style.animation = "leafFall 2s ease-in-out forwards";
 
-<img src="https://i.postimg.cc/g2VBTyPP/Screenshot-20260218-002911-Whats-App-Business.png">
+            document.body.appendChild(heart);
 
-<h2>C middle flute</h2>
-<div class="price">₹1500</div>
-<p>C middle flute match with your magical Vibes.</p>
+            setTimeout(() => {
+                heart.remove();
+                const mainHeart = document.getElementById('main-heart');
+                mainHeart.classList.add('heart-glow');
+                savedProducts.push("C Middle Flute");
+                setTimeout(() => mainHeart.classList.remove('heart-glow'), 1500);
+            }, 2000);
+        }
 
-<div class="actions">
-<span onclick="like(event)" style="cursor:pointer;font-size:26px">❤️</span>
+        function showSaved() {
+            if(savedProducts.length === 0) {
+                alert("Yahan abhi product apne like nahi kiya to yahan per koi product nahin hai. Like karne ke baad yahan dikhega.");
+            } else {
+                alert("Saved Products: " + savedProducts.join(", "));
+            }
+        }
 
-<button class="btn" onclick="buy()">Buy</button>
-</div>
+        // --- AI Chat Logic (OpenRouter) ---
+        function toggleAI() {
+            const modal = document.getElementById('ai-modal');
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+        }
 
-</div>
-</div>
+        async function handleChat(e) {
+            if(e.key === 'Enter') {
+                const input = document.getElementById('chat-input');
+                const box = document.getElementById('chat-box');
+                const userMsg = input.value;
+                if(!userMsg) return;
 
-<!-- TRACK -->
-<div id="track" class="page">
-<h2>Order Tracking</h2>
+                box.innerHTML += `<div><b>You:</b> ${userMsg}</div>`;
+                input.value = "";
 
-<input id="trackNum" placeholder="Enter tracking number">
-<br><br>
-<button class="btn" onclick="track()">Track</button>
-</div>
-
-<!-- AI -->
-<div id="ai" class="page">
-<h2>AI Assistant</h2>
-
-<div class="chat" id="chat"></div>
-
-<br>
-<input id="msg">
-<button class="send" onclick="ask()">Send</button>
-</div>
-
-<footer>©PJ official shopping website</footer>
-
-<script>
-
-/* navigation */
-function openPage(id){
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-toggleMenu(false);
-}
-
-/* menu */
-function toggleMenu(force){
-let m=document.getElementById("menuBox");
-m.style.display = force===false ? "none" :
-m.style.display=="block"?"none":"block";
-}
-
-/* dark mode */
-function toggleDark(){
-document.body.classList.toggle("dark");
-}
-
-/* buy */
-function buy(){
-window.open("https://wa.me/919476091829?text=I want to buy C middle flute ₹1500");
-}
-
-/* heart animation */
-function like(e){
-let heart=document.createElement("div");
-heart.className="fly";
-heart.innerHTML="❤";
-document.body.appendChild(heart);
-
-let r=e.target.getBoundingClientRect();
-let t=document.getElementById("favTop").getBoundingClientRect();
-
-heart.style.left=r.left+"px";
-heart.style.top=r.top+"px";
-heart.style.setProperty("--x",(t.left-r.left)+"px");
-heart.style.setProperty("--y",(t.top-r.top)+"px");
-
-setTimeout(()=>heart.remove(),2000);
-
-let top=document.getElementById("favTop");
-setTimeout(()=>{top.textContent="❤️"},1800);
-}
-
-/* tracking */
-function track(){
-let n=document.getElementById("trackNum").value;
-if(!n)return alert("Enter tracking number");
-window.open("https://www.indiapost.gov.in/_layouts/15/dop.portal.tracking/trackconsignment.aspx?Consignment="+n);
-}
-
-/* AI CHAT */
-async function ask(){
-
-let input=document.getElementById("msg");
-let text=input.value.trim();
-if(!text)return;
-
-let chat=document.getElementById("chat");
-
-chat.innerHTML+=`<div class="msg user">You: ${text}</div>`;
-input.value="";
-
-let typing=document.createElement("div");
-typing.className="msg bot";
-typing.textContent="AI is typing...";
-chat.appendChild(typing);
-
-let res=await fetch("https://openrouter.ai/api/v1/chat/completions",{
-method:"POST",
-headers:{
-"Content-Type":"application/json",
-"Authorization":"Bearer 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"
-},
-body:JSON.stringify({
-model:"openai/gpt-3.5-turbo",
-messages:[{role:"user",content:text}]
-})
-});
-
-let data=await res.json();
-typing.remove();
-
-let reply=data.choices?.[0]?.message?.content || "No response";
-
-typeWriter(reply);
-
-}
-
-/* typing effect */
-function typeWriter(text){
-let chat=document.getElementById("chat");
-let div=document.createElement("div");
-div.className="msg bot";
-chat.appendChild(div);
-
-let i=0;
-let interval=setInterval(()=>{
-div.textContent="AI: "+text.slice(0,i++);
-if(i>text.length)clearInterval(interval);
-},15);
-}
-
-/* PWA install */
-let deferred;
-window.addEventListener("beforeinstallprompt",e=>{
-e.preventDefault();
-deferred=e;
-document.getElementById("installBtn").style.display="block";
-});
-
-installBtn.onclick=async()=>{
-deferred.prompt();
-};
-
-/* auto show install after delay */
-setTimeout(()=>{
-if(deferred) installBtn.style.display="block";
-},4000);
-
-</script>
-
+                try {
+                    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                        method: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${apiKey}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            model: "google/gemini-2.0-flash-001",
+                            messages: [{ role: "user", content: "You are a respectful assistant for PJ Flute Shop. Help customers with trust. Question: " + userMsg }]
+                        })
+                    });
+                    const data = await response.json();
+                    const reply = data.choices[0].message.content;
+                    box.innerHTML += `<div><b>AI:</b> ${reply}</div>`;
+                    box.scrollTop = box.scrollHeight;
+                } catch (err) {
+                    box.innerHTML += `<div><b>Error:</b> API limit or connection issue.</div>`;
+                }
+            }
+        }
+    </script>
 </body>
 </html>
