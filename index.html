@@ -6,9 +6,9 @@
 <title>PJ Company 3D Buttons</title>
 <style>
 * { box-sizing: border-box; margin:0; padding:0;}
-body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow:hidden; background:#ffe5f0; display:flex; justify-content:center; align-items:center; perspective:1200px; }
+body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow:hidden; background:#ffe5f0; perspective:1200px; }
 
-/* Background container without watermark */
+/* Background container */
 #background {
     position:fixed; top:0; left:0; width:100%; height:100%;
     overflow:hidden; z-index:-2;
@@ -34,6 +34,25 @@ body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow:h
     100% { transform: translateY(-110vh) scale(1); opacity:0; }
 }
 
+/* Top shopping section */
+.shopping-section{
+    position:absolute; top:20px; left:50%; transform:translateX(-50%);
+    text-align:center; z-index:10;
+}
+.shop-title{
+    font-size:22px; font-weight:bold; margin-bottom:15px; color:#333;
+}
+.shop-btn{
+    padding:18px 36px; border-radius:20px; font-weight:bold;
+    font-size:18px; color:#fff; background: #ff8c00;
+    cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.shop-btn:hover{
+    transform: translateZ(15px) scale(1.05) rotateX(3deg) rotateY(3deg);
+    box-shadow:0 18px 35px rgba(0,0,0,0.6);
+}
+
 /* Center buttons container */
 .center-buttons{
     position:absolute; top:50%; left:50%;
@@ -42,17 +61,19 @@ body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow:h
     gap:20px; z-index:10;
 }
 
-/* 3D style buttons */
+/* Glassy 3D style buttons */
 .center-btn{
     padding:20px 28px; border-radius:20px;
     font-weight:bold; font-size:16px; color:#fff; text-align:center;
-    background: linear-gradient(145deg,#ff8c00,#ffb84d);
-    cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.5);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border:1px solid rgba(255,255,255,0.3);
+    cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.3);
     transition: transform 0.3s, box-shadow 0.3s;
 }
 .center-btn:hover{
-    transform: translateZ(20px) scale(1.1) rotateX(5deg) rotateY(5deg);
-    box-shadow:0 18px 35px rgba(0,0,0,0.6);
+    transform: translateZ(15px) scale(1.05) rotateX(3deg) rotateY(3deg);
+    box-shadow:0 18px 35px rgba(0,0,0,0.5);
 }
 
 /* Shop Overlay */
@@ -90,9 +111,14 @@ body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow:h
 
 <div id="background"></div>
 
-<!-- Centered buttons -->
+<!-- Top shopping section -->
+<div class="shopping-section">
+    <div class="shop-title">PJ Classical Flute Shop</div>
+    <div class="shop-btn" onclick="openShop()">Shopping</div>
+</div>
+
+<!-- Centered glassy buttons -->
 <div class="center-buttons">
-    <div class="center-btn" onclick="openShop()">Shopping</div>
     <div class="center-btn" onclick="openAIContact()">AI Chat</div>
     <div class="center-btn" onclick="callNumber()">Call</div>
     <div class="center-btn" onclick="whatsappMessage()">WhatsApp</div>
@@ -146,9 +172,24 @@ function openAIContact(){ alert("AI Chat will be implemented here."); }
 const shopOverlay=document.getElementById('overlay');
 const overlayContent=document.getElementById('overlay-content');
 let posts=[
-    {id:1,img:"1000042164.png",name:"D middle Flute",price:450,desc:"handcraft D middle flute perfect for flow",liked:false},
-    {id:2,img:"1000042165.png",name:"C middle flute",price:1500,desc:"Flow with C middle Flute magical sound",liked:false}
+    {
+        id:1,
+        img:"https://i.postimg.cc/nhB6tbqH/Screenshot-20260218-002442-Whats-App-Business.png",
+        name:"D middle Flute",
+        price:450,
+        desc:"handcraft D middle flute perfect for flow",
+        liked:false
+    },
+    {
+        id:2,
+        img:"https://i.postimg.cc/g2VBTyPP/Screenshot-20260218-002911-Whats-App-Business.png",
+        name:"C middle Flute",
+        price:1500,
+        desc:"Flow with C middle Flute magical sound",
+        liked:false
+    }
 ];
+
 function openShop(){ showOverlay(); renderShop(posts); }
 function closeOverlay(){ shopOverlay.style.display='none'; }
 function showOverlay(){ shopOverlay.style.display='flex'; }
@@ -170,6 +211,7 @@ function renderShop(list){
     });
     overlayContent.innerHTML=html;
 }
+
 function toggleLike(id){ const p=posts.find(x=>x.id===id); p.liked=!p.liked; renderShop(posts);}
 function sendOrder(id){ const p=posts.find(x=>x.id===id);
     const msg=encodeURIComponent(`I am interested in this product:\nName: ${p.name}\nPrice: ₹${p.price}\nDescription: ${p.desc}`);
