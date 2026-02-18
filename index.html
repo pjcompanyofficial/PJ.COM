@@ -5,103 +5,62 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>PJ Company 3D Scroll UI</title>
 <style>
-/* ---------- Base ---------- */
-* { box-sizing: border-box; }
-body, html {
-    margin:0; padding:0;
-    width:100%; height:100%;
-    font-family: Arial, sans-serif;
-    overflow-x:hidden;
-    background: radial-gradient(circle at center, #ffe5f0, #fff0ff);
-    perspective: 1200px;
-}
+* { box-sizing: border-box; margin:0; padding:0;}
+body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow-x:hidden; background:#ffe5f0; perspective:1200px; }
 
-/* ---------- 3D Scroll Background ---------- */
+/* Background container */
 #background {
-    position:fixed; top:0; left:0; width:100%; height:100%; overflow:hidden;
-    z-index:-2;
-    transform-style: preserve-3d;
+    position:fixed; top:0; left:0; width:100%; height:100%;
+    overflow:hidden; z-index:-2;
+    display:flex; justify-content:center; align-items:center;
 }
 
-/* ---------- Holographic Logo ---------- */
+/* Holographic logo */
 #logo {
-    position:fixed; top:40%; left:50%;
-    width:250px; height:250px;
-    margin-left:-125px; margin-top:-125px;
+    position:absolute; top:50%; left:50%;
+    width:350px; height:350px;
+    margin-left:-175px; margin-top:-175px;
     background: url('https://i.postimg.cc/kMKGZLzc/1771384685512.png') no-repeat center/contain;
     animation: hologlow 4s linear infinite alternate;
-    filter: drop-shadow(0 0 15px #0ff) drop-shadow(0 0 25px #f0f) drop-shadow(0 0 35px #0ff);
     z-index:-1;
-    pointer-events:none;
 }
-
 @keyframes hologlow{
-    0% { transform: rotateY(0deg) rotateX(0deg) scale(1); filter: drop-shadow(0 0 15px #0ff);}
-    50% { transform: rotateY(10deg) rotateX(5deg) scale(1.05); filter: drop-shadow(0 0 25px #f0f);}
-    100% { transform: rotateY(-10deg) rotateX(-5deg) scale(1); filter: drop-shadow(0 0 35px #0ff);}
+    0% { transform: scale(1) rotateY(0deg); filter: drop-shadow(0 0 20px #0ff);}
+    50% { transform: scale(1.05) rotateY(10deg); filter: drop-shadow(0 0 35px #f0f);}
+    100% { transform: scale(1) rotateY(-10deg); filter: drop-shadow(0 0 25px #0ff);}
 }
 
-/* ---------- Anarkali 2D patterns ---------- */
+/* Patterns inside background */
 .pattern{
-    position:absolute;
-    width:80px; height:80px;
+    position:absolute; width:100px; height:100px;
     background: radial-gradient(circle at 30% 30%, #ff0080, #ffdf00);
     border-radius:50%;
-    opacity:0.6;
-    transform-style: preserve-3d;
+    opacity:0.7;
 }
 
-/* ---------- Bubbles ---------- */
+/* Bubbles inside background */
 .bubble{
-    position:absolute;
-    bottom:-50px;
-    width:15px; height:15px;
-    background: rgba(255,255,255,0.4);
+    position:absolute; bottom:-50px;
+    width:20px; height:20px; background: rgba(255,255,255,0.5);
     border-radius:50%;
     animation: rise linear infinite;
 }
-
 @keyframes rise{
     0% { transform: translateY(0) scale(0.5); opacity:0.6; }
     100% { transform: translateY(-110vh) scale(1); opacity:0; }
 }
 
-/* ---------- Top buttons ---------- */
-.top-buttons{
-    position:fixed; top:15px; left:50%;
-    transform:translateX(-50%);
-    display:flex; gap:20px;
-    z-index:10;
-}
-.circle-btn{
-    width:70px; height:70px; border-radius:50%;
-    display:flex; flex-direction:column;
-    justify-content:center; align-items:center;
-    background: linear-gradient(145deg,#ff8c00,#ffa500);
-    color:#fff;
-    font-size:12px;
-    cursor:pointer;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-.circle-btn:hover{
-    transform: translateZ(20px) scale(1.1);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-}
-.circle-btn img{ width:30px; height:30px; margin-bottom:3px; }
-
-/* ---------- Bottom buttons ---------- */
+/* Bottom buttons */
 .bottom-buttons{
-    position:fixed; bottom:20px; left:50%;
+    position:fixed; bottom:15px; left:50%;
     transform:translateX(-50%);
-    display:flex; gap:25px; z-index:10;
+    display:flex; gap:15px; flex-wrap:wrap; z-index:10;
 }
 .bottom-btn{
-    padding:12px 20px; border-radius:15px;
-    font-weight:bold; font-size:14px;
-    color:#fff; text-align:center;
+    padding:12px 18px; border-radius:15px;
+    font-weight:bold; font-size:14px; color:#fff; text-align:center;
     background: linear-gradient(145deg,#ff8c00,#ffb84d);
-    cursor:pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    cursor:pointer; box-shadow:0 8px 20px rgba(0,0,0,0.4);
     transition: transform 0.3s, box-shadow 0.3s;
 }
 .bottom-btn:hover{
@@ -109,13 +68,12 @@ body, html {
     box-shadow: 0 12px 30px rgba(0,0,0,0.5);
 }
 
-/* ---------- Overlay for shop ---------- */
+/* Shop Overlay */
 .overlay{
     position:absolute; top:0; left:0; width:100%; height:100%;
     background: rgba(255,255,255,0.95);
     display:none; flex-direction:column; align-items:center;
-    overflow-y:auto; padding:20px;
-    z-index:15;
+    overflow-y:auto; padding:20px; z-index:15;
 }
 .card{
     width:90%; max-width:400px; margin-bottom:25px;
@@ -132,8 +90,8 @@ body, html {
 .like-btn.liked{ color:red; }
 .order-btn{
     flex-grow:1; padding:6px 10px; border:none; border-radius:6px;
-    background:#ffa500; color:#fff; font-weight:bold;
-    cursor:pointer; transition: transform 0.2s;
+    background:#ffa500; color:#fff; font-weight:bold; cursor:pointer;
+    transition: transform 0.2s;
 }
 .order-btn:hover{ transform:scale(1.03); }
 
@@ -147,23 +105,14 @@ body, html {
     <div id="logo"></div>
 </div>
 
-<!-- Top buttons -->
-<div class="top-buttons">
-    <div class="circle-btn" onclick="callNumber()">
-        <img src="https://img.icons8.com/ios-filled/50/ffffff/phone.png" alt="Call">
-        Call
-    </div>
-    <div class="circle-btn" onclick="whatsappMessage()">
-        <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp">
-        WhatsApp
-    </div>
-</div>
-
-<!-- Bottom buttons -->
+<!-- Bottom buttons: Shopping, AI, Contacts -->
 <div class="bottom-buttons">
     <div class="bottom-btn" onclick="openShop()">Shopping</div>
-    <div class="bottom-btn" onclick="openAIContact()">AI Contact</div>
+    <div class="bottom-btn" onclick="openAIContact()">AI Chat</div>
+    <div class="bottom-btn" onclick="callNumber()">Call</div>
+    <div class="bottom-btn" onclick="whatsappMessage()">WhatsApp</div>
     <div class="bottom-btn" id="instagramBtn">Instagram</div>
+    <div class="bottom-btn" onclick="sendEmail()">Email</div>
 </div>
 
 <!-- Shop Overlay -->
@@ -173,52 +122,51 @@ body, html {
 </div>
 
 <script>
-/* ---------- Scroll Reactive Patterns ---------- */
-const patterns = [];
-for(let i=0;i<30;i++){
-    let p = document.createElement('div');
+/* Patterns inside background */
+const patterns=[];
+for(let i=0;i<25;i++){
+    let p=document.createElement('div');
     p.className='pattern';
-    p.style.left = Math.random()*100+'vw';
-    p.style.top = Math.random()*100+'vh';
-    p.style.transform = `rotate(${Math.random()*360}deg) scale(${0.5+Math.random()})`;
+    p.style.left=Math.random()*100+'vw';
+    p.style.top=Math.random()*100+'vh';
     document.getElementById('background').appendChild(p);
     patterns.push(p);
 }
 
+/* Scroll reaction */
 window.addEventListener('scroll',()=>{
-    const scrollY = window.scrollY;
+    const scrollY=window.scrollY;
     patterns.forEach((p,i)=>{
-        p.style.transform = `translateZ(${i*2}px) translateY(${scrollY*0.2}px) rotate(${scrollY*0.2}deg) scale(${0.5+Math.random()})`;
+        p.style.transform=`translateY(${scrollY*0.15}px) rotate(${scrollY*0.2}deg)`;
     });
 });
 
-/* ---------- Continuous Bubbles ---------- */
-for(let i=0;i<25;i++){
-    let b = document.createElement('div');
+/* Bubbles */
+for(let i=0;i<20;i++){
+    let b=document.createElement('div');
     b.className='bubble';
     b.style.left=Math.random()*100+'vw';
-    b.style.width=b.style.height=(10+Math.random()*20)+'px';
-    b.style.animationDuration=(5+Math.random()*10)+'s';
+    b.style.width=b.style.height=(15+Math.random()*20)+'px';
+    b.style.animationDuration=(6+Math.random()*8)+'s';
     document.getElementById('background').appendChild(b);
 }
 
-/* ---------- Contact functions ---------- */
+/* Contact functions */
 function callNumber(){ window.location.href="tel:+919434274060"; }
 function whatsappMessage(){ window.open("https://wa.me/919476091829?text=Hey!", "_blank"); }
-function openAIContact(){ alert("AI Contact will be implemented here."); }
+function sendEmail(){ window.location.href="mailto:pjcompanyofficial@gmail.com"; }
+function openAIContact(){ alert("AI Chat will be implemented here."); }
 
-/* ---------- Shop Overlay ---------- */
-const shopOverlay = document.getElementById('overlay');
-const overlayContent = document.getElementById('overlay-content');
-let posts = [
+/* Shop Overlay */
+const shopOverlay=document.getElementById('overlay');
+const overlayContent=document.getElementById('overlay-content');
+let posts=[
     {id:1,img:"1000042164.png",name:"D middle Flute",price:450,desc:"handcraft D middle flute perfect for flow",liked:false},
     {id:2,img:"1000042165.png",name:"C middle flute",price:1500,desc:"Flow with C middle Flute magical sound",liked:false}
 ];
-
 function openShop(){ showOverlay(); renderShop(posts); }
 function closeOverlay(){ shopOverlay.style.display='none'; }
 function showOverlay(){ shopOverlay.style.display='flex'; }
-
 function renderShop(list){
     let html="<h2>Shopping Feed</h2>";
     list.forEach(p=>{
@@ -235,20 +183,13 @@ function renderShop(list){
             </div>
         </div>`;
     });
-    overlayContent.innerHTML = html;
+    overlayContent.innerHTML=html;
 }
-
-function toggleLike(id){
-    const p = posts.find(x=>x.id===id);
-    p.liked = !p.liked;
-    renderShop(posts);
-}
-
-function sendOrder(id){
-    const p = posts.find(x=>x.id===id);
-    const msg = encodeURIComponent(`I am interested in this product:\nName: ${p.name}\nPrice: ₹${p.price}\nDescription: ${p.desc}`);
+function toggleLike(id){ const p=posts.find(x=>x.id===id); p.liked=!p.liked; renderShop(posts);}
+function sendOrder(id){ const p=posts.find(x=>x.id===id);
+    const msg=encodeURIComponent(`I am interested in this product:\nName: ${p.name}\nPrice: ₹${p.price}\nDescription: ${p.desc}`);
     window.open("https://wa.me/919476091829?text="+msg,"_blank");
 }
 </script>
 </body>
-</html> 
+</html>
