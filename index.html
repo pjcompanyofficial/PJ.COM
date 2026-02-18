@@ -5,7 +5,7 @@
 <title>PJ Flute Shop</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
-body{margin:0;font-family:Poppins,sans-serif;background:#111;color:white}/* HERO */ header{height:100vh;background:url('https://i.postimg.cc/C1VJ0RPv/1771328655074.jpg') center/cover no-repeat;display:flex;align-items:center;justify-content:center;position:relative} header:after{content:"";position:absolute;bottom:0;left:0;width:100%;height:65%;background:linear-gradient(transparent,#000)} .enterBtn{position:absolute;bottom:120px;padding:20px 55px;font-size:24px;border:none;border-radius:50px;background:linear-gradient(145deg,#ff7a00,#ffae00);color:#000;font-weight:700;cursor:pointer;box-shadow:0 15px 35px rgba(0,0,0,.8),inset 0 2px 5px #fff5;transition:.35s} .enterBtn:hover{transform:scale(1.1) translateY(-5px)}
+body{margin:0;font-family:Poppins,sans-serif;background:#111;color:white}/* HERO */ header{height:100vh;background:url('https://i.postimg.cc/6pzqfgR1/IMG-20260218-172540-399.jpg') center/cover no-repeat;display:flex;align-items:center;justify-content:center;position:relative} header:after{content:"";position:absolute;bottom:0;left:0;width:100%;height:65%;background:linear-gradient(transparent,#000)} .enterBtn{position:absolute;bottom:120px;padding:20px 55px;font-size:24px;border:none;border-radius:50px;background:linear-gradient(145deg,#ff7a00,#ffae00);color:#000;font-weight:700;cursor:pointer;box-shadow:0 15px 35px rgba(0,0,0,.8),inset 0 2px 5px #fff5;transition:.35s} .enterBtn:hover{transform:scale(1.1) translateY(-5px)}
 
 /* PAGES */ .page{display:none;padding:40px;animation:fade .6s} .active{display:block} @keyframes fade{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
 
@@ -13,9 +13,9 @@ body{margin:0;font-family:Poppins,sans-serif;background:#111;color:white}/* HERO
 
 /* BUTTONS */ .btns{margin-top:14px} .btn{padding:12px 22px;margin-right:12px;border:none;border-radius:35px;cursor:pointer;font-weight:600;background:linear-gradient(145deg,#ff7a00,#ffae00);color:black;box-shadow:0 8px 0 #c45500,0 8px 20px #000;transition:.2s} .btn:active{transform:translateY(6px);box-shadow:0 2px 0 #c45500}
 
-/* HEART */ .heart{font-size:28px;cursor:pointer;display:inline-block;transition:.3s} .heart.saved{color:red} .heart.pop{animation:heartPop .6s} @keyframes heartPop{ 0%{transform:scale(1)} 30%{transform:scale(1.6)} 60%{transform:scale(.8)} 100%{transform:scale(1)} }
+/* HEART */ .heart{font-size:28px;cursor:pointer;display:inline-block;transition:.3s} .heart.saved{color:red} .heart.pop{animation:heartPop .6s} @keyframes heartPop{0%{transform:scale(1) rotate(0)}25%{transform:scale(1.8) rotate(-15deg)}50%{transform:scale(.7) rotate(15deg)}75%{transform:scale(1.3)}100%{transform:scale(1)}} 30%{transform:scale(1.6)} 60%{transform:scale(.8)} 100%{transform:scale(1)} }
 
-/* FLOAT CONTACT */ .floating{position:fixed;bottom:110px;right:25px;display:flex;flex-direction:column;gap:18px;z-index:10} .floating a{width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#ff7a00,#ffae00);box-shadow:0 10px 0 #c45500,0 15px 30px #000;transition:.25s} .floating a:hover{transform:translateY(-8px) scale(1.1)} .floating img{width:34px}
+/* FLOAT CONTACT */ .floating{position:fixed;bottom:110px;right:25px;display:flex;flex-direction:column;gap:18px;z-index:10} .floating a{width:75px;height:75px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#ff7a00,#ffae00);box-shadow:0 12px 0 #a84b00,0 18px 35px rgba(0,0,0,.9),inset 0 4px 10px rgba(255,255,255,.4);transition:.3s;transform-style:preserve-3d} .floating a:hover{transform:translateY(-8px) scale(1.1)} .floating img{width:34px}
 
 /* TOPBAR */ .topbar{display:flex;justify-content:space-between;margin-bottom:30px;align-items:center} .navbtn{padding:14px 30px;border:none;border-radius:40px;font-weight:600;background:linear-gradient(145deg,#ff7a00,#ffae00);cursor:pointer;box-shadow:0 8px 0 #c45500} .navbtn:active{transform:translateY(6px);box-shadow:0 2px 0 #c45500}
 
@@ -96,7 +96,7 @@ sList.innerHTML+=`<div class='product'>
 <div>
 <div class='title'>${x.n}</div>
 <div class='price'>₹${x.p}</div>
-<div class='desc'>Size ${x.s} • Saved favourite item</div>
+<div class='desc'>Professional tuned bamboo flute • Size ${x.s} • Rich tone • Smooth finish • Perfect for concerts & practice</div>
 <div class='btns'><button class='btn' onclick='addCart(${i})'>Add to Cart</button></div>
 </div></div>`});
 
