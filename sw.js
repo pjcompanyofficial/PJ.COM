@@ -1,10 +1,5 @@
-self.addEventListener("install", event => {
-self.skipWaiting();
-});
-
-self.addEventListener("activate", event => {
-event.waitUntil(self.clients.claim());
-});
-
-self.addEventListener("fetch", event => {
-});
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./sw.js")
+}
+</script>
