@@ -11,7 +11,7 @@
 body{margin:0;background:#000;color:#ffe7b0;font-family:Poppins}
 .hidden{display:none}
 
-/* TOP */
+/* TOP BAR */
 .top{
 position:fixed;
 top:0;width:100%;
@@ -22,9 +22,9 @@ align-items:center;
 padding:0 15px;
 z-index:999;
 }
-.logoBox{display:flex;align-items:center;gap:10px}
 .logo{width:42px;height:42px;border-radius:50%;border:2px solid white}
 
+/* TITLE */
 .title{
 margin-top:2.3cm;
 text-align:center;
@@ -41,43 +41,51 @@ border-radius:20px
 }
 .track{
 display:flex;
-transition:transform .9s ease
+gap:20px;
+animation:scroll 10s linear infinite;
 }
 .track img{
 width:100%;
-height:auto;
 flex-shrink:0;
-object-fit:contain;
+border-radius:20px;
 }
-
-.dots{text-align:center}
-.dots span{width:8px;height:8px;background:#555;display:inline-block;margin:4px;border-radius:50%}
-.active{background:#ff7a00;transform:scale(1.3)}
+@keyframes scroll{
+0%{transform:translateX(100%)}
+100%{transform:translateX(-100%)}
+}
 
 .hero{text-align:center;font-size:28px;margin-top:20px}
 
-/* 3D BTN */
+/* BUTTON */
 .shopBtn{
 display:block;
 margin:20px auto;
-background:linear-gradient(#ffa640,#ff7a00);
+background:linear-gradient(#ff9a2f,#ff7a00);
 color:white;
 border:none;
 padding:15px 40px;
 border-radius:35px;
 font-size:20px;
 box-shadow:0 6px 0 #c45c00;
-transition:.15s;
 }
 .shopBtn:active{
 transform:translateY(6px);
 box-shadow:0 0 0 #c45c00;
 }
 
-/* SHOP */
-#shop{
+/* CARDS */
+.sectionTitle{text-align:center;font-size:25px;margin-top:40px}
+.scroll{display:flex;overflow-x:auto;gap:20px;padding:20px}
+.card{min-width:250px;background:#111;border-radius:18px;overflow:hidden}
+.card img{width:100%}
+.cardInfo{padding:10px;text-align:center}
+.cardDetail{background:#ff7a00;color:white;padding:10px;font-size:14px}
+
+/* SHOP PAGE */
+#shop,#saved{
 position:fixed;
-top:0;width:100%;
+top:0;
+width:100%;
 height:100%;
 background:black;
 overflow:auto;
@@ -91,36 +99,18 @@ z-index:9999
 
 .product{background:#111;border-radius:18px;padding:15px;position:relative}
 .product img{width:100%;border-radius:15px}
-.like{position:absolute;top:15px;right:20px;font-size:22px;cursor:pointer;color:white}
+.like{position:absolute;top:15px;right:20px;font-size:22px;cursor:pointer}
 .liked{color:red}
 .buy{background:#ff7a00;border:none;padding:12px;width:100%;margin-top:10px;border-radius:20px;color:white;font-weight:bold}
 
-/* SAVED */
-#saved{
-position:fixed;
-top:0;width:100%;
-height:100%;
-background:black;
-overflow:auto;
-padding:1.7cm 0 120px;
-z-index:99999
-}
-
-.empty{
-text-align:center;
-margin-top:120px;
-font-size:22px;
-opacity:.7
-}
+.empty{text-align:center;margin-top:120px;font-size:22px;opacity:.7}
 </style>
 </head>
 <body>
 
 <div class="top">
-<div class="logoBox">
 <img class="logo" src="https://i.postimg.cc/3w76Yfc0/file-00000000f0cc71faab033f0116f53261.jpg">
-<div style="font-size:14px;font-weight:bold">PJ Store Web</div>
-</div>
+<div style="margin-left:10px;font-weight:bold">PJ Store Web</div>
 </div>
 
 <div id="home">
@@ -128,22 +118,29 @@ opacity:.7
 <div class="title">PJ Store</div>
 
 <div class="slider">
-<div class="track" id="track">
+<div class="track">
 <img src="https://i.postimg.cc/zXkJgfLD/IMG-20260218-194815-054.jpg">
 <img src="https://i.postimg.cc/N0KYS7dg/IMG-20260218-194851-468-2.jpg">
 </div>
 </div>
 
-<div class="dots">
-<span class="active"></span><span></span>
-</div>
-
 <div class="hero">PJ classical flutes shop</div>
 <button class="shopBtn" onclick="openShop()">Shop Now</button>
 
+<div class="sectionTitle">New Products</div>
+
+<div class="scroll">
+
+<div class="card">
+<img src="https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp">
+<div class="cardInfo">E Middle Flute ₹1100</div>
+<div class="cardDetail">Balanced tone bamboo flute carefully handcrafted for beginners and professional classical musicians. Smooth blowing response, accurate tuning, durable natural bamboo body, and comfortable finger spacing make it perfect for riyaaz, stage performance, and daily practice sessions.</div>
 </div>
 
-<!-- SHOP PAGE -->
+</div>
+</div>
+
+<!-- SHOP -->
 <div id="shop" class="hidden">
 <div class="header">
 <div onclick="closeShop()">←</div>
@@ -154,26 +151,18 @@ opacity:.7
 <div class="list" id="list"></div>
 </div>
 
-<!-- SAVED PAGE -->
+<!-- SAVED -->
 <div id="saved" class="hidden">
 <div class="header">
 <div onclick="closeSaved()">←</div>
 </div>
 
+<input class="search" placeholder="Search saved..." onkeyup="searchSaved(this.value)">
 <div id="savedList"></div>
-<div class="empty" id="empty">No products saved yet. Like products to see them here.</div>
+<div class="empty" id="empty">Until you like a product, nothing will appear here.</div>
 </div>
 
 <script>
-
-/* SLIDER RIGHT → LEFT */
-let i=0;
-setInterval(()=>{
-i=(i+1)%2;
-track.style.transform=`translateX(-${i*100}%)`;
-document.querySelectorAll(".dots span").forEach(d=>d.classList.remove("active"));
-document.querySelectorAll(".dots span")[i].classList.add("active");
-},2500);
 
 /* PRODUCTS */
 const products=[
@@ -182,58 +171,64 @@ name:"E Middle Flute",
 price:1100,
 size:"41cm",
 img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp",
-desc:"This professional bamboo flute delivers balanced tone, smooth airflow response, stable tuning, and comfortable grip. Perfect for beginners and intermediate players practicing classical ragas, meditation music, recording sessions, and daily riyaaz with consistent sound quality."
+desc:"Balanced tone bamboo flute carefully handcrafted for beginners and professional classical musicians. Smooth blowing response, accurate tuning, durable natural bamboo body, and comfortable finger spacing make it perfect for riyaaz, stage performance, and daily practice sessions."
 },
 {
 name:"D Middle Flute",
 price:1300,
 size:"45.5cm",
 img:"https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png",
-desc:"Handcrafted tuned flute producing rich resonance and warm tonal depth. Designed for classical performances, live concerts, recording studios, and dedicated learners seeking stable pitch control, breath efficiency, and smooth note transitions across full octave range."
+desc:"Rich resonance tuned flute designed for classical performers and learners who want strong tonal depth and clarity. Made from seasoned bamboo, this instrument provides stable pitch, smooth airflow, comfortable grip, and excellent sound projection for concerts or practice."
 },
 {
 name:"C# Middle Flute",
 price:1470,
 size:"46.3cm",
 img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg",
-desc:"Precision crafted bansuri with bright tone clarity and excellent response. Ideal for classical practice, stage playing, studio recording, and meditation melodies. Produces stable notes, smooth pitch slides, and controlled airflow for expressive musical performance."
+desc:"Bright tonal flute crafted with precision hole placement and polished finish for consistent sound quality. Ideal for classical compositions, studio recordings, and live performances. Its lightweight build, durable bamboo, and accurate tuning ensure long-lasting reliability."
 },
 {
 name:"C Middle Flute",
 price:1500,
 size:"50cm",
 img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png",
-desc:"Long tuned bamboo flute designed for deep tonal richness and melodic flow. Excellent choice for classical artists, professionals, and serious learners wanting expressive sound, smooth fingering comfort, accurate tuning, and powerful resonance projection."
+desc:"Deep classical tone flute engineered for professional musicians seeking rich bass expression. Carefully selected bamboo improves resonance, stability, and tonal warmth while maintaining comfortable playing posture during extended riyaaz sessions and performances."
 },
 {
 name:"A# Base Flute",
 price:1200,
 size:"56.5cm",
 img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png",
-desc:"Low pitch bass flute producing deep meditative tones and calming vibrations. Ideal for spiritual music, background scoring, slow ragas, and relaxation sessions. Crafted bamboo body ensures durability, tuning stability, and comfortable long-play handling."
+desc:"Warm sounding bass flute built for smooth airflow and strong lower octave clarity. Designed for stage artists and learners wanting deeper notes. Precision tuning, polished finish, and sturdy bamboo construction ensure durability and reliable performance."
 },
 {
 name:"G# Base Flute",
 price:1200,
 size:"60cm",
 img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg",
-desc:"Extended bass bansuri offering warm deep resonance with powerful airflow response. Suitable for advanced musicians, recording artists, meditation performers, and classical instrumentalists needing rich tonal depth and stable pitch across low scale notes."
+desc:"Powerful bass flute delivering resonant sound with excellent tonal balance and projection. Hand-crafted from premium bamboo for stability and comfort. Ideal for classical concerts, recordings, and daily practice where strong depth and tonal richness are required."
 },
 {
 name:"G Base Flute",
 price:1800,
 size:"65.7cm",
 img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png",
-desc:"Premium long bass flute delivering professional studio quality sound with strong resonance and deep tonal expression. Built for serious performers, concert players, recording sessions, and classical masters demanding powerful projection and smooth note transitions."
+desc:"Professional long bass flute producing deep majestic tones suited for advanced musicians. Precision tuned finger holes, seasoned bamboo body, smooth finish, and excellent airflow response provide outstanding sound quality for concerts, studio sessions, and serious riyaaz."
 }
 ];
 
 const list=document.getElementById("list");
+const savedPage=document.getElementById("saved");
+const savedList=document.getElementById("savedList");
+const empty=document.getElementById("empty");
 
-function card(p){
-return `
+/* RENDER SHOP */
+function render(arr){
+list.innerHTML="";
+arr.forEach(p=>{
+list.innerHTML+=`
 <div class="product">
-<div class="like" onclick="save('${p.name}',this)">❤</div>
+<div class="like ${saved.find(x=>x.name==p.name)?'liked':''}" onclick="save('${p.name}',this)">❤</div>
 <img src="${p.img}">
 <h3>${p.name}</h3>
 Size: ${p.size}<br>
@@ -241,17 +236,15 @@ Size: ${p.size}<br>
 <p>${p.desc}</p>
 <button class="buy" onclick="buy('${p.name}','${p.price}','${p.size}')">Buy via WhatsApp</button>
 </div>`;
-}
-
-function render(arr){
-list.innerHTML="";
-arr.forEach(p=>list.innerHTML+=card(p));
+});
 }
 render(products);
 
 /* NAV */
 function openShop(){home.classList.add("hidden");shop.classList.remove("hidden")}
 function closeShop(){shop.classList.add("hidden");home.classList.remove("hidden")}
+function openSaved(){savedPage.classList.remove("hidden");renderSaved()}
+function closeSaved(){savedPage.classList.add("hidden")}
 
 /* SEARCH */
 function search(v){
@@ -266,34 +259,41 @@ window.open(`https://wa.me/919476091829?text=I want to buy ${n} | Price ₹${p} 
 
 /* SAVE SYSTEM */
 let saved=[];
-
 function save(name,el){
 let p=products.find(x=>x.name==name);
-if(!saved.includes(p)){
+
+if(saved.find(x=>x.name==name)){
+saved=saved.filter(x=>x.name!=name);
+el.classList.remove("liked");
+}else{
 saved.push(p);
 el.classList.add("liked");
 }
 renderSaved();
 }
 
-function openSaved(){
-savedPage.classList.remove("hidden");
-}
-
-function closeSaved(){
-savedPage.classList.add("hidden");
-}
-
-function renderSaved(){
+function renderSaved(arr=saved){
 savedList.innerHTML="";
-if(saved.length===0){
-empty.style.display="block";
-return;
-}
+if(arr.length==0){empty.style.display="block";return}
 empty.style.display="none";
-saved.forEach(p=>savedList.innerHTML+=card(p));
+
+arr.forEach(p=>{
+savedList.innerHTML+=`
+<div class="product">
+<img src="${p.img}">
+<h3>${p.name}</h3>
+Size: ${p.size}<br>
+₹${p.price}
+<p>${p.desc}</p>
+<button class="buy" onclick="buy('${p.name}','${p.price}','${p.size}')">Buy via WhatsApp</button>
+</div>`;
+});
 }
 
+function searchSaved(v){
+v=v.toLowerCase();
+renderSaved(saved.filter(p=>p.name.toLowerCase().includes(v)));
+}
 </script>
 </body>
 </html>
