@@ -12,9 +12,27 @@ body{margin:0;background:#000;color:#ffe7b0;font-family:Poppins}
 .hidden{display:none}
 
 /* TOP */
-.top{position:fixed;top:0;width:100%;height:1.5cm;background:#ff7a00;display:flex;align-items:center;padding:0 15px;z-index:999;}
+.top{
+position:fixed;
+top:0;
+width:100%;
+height:1.5cm;
+background:#ff7a00;
+display:flex;
+align-items:center;
+padding:0 15px;
+z-index:999;
+box-sizing:border-box;
+}
 .logo{width:42px;height:42px;border-radius:50%;border:2px solid white}
 .logoBox{display:flex;align-items:center;gap:10px}
+
+.cartIcon{
+margin-left:auto;
+font-size:22px;
+cursor:pointer;
+padding-right:8px;
+}
 
 /* TITLE */
 .title{margin-top:2.3cm;text-align:center;font-size:55px;font-family:Great Vibes}
@@ -28,7 +46,17 @@ body{margin:0;background:#000;color:#ffe7b0;font-family:Poppins}
 .points{width:90%;margin:10px auto;background:#111;padding:15px;border-radius:15px;font-size:14px;line-height:1.7}
 
 /* BUTTON */
-.shopBtn{display:block;margin:20px auto;background:linear-gradient(#ff9a2f,#ff7a00);color:white;border:none;padding:15px 40px;border-radius:35px;font-size:20px;box-shadow:0 6px 0 #c45c00}
+.shopBtn{
+display:block;
+margin:20px auto;
+background:linear-gradient(#ff9a2f,#ff7a00);
+color:white;
+border:none;
+padding:15px 40px;
+border-radius:35px;
+font-size:20px;
+box-shadow:0 6px 0 #c45c00
+}
 .shopBtn:active{transform:translateY(6px);box-shadow:0 0 0}
 
 /* CONTACT */
@@ -57,7 +85,8 @@ body{margin:0;background:#000;color:#ffe7b0;font-family:Poppins}
 <img class="logo" src="https://i.postimg.cc/3w76Yfc0/file-00000000f0cc71faab033f0116f53261.jpg">
 <div style="font-size:14px;font-weight:bold">PJ Store Web</div>
 </div>
-<div onclick="openCart()" style="margin-left:auto;font-size:22px;cursor:pointer">🛒</div>
+
+<div class="cartIcon" onclick="openCart()">🛒</div>
 </div>
 
 <div id="home">
@@ -79,7 +108,6 @@ body{margin:0;background:#000;color:#ffe7b0;font-family:Poppins}
 
 <button class="shopBtn" onclick="openShop()">Shop Now</button>
 
-<!-- CONTACT -->
 <div class="contact">
 
 <a href="https://wa.me/919476091829?text=Hi%20I%20am%20interested%20in%20product%20can%20you%20help%20me">
@@ -217,9 +245,18 @@ function sendOrder(){
 if(cart.length==0){alert("Cart empty");return;}
 
 let msg="Order Details:%0A";
+let totalPrice=0;
+let totalItems=0;
+
 cart.forEach(p=>{
-msg+=`${p.name} x${p.qty} = ₹${p.price*p.qty}%0A`;
+let subtotal=p.price*p.qty;
+msg+=`${p.name} ₹${p.price} x${p.qty} = ₹${subtotal}%0A`;
+totalPrice+=subtotal;
+totalItems+=p.qty;
 });
+
+msg+=`%0A📦 Total Items = ${totalItems}%0A`;
+msg+=`₹ Total = ${totalPrice}`;
 
 window.open(`https://wa.me/919476091829?text=${msg}`);
 }
