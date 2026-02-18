@@ -7,165 +7,166 @@
 
 <style>
 :root{
---orange:#ff7a00;
---light:#fff3e6;
---black:#000;
+  --orange:#ff7a00;
+  --light:#fff3e6;
+  --black:#000;
 }
 body{
-margin:0;
-font-family:Segoe UI, sans-serif;
-background:#000;
-color:white;
-overflow-x:hidden;
+  margin:0;
+  font-family:Segoe UI, sans-serif;
+  background:#000;
+  color:white;
+  overflow-x:hidden;
 }
 .hidden{display:none}
 
 /* HOME */
 #home{
-height:100vh;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-text-align:center;
-background:#000;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  /* gradient from black to dark orange/brownish */
+  background: linear-gradient(180deg, #000 0%, #1a0a00 40%, #220f00 70%, #330f00 100%);
 }
 .logo{
-width:180px;
-height:180px;
-border-radius:50%;
-background:url("https://i.postimg.cc/3w76Yfc0/file-00000000f0cc71faab033f0116f53261.jpg") center/cover;
-box-shadow:0 0 40px var(--orange);
-margin-bottom:20px;
+  width:200px;
+  height:200px;
+  border-radius:50%;
+  background:url("https://i.postimg.cc/3w76Yfc0/file-00000000f0cc71faab033f0116f53261.jpg") center/cover;
+  box-shadow:0 0 50px var(--orange);
+  margin-bottom:25px;
 }
 .title{
-font-size:42px;
-color:var(--orange);
-font-family:cursive;
+  font-size:48px;
+  color:var(--orange);
+  font-family:cursive;
 }
 .subtitle{
-font-size:22px;
-margin:20px 0;
-color:var(--light);
-text-shadow:0 0 10px var(--orange);
+  font-size:24px;
+  margin:20px 0;
+  color:var(--light);
+  text-shadow:0 0 12px var(--orange);
 }
 .btn{
-padding:14px 28px;
-background:var(--orange);
-border:none;
-border-radius:30px;
-font-size:18px;
-cursor:pointer;
-color:white;
-box-shadow:0 0 20px var(--orange);
+  padding:14px 28px;
+  background:var(--orange);
+  border:none;
+  border-radius:30px;
+  font-size:18px;
+  cursor:pointer;
+  color:white;
+  box-shadow:0 0 20px var(--orange);
 }
 
 /* SHOP */
 #shop{padding:15px}
 .topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
 }
 .iconBtn{
-font-size:24px;
-cursor:pointer;
+  font-size:24px;
+  cursor:pointer;
 }
 .search{
-width:100%;
-padding:12px;
-border-radius:20px;
-border:none;
-outline:none;
-margin-bottom:15px;
+  width:100%;
+  padding:12px;
+  border-radius:20px;
+  border:none;
+  outline:none;
+  margin-bottom:15px;
 }
 
 /* PRODUCTS */
 .grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-gap:15px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:15px;
 }
 .card{
-background:#111;
-border-radius:20px;
-padding:10px;
-box-shadow:0 0 15px #000;
-position:relative;
+  background:#111;
+  border-radius:20px;
+  padding:10px;
+  box-shadow:0 0 15px #000;
+  position:relative;
 }
 .card img{
-width:100%;
-border-radius:15px;
+  width:100%;
+  border-radius:15px;
 }
 .name{font-size:18px;margin:5px 0}
 .price{color:var(--orange);font-weight:bold}
 .desc{font-size:13px;color:#ccc}
 .size{font-size:13px;color:#aaa}
 .actions{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-top:8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:8px;
 }
 .buy{
-flex:1;
-margin-left:8px;
-background:var(--orange);
-border:none;
-padding:8px;
-border-radius:20px;
-color:white;
-cursor:pointer;
+  flex:1;
+  margin-left:8px;
+  background:var(--orange);
+  border:none;
+  padding:8px;
+  border-radius:20px;
+  color:white;
+  cursor:pointer;
 }
 .heart{
-font-size:22px;
-cursor:pointer;
-transition:.3s;
+  font-size:22px;
+  cursor:pointer;
+  transition:.3s;
 }
 .heart.liked{color:red}
 
 /* floating heart animation */
 .fly{
-position:fixed;
-font-size:24px;
-color:red;
-animation:fly 3s forwards;
+  position:fixed;
+  font-size:24px;
+  color:red;
+  animation:fly 3s forwards;
 }
 @keyframes fly{
-0%{transform:translateY(0) rotate(0);opacity:1}
-50%{transform:translate(-30px,-150px) rotate(180deg)}
-100%{transform:translate(80px,-350px) rotate(360deg);opacity:0}
+  0%{transform:translateY(0) rotate(0);opacity:1}
+  50%{transform:translate(-30px,-150px) rotate(180deg)}
+  100%{transform:translate(80px,-350px) rotate(360deg);opacity:0}
 }
 
 /* SAVED PAGE */
 #saved{
-padding:15px;
+  padding:15px;
 }
 
 /* FOOTER */
 .footer{
-text-align:center;
-margin-top:40px;
-font-size:13px;
-color:#aaa;
+  text-align:center;
+  margin-top:40px;
+  font-size:13px;
+  color:#aaa;
 }
 .contact{
-display:flex;
-justify-content:center;
-gap:20px;
-margin:20px 0;
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin:20px 0;
 }
 .circle{
-width:50px;
-height:50px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
-cursor:pointer;
-backdrop-filter:blur(5px);
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  cursor:pointer;
+  backdrop-filter:blur(5px);
 }
 .wh{background:rgba(0,255,0,.2)}
 .ph{background:rgba(255,120,0,.2)}
@@ -176,187 +177,192 @@ backdrop-filter:blur(5px);
 
 <!-- HOME PAGE -->
 <section id="home">
-<div class="logo"></div>
-<div class="title">PJ Shop</div>
-<div class="subtitle">PJ Classical Flute Shop</div>
+  <div class="logo"></div>
+  <div class="title">PJ Shop</div>
+  <div class="subtitle">PJ Classical Flute Shop</div>
 
-<select id="lang" class="btn" style="margin-bottom:20px"></select>
+  <select id="lang" class="btn" style="margin-bottom:20px"></select>
 
-<button class="btn" onclick="openShop()">Shop Now</button>
+  <button class="btn" onclick="openShop()">Shop Now</button>
 
-<div class="contact">
-<div class="circle wh" onclick="wa()">💬</div>
-<div class="circle ph" onclick="call()">📞</div>
-<div class="circle em" onclick="mail()">✉</div>
-</div>
+  <div class="contact">
+    <div class="circle wh" onclick="wa()">💬</div>
+    <div class="circle ph" onclick="call()">📞</div>
+    <div class="circle em" onclick="mail()">✉</div>
+  </div>
 
-<div class="footer">©2026 PJ Shop Web</div>
+  <div class="footer">©2026 PJ Shop Web</div>
 </section>
 
 <!-- SHOP PAGE -->
 <section id="shop" class="hidden">
-<div class="topbar">
-<span class="iconBtn" onclick="backHome()">⬅</span>
-<span class="iconBtn" onclick="openSaved()">♡</span>
-</div>
+  <div class="topbar">
+    <span class="iconBtn" onclick="backHome()">⬅</span>
+    <span class="iconBtn" onclick="openSaved()">♡</span>
+  </div>
 
-<input class="search" placeholder="Search flute name or price..." oninput="search(this.value)">
+  <input class="search" placeholder="Search flute name or price..." oninput="search(this.value)">
 
-<div id="products" class="grid"></div>
+  <div id="products" class="grid"></div>
 </section>
 
 <!-- SAVED PAGE -->
 <section id="saved" class="hidden">
-<div class="topbar">
-<span class="iconBtn" onclick="closeSaved()">⬅</span>
-</div>
-<div id="savedList"></div>
+  <div class="topbar">
+    <span class="iconBtn" onclick="closeSaved()">⬅</span>
+  </div>
+  <div id="savedList"></div>
 </section>
 
 <script>
+/* ELEMENT REFERENCES */
+const home = document.getElementById("home");
+const shop = document.getElementById("shop");
+const saved = document.getElementById("saved");
+
 /* LANGUAGE */
 const langs=["English","Hindi","Bengali","Tamil","Telugu","Malayalam"];
 const langSel=document.getElementById("lang");
 langs.forEach(l=>{
-let o=document.createElement("option");
-o.text=l;
-langSel.add(o);
+  let o=document.createElement("option");
+  o.text=l;
+  langSel.add(o);
 });
 langSel.value=localStorage.lang||"English";
 langSel.onchange=()=>localStorage.lang=langSel.value;
 
 /* NAV */
 function openShop(){
-home.classList.add("hidden");
-shop.classList.remove("hidden");
+  home.classList.add("hidden");
+  shop.classList.remove("hidden");
 }
 function backHome(){
-shop.classList.add("hidden");
-home.classList.remove("hidden");
+  shop.classList.add("hidden");
+  home.classList.remove("hidden");
 }
 function openSaved(){
-shop.classList.add("hidden");
-saved.classList.remove("hidden");
-renderSaved();
+  shop.classList.add("hidden");
+  saved.classList.remove("hidden");
+  renderSaved();
 }
 function closeSaved(){
-saved.classList.add("hidden");
-shop.classList.remove("hidden");
+  saved.classList.add("hidden");
+  shop.classList.remove("hidden");
 }
 
 /* CONTACT */
 function wa(){
-open(`https://wa.me/919476091829?text=hey I am interested in shopping`);
+  open(`https://wa.me/919476091829?text=hey I am interested in shopping`);
 }
 function call(){location.href="tel:+919434274060"}
 function mail(){
-location.href="mailto:pjcompanyofficial@gmail.com?subject=Shopping&body=hey I am interested in shopping";
+  location.href="mailto:pjcompanyofficial@gmail.com?subject=Shopping&body=hey I am interested in shopping";
 }
 
 /* PRODUCTS */
 const data=[
-{name:"E Middle Flute",price:1100,size:"41cm",img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp"},
-{name:"D Middle Flute",price:1300,size:"45.5cm",img:"https://i.postimg.cc/zX0H0sSS/1771409161124.jpg"},
-{name:"C# Middle Flute",price:1470,size:"46.3cm",img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg"},
-{name:"C Middle Flute",price:1500,size:"50cm",img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png"},
-{name:"A# Base Flute",price:1200,size:"56.5cm",img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png"},
-{name:"G# Base Flute",price:1200,size:"60cm",img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg"},
-{name:"G Base Flute",price:1800,size:"65.7cm",img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png"}
+  {name:"E Middle Flute",price:1100,size:"41cm",img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp"},
+  {name:"D Middle Flute",price:1300,size:"45.5cm",img:"https://i.postimg.cc/zX0H0sSS/1771409161124.jpg"},
+  {name:"C# Middle Flute",price:1470,size:"46.3cm",img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg"},
+  {name:"C Middle Flute",price:1500,size:"50cm",img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png"},
+  {name:"A# Base Flute",price:1200,size:"56.5cm",img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png"},
+  {name:"G# Base Flute",price:1200,size:"60cm",img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg"},
+  {name:"G Base Flute",price:1800,size:"65.7cm",img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png"}
 ];
 
 const box=document.getElementById("products");
 let savedItems=JSON.parse(localStorage.saved||"[]");
 
 function desc(name){
-return "Premium quality handcrafted "+name+
-" made from seasoned bamboo. Rich tone, perfect tuning, smooth finish, ideal for beginners & professionals.";
+  return "Premium quality handcrafted "+name+
+  " made from seasoned bamboo. Rich tone, perfect tuning, smooth finish, ideal for beginners & professionals.";
 }
 
 function render(list){
-box.innerHTML="";
-list.forEach(p=>{
-let card=document.createElement("div");
-card.className="card";
-card.innerHTML=`
-<img src="${p.img}">
-<div class="name">${p.name}</div>
-<div class="price">₹${p.price}</div>
-<div class="size">Size: ${p.size}</div>
-<div class="desc">${desc(p.name)}</div>
-<div class="actions">
-<span class="heart ${savedItems.includes(p.name)?"liked":""}" 
-onclick="like(this,'${p.name}')">♥</span>
-<button class="buy" onclick="buy('${p.name}',${p.price})">Buy for WP</button>
-</div>`;
-box.appendChild(card);
-});
+  box.innerHTML="";
+  list.forEach(p=>{
+    let card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`
+      <img src="${p.img}">
+      <div class="name">${p.name}</div>
+      <div class="price">₹${p.price}</div>
+      <div class="size">Size: ${p.size}</div>
+      <div class="desc">${desc(p.name)}</div>
+      <div class="actions">
+        <span class="heart ${savedItems.includes(p.name)?"liked":""}" 
+          onclick="like(this,'${p.name}')">♥</span>
+        <button class="buy" onclick="buy('${p.name}',${p.price})">Buy for WP</button>
+      </div>`;
+    box.appendChild(card);
+  });
 }
 render(data);
 
 /* SEARCH */
 function search(v){
-v=v.toLowerCase();
-render(data.filter(p=>
-p.name.toLowerCase().includes(v)||
-String(p.price).includes(v)
-));
+  v=v.toLowerCase();
+  render(data.filter(p=>
+    p.name.toLowerCase().includes(v)||
+    String(p.price).includes(v)
+  ));
 }
 
 /* BUY */
 function buy(name,price){
-let msg=`Hello I want to buy ${name} price ₹${price}`;
-open(`https://wa.me/919476091829?text=${encodeURIComponent(msg)}`);
+  let msg=`Hello I want to buy ${name} price ₹${price}`;
+  open(`https://wa.me/919476091829?text=${encodeURIComponent(msg)}`);
 }
 
 /* LIKE */
 function like(el,name){
-if(!savedItems.includes(name)){
-savedItems.push(name);
-el.classList.add("liked");
-animateHeart(el);
-}
-localStorage.saved=JSON.stringify(savedItems);
+  if(!savedItems.includes(name)){
+    savedItems.push(name);
+    el.classList.add("liked");
+    animateHeart(el);
+  }
+  localStorage.saved=JSON.stringify(savedItems);
 }
 
 /* HEART FLY */
 function animateHeart(el){
-let r=el.getBoundingClientRect();
-let h=document.createElement("div");
-h.className="fly";
-h.style.left=r.left+"px";
-h.style.top=r.top+"px";
-h.innerHTML="♥";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),3000);
+  let r=el.getBoundingClientRect();
+  let h=document.createElement("div");
+  h.className="fly";
+  h.style.left=r.left+"px";
+  h.style.top=r.top+"px";
+  h.innerHTML="♥";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),3000);
 }
 
 /* SAVED PAGE */
 function renderSaved(){
-let box=document.getElementById("savedList");
-box.innerHTML="";
-let list=data.filter(p=>savedItems.includes(p.name));
-if(!list.length){
-box.innerHTML="<h3>You have not liked any product.</h3>";
-return;
-}
-list.forEach(p=>{
-let d=document.createElement("div");
-d.className="card";
-d.innerHTML=`<img src="${p.img}">
-<div class=name>${p.name}</div>
-<div class=price>₹${p.price}</div>`;
-box.appendChild(d);
-});
+  let box=document.getElementById("savedList");
+  box.innerHTML="";
+  let list=data.filter(p=>savedItems.includes(p.name));
+  if(!list.length){
+    box.innerHTML="<h3>You have not liked any product.</h3>";
+    return;
+  }
+  list.forEach(p=>{
+    let d=document.createElement("div");
+    d.className="card";
+    d.innerHTML=`<img src="${p.img}">
+      <div class=name>${p.name}</div>
+      <div class=price>₹${p.price}</div>`;
+    box.appendChild(d);
+  });
 }
 
 /* SECRET ADMIN PANEL */
 document.addEventListener("keydown",e=>{
-if(e.ctrlKey && e.key==="p"){
-let pass=prompt("Enter admin password");
-if(pass==="sonu@jeet"){
-alert("Admin mode active. You can edit product array in code.");
-}else alert("Wrong password");
-}
+  if(e.ctrlKey && e.key==="p"){
+    let pass=prompt("Enter admin password");
+    if(pass==="sonu@jeet"){
+      alert("Admin mode active. You can edit product array in code.");
+    }else alert("Wrong password");
+  }
 });
 </script>
 </body>
