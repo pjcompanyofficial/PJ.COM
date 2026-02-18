@@ -1,275 +1,395 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PJ Shopping Web</title>
+
+<link rel="manifest" href="manifest.json">
+
 <style>
-body, html { margin:0; padding:0; width:100%; height:100%; font-family: Arial, sans-serif; background:#ffe5f0; overflow:hidden; perspective:1200px;}
-#background {position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; overflow:hidden;}
 
-/* 3D flower pattern */
-.flower{
-    position:absolute;
-    width:50px; height:50px;
-    border-radius:50%;
-    background: radial-gradient(circle, #ff9a9e, #fad0c4, #fad0c4);
-    opacity:0.5;
-    animation: floatFlower linear infinite;
-}
-@keyframes floatFlower{
-    0%{transform: translateY(0) rotate(0deg);}
-    100%{transform: translateY(-120vh) rotate(360deg);}
+:root{
+--bg:#ffffff;
+--text:#000;
+--card:#ffffffcc;
+--accent:#ff7a00;
 }
 
-/* Top animated title */
-.top-title{
-    position:absolute; top:20px; width:100%; text-align:center; font-size:70px; font-weight:bold;
-    background: linear-gradient(to top, yellow, orange, red);
-    -webkit-background-clip:text;
-    color:transparent;
-    animation: gradientAnim 5s infinite;
-}
-@keyframes gradientAnim{
-    0%{background-position:0 0;}
-    50%{background-position:0 100%;}
-    100%{background-position:0 0;}
+.dark{
+--bg:#0d0d0d;
+--text:#fff;
+--card:#1a1a1acc;
 }
 
-/* Center shop section */
-.shop-section{
-    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-    text-align:center; z-index:10;
-}
-.shop-name{font-family:"Brush Script MT", cursive; font-size:36px; color:black; margin-bottom:10px;}
-.shop-btn, .ai-btn{
-    padding:20px 40px; margin:10px 0; border-radius:20px; font-weight:bold; font-size:18px; cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.5);
-}
-.shop-btn{background:#ff8c00; color:white;}
-.ai-btn{background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border:1px solid rgba(255,255,255,0.3); color:black;}
-
-/* Bottom buttons */
-.center-buttons{
-    position:absolute; bottom:100px; left:50%; transform:translateX(-50%); display:flex; gap:15px; z-index:10;
-}
-.center-btn{
-    padding:15px 25px; border-radius:15px; font-weight:bold; font-size:14px; color:#000;
-    background: rgba(255,255,255,0.15); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.3); cursor:pointer; box-shadow:0 8px 20px rgba(0,0,0,0.3);
+body{
+margin:0;
+font-family:Segoe UI;
+background:var(--bg);
+color:var(--text);
+transition:.4s;
 }
 
-/* Bottom microtext */
-.bottom-text{position:absolute; bottom:5px; width:100%; text-align:center; font-size:10px; color:#000;}
-
-/* Top heart */
-#topHeart{position:absolute; top:20px; right:30px; font-size:40px; color:#888; cursor:pointer; transition: color 0.3s;}
-#topHeart.liked{color:red;}
-
-/* Shop overlay */
-.overlay{
-    position:absolute; top:0; left:0; width:100%; height:100%;
-    background: rgba(255,255,255,0.95);
-    display:none; flex-direction:column; align-items:center; overflow-y:auto; padding:20px; z-index:15;
+/* header */
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 25px;
+font-size:26px;
+font-weight:700;
+background:linear-gradient(90deg,#000,#222);
+color:var(--accent);
 }
-.back-arrow{position:absolute; top:20px; left:20px; font-size:30px; cursor:pointer;}
-#overlay-content{margin-top:60px; width:100%; max-width:500px; display:flex; flex-direction:column; gap:20px;}
-.card{border:2px solid orange; border-radius:12px; overflow:hidden; background:#fff; box-shadow:0 4px 15px rgba(0,0,0,0.1);}
-.card img{width:100%; display:block;}
-.card-content{padding:10px;}
-.card-title{font-weight:bold; font-size:16px;}
-.card-price{font-weight:bold; color:#ff6600;}
-.card-desc{font-size:13px;}
-.card-actions{display:flex; gap:10px; margin-top:5px;}
-.like-btn{font-size:24px; color:#888; cursor:pointer;}
-.like-btn.liked{color:red;}
-.order-btn{flex-grow:1; padding:6px 10px; border:none; border-radius:6px; background:#ffa500; color:#fff; font-weight:bold; cursor:pointer;}
-.floating-heart{position:absolute; font-size:40px; color:red; pointer-events:none;}
 
-/* AI overlay */
-.ai-overlay{position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.95); display:none; flex-direction:column;}
-.ai-back{position:absolute; top:20px; left:20px; font-size:30px; cursor:pointer;}
-.ai-chat{margin-top:70px; flex:1; padding:10px; overflow-y:auto;}
-.ai-input-container{position:absolute; bottom:10px; left:50%; transform:translateX(-50%); display:flex; width:90%; max-width:500px; gap:10px;}
-.ai-input-container input{flex:1; padding:10px; border-radius:10px; border:1px solid #ccc;}
-.ai-input-container button{padding:10px 20px; border-radius:10px; background:#ff8c00; color:white; border:none; cursor:pointer;}
+/* menu */
+.menu{
+font-size:26px;
+cursor:pointer;
+}
+
+.dropdown{
+position:absolute;
+right:20px;
+top:70px;
+background:var(--card);
+backdrop-filter:blur(20px);
+padding:20px;
+border-radius:20px;
+display:none;
+box-shadow:0 20px 50px rgba(0,0,0,.3);
+animation:fade .4s;
+}
+
+.dropdown button{
+display:block;
+margin:10px 0;
+padding:12px 18px;
+border:none;
+border-radius:12px;
+background:var(--accent);
+color:white;
+cursor:pointer;
+font-weight:bold;
+}
+
+@keyframes fade{
+from{opacity:0; transform:translateY(-20px)}
+}
+
+/* pages */
+.page{
+display:none;
+padding:40px 20px;
+text-align:center;
+min-height:100vh;
+}
+.active{display:block}
+
+/* hero */
+.hero{
+font-size:38px;
+margin-top:120px;
+font-weight:800;
+}
+
+/* buttons */
+.btn{
+margin-top:30px;
+padding:18px 45px;
+border:none;
+border-radius:16px;
+font-size:20px;
+cursor:pointer;
+color:white;
+background:linear-gradient(145deg,#ffa033,#ff6a00);
+box-shadow:0 10px 30px rgba(255,120,0,.6);
+transition:.3s;
+}
+.btn:hover{transform:scale(1.05)}
+
+/* card */
+.card{
+max-width:320px;
+margin:40px auto;
+background:var(--card);
+backdrop-filter:blur(20px);
+border-radius:25px;
+box-shadow:0 30px 60px rgba(0,0,0,.3);
+overflow:hidden;
+animation:fade .8s;
+}
+
+.card img{width:100%}
+.price{color:var(--accent);font-size:22px;font-weight:bold}
+
+.actions{
+display:flex;
+justify-content:space-around;
+padding:15px;
+}
+
+/* heart */
+.favTop{
+position:absolute;
+right:20px;
+top:80px;
+font-size:30px;
+cursor:pointer;
+}
+
+/* flying heart */
+.fly{
+position:fixed;
+color:red;
+font-size:25px;
+pointer-events:none;
+animation:fly 2s forwards;
+}
+@keyframes fly{
+100%{
+transform:translate(var(--x),var(--y)) rotate(720deg);
+opacity:0;
+}
+}
+
+/* chat */
+.chat{
+max-width:600px;
+margin:auto;
+background:var(--card);
+padding:20px;
+border-radius:20px;
+height:60vh;
+overflow:auto;
+box-shadow:0 20px 50px rgba(0,0,0,.3);
+}
+
+.msg{margin:12px 0}
+.user{color:var(--accent)}
+.bot{color:var(--text)}
+
+input{
+padding:12px;
+width:70%;
+border-radius:10px;
+border:1px solid #ccc;
+}
+.send{
+padding:12px 20px;
+border:none;
+background:var(--accent);
+color:white;
+border-radius:10px;
+cursor:pointer;
+}
+
+/* footer */
+footer{
+font-size:12px;
+text-align:center;
+padding:20px;
+opacity:.7;
+}
+
 </style>
 </head>
+
 <body>
-<div id="background"></div>
 
-<div class="top-title">PJ Shopping Web</div>
+<header>
+PJ Shopping Web
+<div class="menu" onclick="toggleMenu()">⋮</div>
+</header>
 
-<div class="shop-section">
-    <div class="shop-name">PJ Classical Flutes Shop</div>
-    <div class="shop-btn" onclick="openShop()">Shopping</div>
-    <div class="ai-btn" onclick="openAI()">AI Chat</div>
+<div class="dropdown" id="menuBox">
+
+<button onclick="toggleDark()">🌙 Toggle Mode</button>
+
+<button onclick="openPage('track')">📦 Order Tracking</button>
+
+<button id="installBtn" style="display:none">⬇ Install App</button>
+
 </div>
 
-<div id="topHeart">&#10084;</div>
+<!-- HOME -->
+<div id="home" class="page active">
 
-<div class="center-buttons">
-    <div class="center-btn" onclick="callNumber()">Call</div>
-    <div class="center-btn" onclick="whatsappMessage()">WhatsApp</div>
-    <div class="center-btn" onclick="openInstagram()">Instagram</div>
-    <div class="center-btn" onclick="sendEmail()">Email</div>
+<div class="hero">PJ classical flutes Shop</div>
+
+<button class="btn" onclick="openPage('shop')">Shop Now</button><br>
+<button class="btn" onclick="openPage('ai')">AI Assistant</button>
+
 </div>
 
-<div class="bottom-text">PJ Official Website</div>
+<!-- SHOP -->
+<div id="shop" class="page">
 
-<div class="overlay" id="overlay">
-    <div class="back-arrow" onclick="closeOverlay()">&#8592; Back</div>
-    <h2 style="font-family:cursive; margin-top:50px;">Are you shopping field?</h2>
-    <div id="overlay-content"></div>
+<div class="favTop" id="favTop">🤍</div>
+
+<div class="card">
+
+<img src="https://i.postimg.cc/g2VBTyPP/Screenshot-20260218-002911-Whats-App-Business.png">
+
+<h2>C middle flute</h2>
+<div class="price">₹1500</div>
+<p>C middle flute match with your magical Vibes.</p>
+
+<div class="actions">
+<span onclick="like(event)" style="cursor:pointer;font-size:26px">❤️</span>
+
+<button class="btn" onclick="buy()">Buy</button>
 </div>
 
-<div class="ai-overlay" id="aiOverlay">
-    <div class="ai-back" onclick="closeAI()">&#8592; Back</div>
-    <div class="ai-chat" id="aiMessages"></div>
-    <div class="ai-input-container">
-        <input type="text" id="aiInput" placeholder="Type your question...">
-        <button onclick="sendAIMessage()">Send</button>
-    </div>
+</div>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<!-- TRACK -->
+<div id="track" class="page">
+<h2>Order Tracking</h2>
+
+<input id="trackNum" placeholder="Enter tracking number">
+<br><br>
+<button class="btn" onclick="track()">Track</button>
+</div>
+
+<!-- AI -->
+<div id="ai" class="page">
+<h2>AI Assistant</h2>
+
+<div class="chat" id="chat"></div>
+
+<br>
+<input id="msg">
+<button class="send" onclick="ask()">Send</button>
+</div>
+
+<footer>©PJ official shopping website</footer>
 
 <script>
-// Initialize Firebase
-const firebaseConfig={ /* your config */ };
-firebase.initializeApp(firebaseConfig);
-const db=firebase.database();
 
-// Flowers
-for(let i=0;i<30;i++){
-    let f=document.createElement('div');
-    f.className='flower';
-    f.style.left=Math.random()*100+'vw';
-    f.style.top=Math.random()*100+'vh';
-    f.style.width=f.style.height=(30+Math.random()*30)+'px';
-    f.style.animationDuration=(8+Math.random()*10)+'s';
-    document.getElementById('background').appendChild(f);
+/* navigation */
+function openPage(id){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+toggleMenu(false);
 }
 
-// Products
-let posts=[
-    {id:1,img:"https://i.postimg.cc/nhB6tbqH/Screenshot-20260218-002442-Whats-App-Business.png",name:"D middle Flute",price:450,desc:"Handcraft D middle flute perfect for flow",liked:false},
-    {id:2,img:"https://i.postimg.cc/g2VBTyPP/Screenshot-20260218-002911-Whats-App-Business.png",name:"C middle Flute",price:1500,desc:"Flow with C middle Flute magical sound",liked:false}
-];
-let likedProducts=[];
+/* menu */
+function toggleMenu(force){
+let m=document.getElementById("menuBox");
+m.style.display = force===false ? "none" :
+m.style.display=="block"?"none":"block";
+}
 
-// Load likes
-firebase.database().ref('likes').on('value', snapshot=>{
-    const data = snapshot.val()||{};
-    likedProducts=[];
-    posts.forEach(p=>{ if(data[p.id]) p.liked=true, likedProducts.push(p); else p.liked=false; });
-    renderShop(posts);
+/* dark mode */
+function toggleDark(){
+document.body.classList.toggle("dark");
+}
+
+/* buy */
+function buy(){
+window.open("https://wa.me/919476091829?text=I want to buy C middle flute ₹1500");
+}
+
+/* heart animation */
+function like(e){
+let heart=document.createElement("div");
+heart.className="fly";
+heart.innerHTML="❤";
+document.body.appendChild(heart);
+
+let r=e.target.getBoundingClientRect();
+let t=document.getElementById("favTop").getBoundingClientRect();
+
+heart.style.left=r.left+"px";
+heart.style.top=r.top+"px";
+heart.style.setProperty("--x",(t.left-r.left)+"px");
+heart.style.setProperty("--y",(t.top-r.top)+"px");
+
+setTimeout(()=>heart.remove(),2000);
+
+let top=document.getElementById("favTop");
+setTimeout(()=>{top.textContent="❤️"},1800);
+}
+
+/* tracking */
+function track(){
+let n=document.getElementById("trackNum").value;
+if(!n)return alert("Enter tracking number");
+window.open("https://www.indiapost.gov.in/_layouts/15/dop.portal.tracking/trackconsignment.aspx?Consignment="+n);
+}
+
+/* AI CHAT */
+async function ask(){
+
+let input=document.getElementById("msg");
+let text=input.value.trim();
+if(!text)return;
+
+let chat=document.getElementById("chat");
+
+chat.innerHTML+=`<div class="msg user">You: ${text}</div>`;
+input.value="";
+
+let typing=document.createElement("div");
+typing.className="msg bot";
+typing.textContent="AI is typing...";
+chat.appendChild(typing);
+
+let res=await fetch("https://openrouter.ai/api/v1/chat/completions",{
+method:"POST",
+headers:{
+"Content-Type":"application/json",
+"Authorization":"Bearer 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"
+},
+body:JSON.stringify({
+model:"openai/gpt-3.5-turbo",
+messages:[{role:"user",content:text}]
+})
 });
 
-const overlayContent=document.getElementById('overlay-content');
-function renderShop(list){
-    overlayContent.innerHTML="";
-    if(list.length===0){ overlayContent.innerHTML="<div style='margin:20px;color:#888;'>No products liked yet.</div>"; return;}
-    list.forEach(p=>{
-        const card=document.createElement('div');
-        card.className='card';
-        card.id='post-'+p.id;
-        card.innerHTML=`<img src="${p.img}" alt="Product"/>
-            <div class="card-content">
-            <div class="card-title">${p.name}</div>
-            <div class="card-price">₹${p.price}</div>
-            <div class="card-desc">${p.desc}</div>
-            <div class="card-actions">
-                <span class="like-btn ${p.liked?'liked':''}" onclick="toggleLike(${p.id}, this)">&#10084;</span>
-                <button class="order-btn" onclick="sendOrder(${p.id})">Send Request</button>
-            </div></div>`;
-        overlayContent.appendChild(card);
-    });
+let data=await res.json();
+typing.remove();
+
+let reply=data.choices?.[0]?.message?.content || "No response";
+
+typeWriter(reply);
+
 }
 
-function toggleLike(id, el){
-    const product=posts.find(p=>p.id===id);
-    product.liked=!product.liked;
-    if(product.liked){
-        likedProducts.push(product);
-        db.ref('likes/'+id).set(true);
+/* typing effect */
+function typeWriter(text){
+let chat=document.getElementById("chat");
+let div=document.createElement("div");
+div.className="msg bot";
+chat.appendChild(div);
 
-        // Floating heart
-        const rect=el.getBoundingClientRect();
-        const topHeart=document.getElementById('topHeart');
-        const topRect=topHeart.getBoundingClientRect();
-        const fh=document.createElement('div');
-        fh.className='floating-heart'; fh.textContent='❤️';
-        fh.style.left=rect.left+'px'; fh.style.top=rect.top+'px';
-        document.body.appendChild(fh);
-
-        let startTime=null;
-        const duration=2000;
-        const startX=rect.left, startY=rect.top, endX=topRect.left, endY=topRect.top;
-
-        function animateHeart(time){
-            if(!startTime) startTime=time;
-            const elapsed=time-startTime;
-            const t=Math.min(elapsed/duration,1);
-            const currentX=startX+(endX-startX)*t + Math.sin(t*6*Math.PI)*15;
-            const currentY=startY+(endY-startY)*t + Math.sin(t*4*Math.PI)*10;
-            fh.style.left=currentX+'px'; fh.style.top=currentY+'px';
-            fh.style.transform=`scale(${1+0.2*t}) rotate(${t*360}deg)`;
-            if(t<1) requestAnimationFrame(animateHeart);
-            else{ topHeart.classList.add('liked'); setTimeout(()=>topHeart.classList.remove('liked'),1500); fh.remove();}
-        }
-        requestAnimationFrame(animateHeart);
-
-    } else {
-        likedProducts=likedProducts.filter(p=>p.id!==id);
-        db.ref('likes/'+id).remove();
-    }
-    renderShop(posts);
+let i=0;
+let interval=setInterval(()=>{
+div.textContent="AI: "+text.slice(0,i++);
+if(i>text.length)clearInterval(interval);
+},15);
 }
 
-function openShop(){document.getElementById('overlay').style.display='flex'; renderShop(posts);}
-function closeOverlay(){document.getElementById('overlay').style.display='none';}
-function sendOrder(id){ const p=posts.find(x=>x.id===id); const msg=encodeURIComponent(`I am interested in this product:\nName: ${p.name}\nPrice: ₹${p.price}\nDescription: ${p.desc}`); window.open("https://wa.me/919476091829?text="+msg,"_blank");}
+/* PWA install */
+let deferred;
+window.addEventListener("beforeinstallprompt",e=>{
+e.preventDefault();
+deferred=e;
+document.getElementById("installBtn").style.display="block";
+});
 
-// Bottom buttons
-function callNumber(){ window.location.href="tel:+919434274060"; }
-function whatsappMessage(){ window.open("https://wa.me/919476091829?text=Hey!","_blank"); }
-function openInstagram(){ window.open("https://instagram.com/youraccount","_blank"); }
-function sendEmail(){ window.location.href="mailto:pjcompanyofficial@gmail.com"; }
+installBtn.onclick=async()=>{
+deferred.prompt();
+};
 
-// AI chat
-function openAI(){ document.getElementById('aiOverlay').style.display='flex'; document.getElementById('aiMessages').innerHTML=''; }
-function closeAI(){ document.getElementById('aiOverlay').style.display='none'; }
-async function sendAIMessage(){
-    const input=document.getElementById('aiInput');
-    const msg=input.value.trim(); if(!msg) return;
-    input.value='';
-    const messages=document.getElementById('aiMessages');
-    const userMsg=document.createElement('div'); userMsg.textContent=msg; userMsg.style.margin='10px'; userMsg.style.textAlign='right'; messages.appendChild(userMsg);
+/* auto show install after delay */
+setTimeout(()=>{
+if(deferred) installBtn.style.display="block";
+},4000);
 
-    const res=await fetch('https://openrouter.ai/api/v1/chat/completions',{
-        method:'POST',
-        headers:{
-            'Content-Type':'application/json',
-            'Authorization':'Bearer sk-xxxxxxxxxxxx' // Replace with your API key
-        },
-        body:JSON.stringify({model:'gpt-4o-mini', messages:[{role:'user',content:msg}]})
-    });
-    const data=await res.json();
-    const reply=data.choices[0].message.content;
-    const botMsg=document.createElement('div'); botMsg.textContent=reply; botMsg.style.margin='10px'; botMsg.style.textAlign='left'; messages.appendChild(botMsg);
-    messages.scrollTop=messages.scrollHeight;
-}
-
-// Initialize flowers
-for(let i=0;i<30;i++){
-    let f=document.createElement('div');
-    f.className='flower';
-    f.style.left=Math.random()*100+'vw';
-    f.style.top=Math.random()*100+'vh';
-    f.style.width=f.style.height=(30+Math.random()*30)+'px';
-    f.style.animationDuration=(8+Math.random()*10)+'s';
-    document.getElementById('background').appendChild(f);
-}
 </script>
+
 </body>
 </html>
