@@ -5,233 +5,295 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PJ Store</title>
 
-<style>
-body{margin:0;font-family:sans-serif;background:#000;color:#fff}
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-/* TOP BAR */
+<style>
+body{margin:0;background:#000;color:#ffe7b0;font-family:Poppins}
+.hidden{display:none}
+
+/* TOP */
 .top{
 position:fixed;
-top:0;
-width:100%;
-height:60px;
+top:0;width:100%;
+height:1.5cm;
 background:#ff7a00;
 display:flex;
 align-items:center;
-justify-content:space-between;
 padding:0 15px;
-z-index:9999;
+z-index:999;
 }
 .logoBox{display:flex;align-items:center;gap:10px}
-.logo{width:42px;height:42px;border-radius:50%;border:2px solid #fff}
-.title{font-weight:bold;font-size:18px}
+.logo{width:42px;height:42px;border-radius:50%;border:2px solid white}
 
-/* MAP SLIDER */
-.slider{margin-top:70px;overflow:hidden}
-.track{display:flex;animation:slide 10s linear infinite}
-.track img{width:100%;flex-shrink:0}
-
-@keyframes slide{
-0%{transform:translateX(100%)}
-100%{transform:translateX(-100%)}
+.title{
+margin-top:2.3cm;
+text-align:center;
+font-size:55px;
+font-family:Great Vibes;
 }
 
-/* BUTTON */
+/* SLIDER */
+.slider{
+width:90%;
+margin:25px auto;
+overflow:hidden;
+border-radius:20px
+}
+.track{
+display:flex;
+transition:transform .9s ease
+}
+.track img{
+width:100%;
+height:auto;
+flex-shrink:0;
+object-fit:contain;
+}
+
+.dots{text-align:center}
+.dots span{width:8px;height:8px;background:#555;display:inline-block;margin:4px;border-radius:50%}
+.active{background:#ff7a00;transform:scale(1.3)}
+
+.hero{text-align:center;font-size:28px;margin-top:20px}
+
+/* 3D BTN */
 .shopBtn{
 display:block;
-margin:25px auto;
-padding:15px 40px;
+margin:20px auto;
+background:linear-gradient(#ffa640,#ff7a00);
+color:white;
 border:none;
-border-radius:30px;
-background:linear-gradient(#ff9800,#e65100);
-color:#fff;
+padding:15px 40px;
+border-radius:35px;
 font-size:20px;
-box-shadow:0 6px #999;
+box-shadow:0 6px 0 #c45c00;
+transition:.15s;
 }
-.shopBtn:active{transform:translateY(4px);box-shadow:0 2px #666}
+.shopBtn:active{
+transform:translateY(6px);
+box-shadow:0 0 0 #c45c00;
+}
 
 /* SHOP */
-#shop{display:none;padding:80px 15px 120px}
-
-.product{
-background:#111;
-border-radius:18px;
-padding:15px;
-margin-bottom:25px;
-position:relative;
+#shop{
+position:fixed;
+top:0;width:100%;
+height:100%;
+background:black;
+overflow:auto;
+padding:1.7cm 0 120px;
+z-index:9999
 }
 
-.product img{
-width:auto;
-max-width:100%;
-display:block;
-margin:auto;
-}
+.header{display:flex;justify-content:space-between;padding:10px 20px;font-size:26px}
+.search{width:90%;margin:10px auto;display:block;padding:10px;border-radius:20px;border:none}
+.list{padding:20px;display:flex;flex-direction:column;gap:20px}
 
-.like{
-position:absolute;
-top:10px;
-right:15px;
-font-size:22px;
-cursor:pointer;
-}
+.product{background:#111;border-radius:18px;padding:15px;position:relative}
+.product img{width:100%;border-radius:15px}
+.like{position:absolute;top:15px;right:20px;font-size:22px;cursor:pointer;color:white}
 .liked{color:red}
-
-.desc{
-background:orange;
-padding:10px;
-border-radius:10px;
-margin-top:10px;
-color:#000;
-}
-
-.buy{
-margin-top:10px;
-width:100%;
-padding:12px;
-border:none;
-border-radius:12px;
-background:#ff7a00;
-color:#fff;
-font-weight:bold;
-}
+.buy{background:#ff7a00;border:none;padding:12px;width:100%;margin-top:10px;border-radius:20px;color:white;font-weight:bold}
 
 /* SAVED */
-#saved{display:none;padding:80px 15px 120px}
-.empty{text-align:center;margin-top:120px;color:#aaa}
-
-/* BOTTOM BAR */
-.bottom{
+#saved{
 position:fixed;
-bottom:0;
-width:100%;
-background:#111;
-display:flex;
-justify-content:space-around;
-padding:12px 0;
+top:0;width:100%;
+height:100%;
+background:black;
+overflow:auto;
+padding:1.7cm 0 120px;
+z-index:99999
 }
 
-.bottom a{
-background:#ff7a00;
-color:#fff;
-padding:10px 18px;
-border-radius:25px;
-text-decoration:none;
-font-size:14px;
+.empty{
+text-align:center;
+margin-top:120px;
+font-size:22px;
+opacity:.7
 }
-
-footer{text-align:center;padding:20px;color:#aaa}
 </style>
 </head>
-
 <body>
 
-<!-- TOP BAR -->
 <div class="top">
 <div class="logoBox">
 <img class="logo" src="https://i.postimg.cc/3w76Yfc0/file-00000000f0cc71faab033f0116f53261.jpg">
-<div class="title">PJ Store Web</div>
+<div style="font-size:14px;font-weight:bold">PJ Store Web</div>
 </div>
-<div onclick="openSaved()" style="font-size:22px;cursor:pointer">❤</div>
 </div>
 
-<!-- MAPS -->
+<div id="home">
+
+<div class="title">PJ Store</div>
+
 <div class="slider">
-<div class="track">
+<div class="track" id="track">
 <img src="https://i.postimg.cc/zXkJgfLD/IMG-20260218-194815-054.jpg">
 <img src="https://i.postimg.cc/N0KYS7dg/IMG-20260218-194851-468-2.jpg">
 </div>
 </div>
 
+<div class="dots">
+<span class="active"></span><span></span>
+</div>
+
+<div class="hero">PJ classical flutes shop</div>
 <button class="shopBtn" onclick="openShop()">Shop Now</button>
 
+</div>
+
 <!-- SHOP PAGE -->
-<div id="shop"></div>
+<div id="shop" class="hidden">
+<div class="header">
+<div onclick="closeShop()">←</div>
+<div onclick="openSaved()">❤</div>
+</div>
+
+<input class="search" placeholder="Search..." onkeyup="search(this.value)">
+<div class="list" id="list"></div>
+</div>
 
 <!-- SAVED PAGE -->
-<div id="saved"></div>
+<div id="saved" class="hidden">
+<div class="header">
+<div onclick="closeSaved()">←</div>
+</div>
 
-<footer>©2026 PJ Store</footer>
-
-<!-- CONTACT BAR -->
-<div class="bottom">
-<a href="https://wa.me/919476091829">WhatsApp</a>
-<a href="tel:+919434274060">Call</a>
-<a href="mailto:pjcompanyofficial@gmail.com">Email</a>
+<div id="savedList"></div>
+<div class="empty" id="empty">No products saved yet. Like products to see them here.</div>
 </div>
 
 <script>
+
+/* SLIDER RIGHT → LEFT */
+let i=0;
+setInterval(()=>{
+i=(i+1)%2;
+track.style.transform=`translateX(-${i*100}%)`;
+document.querySelectorAll(".dots span").forEach(d=>d.classList.remove("active"));
+document.querySelectorAll(".dots span")[i].classList.add("active");
+},2500);
+
+/* PRODUCTS */
 const products=[
-{name:"E Middle Flute",price:1100,size:"41cm",img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp",desc:"This premium E middle flute produces clear tone, smooth airflow, and accurate tuning. Designed for beginners and professionals, it offers comfortable grip, durable bamboo build, stable pitch response, and rich resonance for classical practice and performances."},
-
-{name:"D Middle Flute",price:1300,size:"45.5cm",img:"https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png",desc:"Expert crafted D middle flute made from seasoned bamboo providing warm resonance, precise tuning, easy fingering control, and elegant finish. Perfect for riyaaz, recordings, and stage use with balanced tone projection and reliable performance stability."},
-
-{name:"C# Middle Flute",price:1470,size:"46.3cm",img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg",desc:"Professional C sharp flute delivering expressive tonal depth, smooth note transitions, polished surface, and accurate pitch control. Ideal for musicians seeking responsive airflow, rich sound texture, and dependable quality for classical melodies."},
-
-{name:"C Middle Flute",price:1500,size:"50cm",img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png",desc:"Hand tuned C middle flute with deep tonal clarity, balanced blowing resistance, and strong bamboo body. Suitable for daily practice, live concerts, and studio recording, offering stability, resonance, and effortless fingering comfort."},
-
-{name:"A# Base Flute",price:1200,size:"56.5cm",img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png",desc:"A sharp base flute designed for deep bass resonance and powerful projection. Crafted for advanced players needing stable tuning, smooth response, and rich tonal depth for classical ragas and professional stage performance."},
-
-{name:"G# Base Flute",price:1200,size:"60cm",img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg",desc:"G sharp bass flute built with strong bamboo giving deep warm tone, steady pitch, and comfortable grip. Ideal for serious musicians seeking bold sound character, responsive airflow, and performance reliability."},
-
-{name:"G Base Flute",price:1800,size:"65.7cm",img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png",desc:"Premium G bass flute offering powerful low notes, stable tuning, smooth finish, and long durability. Crafted for professionals who need rich bass tone, effortless blowing, and consistent sound projection in performances."}
+{
+name:"E Middle Flute",
+price:1100,
+size:"41cm",
+img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp",
+desc:"This professional bamboo flute delivers balanced tone, smooth airflow response, stable tuning, and comfortable grip. Perfect for beginners and intermediate players practicing classical ragas, meditation music, recording sessions, and daily riyaaz with consistent sound quality."
+},
+{
+name:"D Middle Flute",
+price:1300,
+size:"45.5cm",
+img:"https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png",
+desc:"Handcrafted tuned flute producing rich resonance and warm tonal depth. Designed for classical performances, live concerts, recording studios, and dedicated learners seeking stable pitch control, breath efficiency, and smooth note transitions across full octave range."
+},
+{
+name:"C# Middle Flute",
+price:1470,
+size:"46.3cm",
+img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg",
+desc:"Precision crafted bansuri with bright tone clarity and excellent response. Ideal for classical practice, stage playing, studio recording, and meditation melodies. Produces stable notes, smooth pitch slides, and controlled airflow for expressive musical performance."
+},
+{
+name:"C Middle Flute",
+price:1500,
+size:"50cm",
+img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png",
+desc:"Long tuned bamboo flute designed for deep tonal richness and melodic flow. Excellent choice for classical artists, professionals, and serious learners wanting expressive sound, smooth fingering comfort, accurate tuning, and powerful resonance projection."
+},
+{
+name:"A# Base Flute",
+price:1200,
+size:"56.5cm",
+img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png",
+desc:"Low pitch bass flute producing deep meditative tones and calming vibrations. Ideal for spiritual music, background scoring, slow ragas, and relaxation sessions. Crafted bamboo body ensures durability, tuning stability, and comfortable long-play handling."
+},
+{
+name:"G# Base Flute",
+price:1200,
+size:"60cm",
+img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg",
+desc:"Extended bass bansuri offering warm deep resonance with powerful airflow response. Suitable for advanced musicians, recording artists, meditation performers, and classical instrumentalists needing rich tonal depth and stable pitch across low scale notes."
+},
+{
+name:"G Base Flute",
+price:1800,
+size:"65.7cm",
+img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png",
+desc:"Premium long bass flute delivering professional studio quality sound with strong resonance and deep tonal expression. Built for serious performers, concert players, recording sessions, and classical masters demanding powerful projection and smooth note transitions."
+}
 ];
 
-let saved=[];
-const shop=document.getElementById("shop");
-const savedPage=document.getElementById("saved");
+const list=document.getElementById("list");
 
-function renderShop(){
-shop.innerHTML="";
-products.forEach((p,i)=>{
-shop.innerHTML+=`
+function card(p){
+return `
 <div class="product">
-<div class="like ${saved.includes(i)?"liked":""}" onclick="toggleSave(${i})">❤</div>
+<div class="like" onclick="save('${p.name}',this)">❤</div>
 <img src="${p.img}">
 <h3>${p.name}</h3>
-₹${p.price}<br>Size: ${p.size}
-<div class="desc">${p.desc}</div>
-<button class="buy" onclick="buy(${i})">Buy via WhatsApp</button>
+Size: ${p.size}<br>
+₹${p.price}
+<p>${p.desc}</p>
+<button class="buy" onclick="buy('${p.name}','${p.price}','${p.size}')">Buy via WhatsApp</button>
 </div>`;
-});
 }
-renderShop();
 
-function openShop(){shop.style.display="block";savedPage.style.display="none";}
-function openSaved(){shop.style.display="none";savedPage.style.display="block";renderSaved();}
+function render(arr){
+list.innerHTML="";
+arr.forEach(p=>list.innerHTML+=card(p));
+}
+render(products);
 
-function toggleSave(i){
-if(saved.includes(i)){saved=saved.filter(x=>x!==i);}
-else{saved.push(i);}
-renderShop();renderSaved();
+/* NAV */
+function openShop(){home.classList.add("hidden");shop.classList.remove("hidden")}
+function closeShop(){shop.classList.add("hidden");home.classList.remove("hidden")}
+
+/* SEARCH */
+function search(v){
+v=v.toLowerCase();
+render(products.filter(p=>p.name.toLowerCase().includes(v)));
+}
+
+/* BUY */
+function buy(n,p,s){
+window.open(`https://wa.me/919476091829?text=I want to buy ${n} | Price ₹${p} | Size ${s}`);
+}
+
+/* SAVE SYSTEM */
+let saved=[];
+
+function save(name,el){
+let p=products.find(x=>x.name==name);
+if(!saved.includes(p)){
+saved.push(p);
+el.classList.add("liked");
+}
+renderSaved();
+}
+
+function openSaved(){
+savedPage.classList.remove("hidden");
+}
+
+function closeSaved(){
+savedPage.classList.add("hidden");
 }
 
 function renderSaved(){
-savedPage.innerHTML="";
+savedList.innerHTML="";
 if(saved.length===0){
-savedPage.innerHTML=`<div class="empty">No saved products yet</div>`;
+empty.style.display="block";
 return;
 }
-saved.forEach(i=>{
-let p=products[i];
-savedPage.innerHTML+=`
-<div class="product">
-<img src="${p.img}">
-<h3>${p.name}</h3>
-₹${p.price}<br>Size: ${p.size}
-<div class="desc">${p.desc}</div>
-<button class="buy" onclick="buy(${i})">Buy via WhatsApp</button>
-</div>`;
-});
+empty.style.display="none";
+saved.forEach(p=>savedList.innerHTML+=card(p));
 }
 
-function buy(i){
-let p=products[i];
-let msg=`I want ${p.name}
-Price ₹${p.price}
-Size ${p.size}`;
-window.open(`https://wa.me/919476091829?text=${encodeURIComponent(msg)}`);
-}
 </script>
-
 </body>
 </html>
