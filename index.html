@@ -7,147 +7,48 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#ff7a00">
-
 <style>
 body{margin:0;background:#000;color:#ffe7b0;font-family:Poppins}
 .hidden{display:none}
 
-/* TOP BAR */
-.top{
-position:fixed;
-top:0;width:100%;
-height:1.5cm;
-background:#ff7a00;
-display:flex;
-align-items:center;
-padding:0 15px;
-z-index:999;
-}
-.logoBox{display:flex;align-items:center;gap:10px}
+/* TOP */
+.top{position:fixed;top:0;width:100%;height:1.5cm;background:#ff7a00;display:flex;align-items:center;padding:0 15px;z-index:999;}
 .logo{width:42px;height:42px;border-radius:50%;border:2px solid white}
+.logoBox{display:flex;align-items:center;gap:10px}
 
 /* TITLE */
-.title{
-margin-top:2.3cm;
-text-align:center;
-font-size:55px;
-font-family:Great Vibes;
-}
+.title{margin-top:2.3cm;text-align:center;font-size:55px;font-family:Great Vibes}
 
 /* SLIDER */
-.slider{
-width:90%;
-margin:25px auto;
-overflow:hidden;
-border-radius:20px
-}
-.track{
-display:flex;
-transition:transform .8s ease
-}
-.track img{
-width:100%;
-height:auto;
-flex-shrink:0;
-object-fit:contain;
-}
+.slider{width:90%;margin:25px auto;overflow-x:auto;border-radius:20px}
+.track{display:flex;gap:10px}
+.track img{width:100%;border-radius:20px}
 
-/* dots */
-.dots{text-align:center}
-.dots span{width:8px;height:8px;background:#555;display:inline-block;margin:4px;border-radius:50%}
-.active{background:#ff7a00;transform:scale(1.3)}
+/* INFO */
+.points{width:90%;margin:10px auto;background:#111;padding:15px;border-radius:15px;font-size:14px;line-height:1.7}
 
-.hero{text-align:center;font-size:28px;margin-top:20px}
+/* BUTTON */
+.shopBtn{display:block;margin:20px auto;background:linear-gradient(#ff9a2f,#ff7a00);color:white;border:none;padding:15px 40px;border-radius:35px;font-size:20px;box-shadow:0 6px 0 #c45c00}
+.shopBtn:active{transform:translateY(6px);box-shadow:0 0 0}
 
-/* 3D BUTTON */
-.shopBtn{
-display:block;
-margin:20px auto;
-background:linear-gradient(#ff9a2f,#ff7a00);
-color:white;
-border:none;
-padding:15px 40px;
-border-radius:35px;
-font-size:20px;
-box-shadow:0 6px 0 #c45c00;
-transition:.15s;
-}
-.shopBtn:active{
-transform:translateY(6px);
-box-shadow:0 0 0 #c45c00;
-}
-
-/* NEW PRODUCTS */
+/* PRODUCTS */
 .sectionTitle{text-align:center;font-size:25px;margin-top:40px}
 .scroll{display:flex;overflow-x:auto;gap:20px;padding:20px}
-
-.card{
-min-width:250px;
-background:#111;
-border-radius:18px;
-overflow:hidden;
-}
+.card{min-width:250px;background:#111;border-radius:18px;overflow:hidden}
 .card img{width:100%}
-
-.cardInfo{
-padding:10px;
-text-align:center
-}
-
-.cardDetail{
-background:#ff7a00;
-color:white;
-padding:10px;
-font-size:14px
-}
-
-/* FOOTER */
-.footer{text-align:center;margin:80px 0}
-.contact{display:flex;justify-content:center;gap:25px;margin-bottom:20px}
-.contact a{background:#ff7a00;color:white;padding:10px 18px;border-radius:25px;text-decoration:none}
+.cardInfo{padding:10px;text-align:center}
+.cardDetail{background:#ff7a00;color:white;padding:10px;font-size:14px}
 
 /* SHOP */
-#shop{
-position:fixed;
-top:0;
-width:100%;
-height:100%;
-background:black;
-overflow:auto;
-padding:1.7cm 0 120px;
-z-index:9999
-}
-
+#shop,#cartPage{position:fixed;top:0;width:100%;height:100%;background:black;overflow:auto;padding:1.7cm 0 120px;z-index:9999}
 .header{display:flex;justify-content:space-between;padding:10px 20px;font-size:26px}
 .search{width:90%;margin:10px auto;display:block;padding:10px;border-radius:20px;border:none}
 .list{padding:20px;display:flex;flex-direction:column;gap:20px}
 
-.product{background:#111;border-radius:18px;padding:15px;position:relative}
+.product{background:#111;border-radius:18px;padding:15px}
 .product img{width:100%;border-radius:15px}
-.like{position:absolute;top:15px;right:20px;font-size:22px;cursor:pointer;color:white}
-.liked{color:red}
 .buy{background:#ff7a00;border:none;padding:12px;width:100%;margin-top:10px;border-radius:20px;color:white;font-weight:bold}
-
-/* SAVED */
-#saved{
-position:fixed;
-top:0;
-width:100%;
-height:100%;
-background:black;
-overflow:auto;
-padding:1.7cm 0 120px;
-z-index:99999
-}
-
-.empty{
-text-align:center;
-margin-top:120px;
-font-size:22px;
-opacity:.7
-}
+.desc{font-size:14px;margin-top:5px;opacity:.8}
 </style>
 </head>
 <body>
@@ -157,6 +58,7 @@ opacity:.7
 <img class="logo" src="https://i.postimg.cc/3w76Yfc0/file-00000000f0cc71faab033f0116f53261.jpg">
 <div style="font-size:14px;font-weight:bold">PJ Store Web</div>
 </div>
+<div onclick="openCart()" style="margin-left:auto;font-size:22px;cursor:pointer">🛒</div>
 </div>
 
 <div id="home">
@@ -164,112 +66,78 @@ opacity:.7
 <div class="title">PJ Store</div>
 
 <div class="slider">
-<div class="track" id="track">
+<div class="track">
 <img src="https://i.postimg.cc/zXkJgfLD/IMG-20260218-194815-054.jpg">
 <img src="https://i.postimg.cc/N0KYS7dg/IMG-20260218-194851-468-2.jpg">
-<img src="https://i.postimg.cc/mkyGCdgq/IMG-20260218-195846-240.jpg">
 </div>
 </div>
 
-<div class="dots">
-<span class="active"></span><span></span><span></span>
+<div class="points">
+• Andaman ek sundar dweep samuh hai jahan traditional music ka culture strong hai.<br>
+• Ramnagar mein bamboo flute manufacturing hota hai.<br>
+• Dispatch Subashgram Diglipur se kiya jata hai.
 </div>
 
-<div class="hero">PJ classical flutes shop</div>
 <button class="shopBtn" onclick="openShop()">Shop Now</button>
 
-<div class="sectionTitle">New Products</div>
-
-<div class="scroll">
-
-<div class="card">
-<img src="https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp">
-<div class="cardInfo">E Middle Flute ₹1100</div>
-<div class="cardDetail">Balanced tone bamboo flute perfect for beginners and classical players.</div>
 </div>
 
-<div class="card">
-<img src="https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png">
-<div class="cardInfo">D Middle Flute ₹1300</div>
-<div class="cardDetail">Rich resonance tuned flute suitable for performance and riyaaz.</div>
-</div>
-
-<div class="card">
-<img src="https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg">
-<div class="cardInfo">C# Middle ₹1470</div>
-<div class="cardDetail">Bright tone flute crafted for classical precision and clarity.</div>
-</div>
-
-</div>
-
-<div class="footer">
-<div class="contact">
-<a href="https://wa.me/919476091829">WhatsApp</a>
-<a href="tel:+919434274060">Call</a>
-<a href="mailto:pjcompanyofficial@gmail.com">Email</a>
-</div>
-©2026 PJ Store
-</div>
-
-</div>
-
-<!-- SHOP -->
+<!-- SHOP PAGE -->
 <div id="shop" class="hidden">
 <div class="header">
 <div onclick="closeShop()">←</div>
-<div onclick="openSaved()">❤</div>
+<div>Shop</div>
 </div>
 
 <input class="search" placeholder="Search..." onkeyup="search(this.value)">
 <div class="list" id="list"></div>
 </div>
 
-<!-- SAVED -->
-<div id="saved" class="hidden">
+<!-- CART PAGE -->
+<div id="cartPage" class="hidden">
 <div class="header">
-<div onclick="closeSaved()">←</div>
+<div onclick="closeCart()">←</div>
+<div>Cart</div>
 </div>
 
-<input class="search" placeholder="Search saved..." onkeyup="searchSaved(this.value)">
-<div id="savedList"></div>
-<div class="empty" id="empty">No products saved yet</div>
+<div id="cartItems" style="padding:20px"></div>
+<h2 style="text-align:center">Total ₹ <span id="total">0</span></h2>
+
+<button class="shopBtn" onclick="sendOrder()">Order on WhatsApp</button>
+
+<button class="shopBtn" onclick="window.open('https://www.indiapost.gov.in/_layouts/15/dop.portal.tracking/trackconsignment.aspx')">
+Track Order
+</button>
 </div>
 
 <script>
-
-/* SLIDER */
-let i=0;
-setInterval(()=>{
-i=(i+1)%3;
-track.style.transform=`translateX(-${i*100}%)`;
-document.querySelectorAll(".dots span").forEach(d=>d.classList.remove("active"));
-document.querySelectorAll(".dots span")[i].classList.add("active");
-},2500);
-
-/* PRODUCTS */
 const products=[
-{name:"E Middle Flute",price:1100,size:"41cm",img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp"},
-{name:"D Middle Flute",price:1300,size:"45.5cm",img:"https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png"},
-{name:"C# Middle Flute",price:1470,size:"46.3cm",img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg"},
-{name:"C Middle Flute",price:1500,size:"50cm",img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png"},
-{name:"A# Base Flute",price:1200,size:"56.5cm",img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png"},
-{name:"G# Base Flute",price:1200,size:"60cm",img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg"},
-{name:"G Base Flute",price:1800,size:"65.7cm",img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png"}
+{name:"E Middle Flute",price:1100,size:"41cm",desc:"Soft tone flute ideal for beginners.",img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp"},
+{name:"D Middle Flute",price:1300,size:"45.5cm",desc:"Professional tuned classical flute.",img:"https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png"},
+{name:"C# Middle Flute",price:1470,size:"46.3cm",desc:"Sharp pitch clarity for stage.",img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg"},
+{name:"C Middle Flute",price:1500,size:"50cm",desc:"Balanced tone bamboo flute.",img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png"},
+{name:"A# Base Flute",price:1200,size:"56.5cm",desc:"Deep bass vibration tone.",img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png"},
+{name:"G# Base Flute",price:1200,size:"60cm",desc:"Perfect for alaap.",img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg"},
+{name:"G Base Flute",price:1800,size:"65.7cm",desc:"Concert bass flute.",img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png"}
 ];
 
 const list=document.getElementById("list");
+let cart=[];
 
+/* RENDER PRODUCTS */
 function render(arr){
 list.innerHTML="";
 arr.forEach(p=>{
 list.innerHTML+=`
 <div class="product">
-<div class="like" onclick="save('${p.name}',this)">❤</div>
 <img src="${p.img}">
 <h3>${p.name}</h3>
 Size: ${p.size}<br>
 ₹${p.price}
-<button class="buy" onclick="buy('${p.name}','${p.price}','${p.size}')">Buy via WhatsApp</button>
+<div class="desc">${p.desc}</div>
+
+<button class="buy" onclick="addCart('${p.name}')">Add to Cart</button>
+<button class="buy" onclick="buyNow('${p.name}')">Buy Now</button>
 </div>`;
 });
 }
@@ -285,38 +153,71 @@ v=v.toLowerCase();
 render(products.filter(p=>p.name.toLowerCase().includes(v)));
 }
 
-/* BUY */
-function buy(n,p,s){
-window.open(`https://wa.me/919476091829?text=I want to buy ${n} | Price ₹${p} | Size ${s}`);
-}
-
-/* SAVE */
-let saved=[];
-function save(name,el){
+/* CART */
+function addCart(name){
+let item=cart.find(p=>p.name==name);
+if(item){item.qty++}
+else{
 let p=products.find(x=>x.name==name);
-if(!saved.includes(p)){saved.push(p);el.classList.add("liked")}
-renderSaved();
+cart.push({...p,qty:1});
 }
-function openSaved(){savedPage.classList.remove("hidden")}
-function closeSaved(){savedPage.classList.add("hidden")}
-
-function renderSaved(arr=saved){
-savedList.innerHTML="";
-if(arr.length==0){empty.style.display="block";return}
-empty.style.display="none";
-render(arr);
-savedList.innerHTML=list.innerHTML;
+alert("Added to cart");
 }
 
-function searchSaved(v){
-v=v.toLowerCase();
-renderSaved(saved.filter(p=>p.name.toLowerCase().includes(v)));
+function openCart(){cartPage.classList.remove("hidden");renderCart();}
+function closeCart(){cartPage.classList.add("hidden")}
+
+function renderCart(){
+cartItems.innerHTML="";
+let total=0;
+
+cart.forEach(p=>{
+total+=p.price*p.qty;
+cartItems.innerHTML+=`
+<div class="product">
+<h3>${p.name}</h3>
+₹${p.price}
+
+<div style="display:flex;gap:10px;margin-top:10px">
+<button onclick="changeQty('${p.name}',-1)">−</button>
+<b>${p.qty}</b>
+<button onclick="changeQty('${p.name}',1)">+</button>
+<button onclick="removeItem('${p.name}')">Remove</button>
+</div>
+</div>`;
+});
+
+document.getElementById("total").innerText=total;
 }
 
-/* SW */
-if("serviceWorker" in navigator){
-navigator.serviceWorker.register("sw.js");
+function changeQty(name,val){
+let item=cart.find(p=>p.name==name);
+item.qty+=val;
+if(item.qty<=0) cart=cart.filter(p=>p.name!=name);
+renderCart();
+}
+
+function removeItem(name){
+cart=cart.filter(p=>p.name!=name);
+renderCart();
+}
+
+function sendOrder(){
+if(cart.length==0){alert("Cart empty");return;}
+
+let msg="Order Details:%0A";
+cart.forEach(p=>{
+msg+=`${p.name} x${p.qty} = ₹${p.price*p.qty}%0A`;
+});
+
+window.open(`https://wa.me/919476091829?text=${msg}`);
+}
+
+function buyNow(name){
+addCart(name);
+openCart();
 }
 </script>
+
 </body>
 </html>
