@@ -5,49 +5,46 @@
 <title>PJ Flute Shop</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
-body{margin:0;font-family:Poppins, sans-serif;background:#111;color:white}
-header{height:100vh;background:url('https://i.postimg.cc/C1VJ0RPv/1771328655074.jpg') center/cover no-repeat;display:flex;align-items:center;justify-content:center;position:relative}
-header::after{content:"";position:absolute;bottom:0;left:0;width:100%;height:60%;background:linear-gradient(transparent,#000)}
-.enterBtn{position:absolute;bottom:120px;padding:18px 40px;font-size:22px;border:none;border-radius:40px;background:linear-gradient(145deg,#ff7a00,#ffae00);color:#000;font-weight:bold;cursor:pointer;box-shadow:0 10px 25px rgba(0,0,0,.6);transition:.3s}
-.enterBtn:hover{transform:scale(1.08)}
-.page{display:none;padding:40px}
-.active{display:block}
-.grid{display:grid;gap:25px}
-.product{display:grid;grid-template-columns:200px 1fr;background:#1c1c1c;border-radius:20px;padding:20px;align-items:center;box-shadow:0 0 15px #000;transition:.3s}
-.product:hover{transform:scale(1.02)}
-.product img{width:200px;border-radius:15px}
-.title{font-size:22px;font-weight:600}
-.price{color:#ffa726;font-size:20px;margin:5px 0}
-.desc{font-size:14px;color:#ccc}
-.btns{margin-top:10px}
-.btn{padding:10px 18px;margin-right:10px;border:none;border-radius:30px;cursor:pointer;font-weight:600;background:linear-gradient(145deg,#ff7a00,#ffae00);color:black;box-shadow:0 5px 15px #000;transition:.25s}
-.btn:hover{transform:scale(1.08)}
-.heart{font-size:26px;cursor:pointer;transition:.3s;display:inline-block}
-.heart.saved{color:red;animation:pop .4s}
-@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.6)}100%{transform:scale(1)}}
-.floating{position:fixed;bottom:90px;right:20px;display:flex;flex-direction:column;gap:15px;z-index:10}
-.floating a{width:65px;height:65px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#ff7a00,#ffae00);box-shadow:0 8px 20px #000;transition:.3s}
-.floating a:hover{transform:scale(1.15)}
-.floating img{width:32px}
-.topbar{display:flex;justify-content:space-between;margin-bottom:25px}
-.navbtn{padding:12px 25px;border:none;border-radius:30px;font-weight:600;background:linear-gradient(145deg,#ff7a00,#ffae00);cursor:pointer}
+body{margin:0;font-family:Poppins,sans-serif;background:#111;color:white}/* HERO */ header{height:100vh;background:url('https://i.postimg.cc/C1VJ0RPv/1771328655074.jpg') center/cover no-repeat;display:flex;align-items:center;justify-content:center;position:relative} header:after{content:"";position:absolute;bottom:0;left:0;width:100%;height:65%;background:linear-gradient(transparent,#000)} .enterBtn{position:absolute;bottom:120px;padding:20px 55px;font-size:24px;border:none;border-radius:50px;background:linear-gradient(145deg,#ff7a00,#ffae00);color:#000;font-weight:700;cursor:pointer;box-shadow:0 15px 35px rgba(0,0,0,.8),inset 0 2px 5px #fff5;transition:.35s} .enterBtn:hover{transform:scale(1.1) translateY(-5px)}
+
+/* PAGES */ .page{display:none;padding:40px;animation:fade .6s} .active{display:block} @keyframes fade{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+
+/* LIST */ .grid{display:grid;gap:25px} .product{display:grid;grid-template-columns:220px 1fr;background:#1b1b1b;border-radius:25px;padding:22px;align-items:center;box-shadow:0 0 25px #000;transition:.35s} .product:hover{transform:scale(1.025)} .product img{width:220px;border-radius:18px} .title{font-size:24px;font-weight:600} .price{color:#ffa726;font-size:21px;margin:6px 0} .desc{font-size:14px;color:#bbb}
+
+/* BUTTONS */ .btns{margin-top:14px} .btn{padding:12px 22px;margin-right:12px;border:none;border-radius:35px;cursor:pointer;font-weight:600;background:linear-gradient(145deg,#ff7a00,#ffae00);color:black;box-shadow:0 8px 0 #c45500,0 8px 20px #000;transition:.2s} .btn:active{transform:translateY(6px);box-shadow:0 2px 0 #c45500}
+
+/* HEART */ .heart{font-size:28px;cursor:pointer;display:inline-block;transition:.3s} .heart.saved{color:red} .heart.pop{animation:heartPop .6s} @keyframes heartPop{ 0%{transform:scale(1)} 30%{transform:scale(1.6)} 60%{transform:scale(.8)} 100%{transform:scale(1)} }
+
+/* FLOAT CONTACT */ .floating{position:fixed;bottom:110px;right:25px;display:flex;flex-direction:column;gap:18px;z-index:10} .floating a{width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#ff7a00,#ffae00);box-shadow:0 10px 0 #c45500,0 15px 30px #000;transition:.25s} .floating a:hover{transform:translateY(-8px) scale(1.1)} .floating img{width:34px}
+
+/* TOPBAR */ .topbar{display:flex;justify-content:space-between;margin-bottom:30px;align-items:center} .navbtn{padding:14px 30px;border:none;border-radius:40px;font-weight:600;background:linear-gradient(145deg,#ff7a00,#ffae00);cursor:pointer;box-shadow:0 8px 0 #c45500} .navbtn:active{transform:translateY(6px);box-shadow:0 2px 0 #c45500}
+
 </style>
 </head>
 <body><header id="home">
 <button class="enterBtn" onclick="openPage('shop')">Enter Shop</button>
-</header><section id="shop" class="page">
+</header><!-- SHOP --><section id="shop" class="page">
 <div class="topbar">
 <h2>Our Flutes</h2>
-<button class="navbtn" onclick="openPage('saved')">Saved Items</button>
+<div>
+<button class="navbtn" onclick="openPage('saved')">Saved</button>
+<button class="navbtn" onclick="openPage('cart')">Cart (<span id='cartCount'>0</span>)</button>
+</div>
 </div>
 <div class="grid" id="productList"></div>
-</section><section id="saved" class="page">
+</section><!-- SAVED --><section id="saved" class="page">
 <div class="topbar">
 <h2>Saved Products</h2>
-<button class="navbtn" onclick="openPage('shop')">Back to Shop</button>
+<button class="navbtn" onclick="openPage('shop')">Back</button>
 </div>
 <div class="grid" id="savedList"></div>
-</section><div class="floating">
+</section><!-- CART --><section id="cart" class="page">
+<div class="topbar">
+<h2>Your Cart</h2>
+<button class="navbtn" onclick="openPage('shop')">Back</button>
+</div>
+<div class="grid" id="cartList"></div>
+</section><!-- CONTACT FLOAT --><div class="floating">
 <a href="https://wa.me/91XXXXXXXXXX"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png"></a>
 <a href="tel:+91XXXXXXXXXX"><img src="https://cdn-icons-png.flaticon.com/512/724/724664.png"></a>
 <a href="mailto:youremail@gmail.com"><img src="https://cdn-icons-png.flaticon.com/512/561/561127.png"></a>
@@ -63,8 +60,13 @@ const products=[
 ];
 
 let saved=[];
+let cart=[];
 
-function openPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('home').style.display='none';document.getElementById(id).classList.add('active');}
+function openPage(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById('home').style.display='none';
+document.getElementById(id).classList.add('active');
+}
 
 function render(){
 const list=document.getElementById('productList');
@@ -75,15 +77,16 @@ list.innerHTML+=`<div class='product'>
 <div>
 <div class='title'>${x.n}</div>
 <div class='price'>₹${x.p}</div>
-<div class='desc'>Professional tuned bamboo flute • Size ${x.s} • Rich bass tone • Smooth finish • Stage ready instrument</div>
+<div class='desc'>Professional tuned bamboo flute • Size ${x.s} • Rich tone • Smooth finish • Perfect for concerts & practice</div>
 <div class='btns'>
+<button class='btn' onclick='addCart(${i})'>Add to Cart</button>
 <button class='btn'>Buy Now</button>
-<button class='btn'>Add to Cart</button>
 <span class='heart ${saved.includes(i)?"saved":""}' onclick='toggleSave(${i},this)'>❤</span>
 </div>
 </div>
 </div>`});
 
+/* SAVED */
 const sList=document.getElementById('savedList');
 sList.innerHTML="";
 saved.forEach(i=>{
@@ -93,14 +96,37 @@ sList.innerHTML+=`<div class='product'>
 <div>
 <div class='title'>${x.n}</div>
 <div class='price'>₹${x.p}</div>
-<div class='desc'>Professional tuned bamboo flute • Size ${x.s} • Premium saved item</div>
-<div class='btns'><button class='btn'>Buy Now</button></div>
+<div class='desc'>Size ${x.s} • Saved favourite item</div>
+<div class='btns'><button class='btn' onclick='addCart(${i})'>Add to Cart</button></div>
 </div></div>`});
+
+/* CART */
+const cList=document.getElementById('cartList');
+cList.innerHTML="";
+cart.forEach(i=>{
+let x=products[i];
+cList.innerHTML+=`<div class='product'>
+<img src='${x.img}'>
+<div>
+<div class='title'>${x.n}</div>
+<div class='price'>₹${x.p}</div>
+<div class='desc'>Size ${x.s}</div>
+</div></div>`});
+
+document.getElementById('cartCount').innerText=cart.length;
 }
 
 function toggleSave(i,el){
-if(saved.includes(i))saved=saved.filter(x=>x!=i);else saved.push(i);
+if(saved.includes(i)) saved=saved.filter(x=>x!=i);
+else saved.push(i);
+el.classList.add('pop');
+setTimeout(()=>el.classList.remove('pop'),600);
 el.classList.toggle('saved');
+render();
+}
+
+function addCart(i){
+cart.push(i);
 render();
 }
 
