@@ -2,106 +2,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PJ Shop Web</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<title>PJ Flute Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
-body{margin:0;font-family:Segoe UI,Arial;background:#000;color:#fff}
-.page{display:none;min-height:100vh}
+body{margin:0;font-family:Poppins, sans-serif;background:#111;color:white}
+header{height:100vh;background:url('https://i.postimg.cc/C1VJ0RPv/1771328655074.jpg') center/cover no-repeat;display:flex;align-items:center;justify-content:center;position:relative}
+header::after{content:"";position:absolute;bottom:0;left:0;width:100%;height:60%;background:linear-gradient(transparent,#000)}
+.enterBtn{position:absolute;bottom:120px;padding:18px 40px;font-size:22px;border:none;border-radius:40px;background:linear-gradient(145deg,#ff7a00,#ffae00);color:#000;font-weight:bold;cursor:pointer;box-shadow:0 10px 25px rgba(0,0,0,.6);transition:.3s}
+.enterBtn:hover{transform:scale(1.08)}
+.page{display:none;padding:40px}
 .active{display:block}
-.center{display:flex;justify-content:center;align-items:center;text-align:center}/* HOME */ #home{position:relative;overflow:hidden;background:#000} .logoBG{ position:absolute; top:0; left:0; width:100%; height:100%; background:url('https://i.postimg.cc/4NR4TBwn/1771328655074.png') no-repeat center top/contain; opacity:.35; mask-image:linear-gradient(to bottom, black 40%, transparent 100%); -webkit-mask-image:linear-gradient(to bottom, black 40%, transparent 100%); } .homeContent{position:relative;z-index:2;margin-top:120px} .homeContent h1{color:orange;font-size:44px;font-family:cursive;margin:0} .homeContent h2{color:#ffb347;font-style:italic;margin:15px 0 40px} .shopbtn{background:orange;border:none;padding:16px 45px;border-radius:50px;font-size:20px;font-weight:bold;box-shadow:0 0 25px orange;cursor:pointer;transition:.3s} .shopbtn:hover{transform:scale(1.05);box-shadow:0 0 40px orange}
-
-.bottomBar{position:absolute;bottom:60px;width:100%;text-align:center} .iconRow{display:flex;justify-content:center;gap:28px;margin-bottom:12px} .circle{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;background:rgba(255,255,255,.06);backdrop-filter:blur(8px);transition:.3s} .circle:hover{transform:scale(1.1)} .wh{color:#25D366;border:1px solid #25D366} .call{color:orange;border:1px solid orange} .mail{color:#4da6ff;border:1px solid #4da6ff}
-
-/* SHOP */ header{background:#111;padding:12px;text-align:center;border-bottom:2px solid orange;position:sticky;top:0;z-index:5} .search{margin-top:10px;padding:12px;width:92%;max-width:420px;border-radius:30px;border:none;font-size:15px} .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;padding:15px} .card{background:#141414;border-radius:20px;padding:12px;box-shadow:0 0 18px rgba(255,140,0,.15);position:relative;transition:.3s} .card:hover{transform:translateY(-4px)} .card img{width:100%;border-radius:14px} .price{color:orange;font-weight:bold;font-size:18px} .size{font-size:12px;color:#ffcc80;margin-bottom:4px} .buy{background:orange;color:#000;border:none;padding:12px;border-radius:30px;width:100%;font-weight:bold;margin-top:6px;cursor:pointer} .heart{position:absolute;right:14px;bottom:88px;font-size:22px;color:#777;cursor:pointer;transition:.4s} .heart.liked{color:red;transform:scale(1.3) rotate(15deg)} .topbar{display:flex;justify-content:space-between;align-items:center;padding:10px} .icon{font-size:22px;cursor:pointer}
-
-/* SAVED */ #savedList{padding:15px} .msg{opacity:.7;text-align:center;margin-top:60px} </style>
-
+.grid{display:grid;gap:25px}
+.product{display:grid;grid-template-columns:200px 1fr;background:#1c1c1c;border-radius:20px;padding:20px;align-items:center;box-shadow:0 0 15px #000;transition:.3s}
+.product:hover{transform:scale(1.02)}
+.product img{width:200px;border-radius:15px}
+.title{font-size:22px;font-weight:600}
+.price{color:#ffa726;font-size:20px;margin:5px 0}
+.desc{font-size:14px;color:#ccc}
+.btns{margin-top:10px}
+.btn{padding:10px 18px;margin-right:10px;border:none;border-radius:30px;cursor:pointer;font-weight:600;background:linear-gradient(145deg,#ff7a00,#ffae00);color:black;box-shadow:0 5px 15px #000;transition:.25s}
+.btn:hover{transform:scale(1.08)}
+.heart{font-size:26px;cursor:pointer;transition:.3s;display:inline-block}
+.heart.saved{color:red;animation:pop .4s}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.6)}100%{transform:scale(1)}}
+.floating{position:fixed;bottom:90px;right:20px;display:flex;flex-direction:column;gap:15px;z-index:10}
+.floating a{width:65px;height:65px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#ff7a00,#ffae00);box-shadow:0 8px 20px #000;transition:.3s}
+.floating a:hover{transform:scale(1.15)}
+.floating img{width:32px}
+.topbar{display:flex;justify-content:space-between;margin-bottom:25px}
+.navbtn{padding:12px 25px;border:none;border-radius:30px;font-weight:600;background:linear-gradient(145deg,#ff7a00,#ffae00);cursor:pointer}
+</style>
 </head>
-<body><!-- HOME --><div id="home" class="page active center">
-<div class="logoBG"></div><div class="homeContent">
-<h1>PJ shop</h1>
-<h2>PJ classical flute shop</h2>
-<button class="shopbtn" onclick="openPage('shop')">Shop Now</button>
-</div><div class="bottomBar">
-<div class="iconRow">
-<div class="circle wh" onclick="wa()"><i class="fab fa-whatsapp"></i></div>
-<div class="circle call" onclick="callNow()"><i class="fas fa-phone"></i></div>
-<div class="circle mail" onclick="mailNow()"><i class="fas fa-envelope"></i></div>
-</div>
-<small>©2026 PJ Shop Web</small>
-</div>
-</div><!-- SHOP --><div id="shop" class="page">
-<header>
+<body><header id="home">
+<button class="enterBtn" onclick="openPage('shop')">Enter Shop</button>
+</header><section id="shop" class="page">
 <div class="topbar">
-<span class="icon" onclick="openPage('home')"><i class="fas fa-arrow-left"></i></span>
-<b>PJ Shop</b>
-<span class="icon" onclick="openPage('saved')"><i class="far fa-heart"></i></span>
+<h2>Our Flutes</h2>
+<button class="navbtn" onclick="openPage('saved')">Saved Items</button>
 </div>
-<input class="search" placeholder="Search flute or price..." onkeyup="search(this.value)">
-</header><div class="grid" id="products"></div>
-</div><!-- SAVED --><div id="saved" class="page">
-<header>
+<div class="grid" id="productList"></div>
+</section><section id="saved" class="page">
 <div class="topbar">
-<span class="icon" onclick="openPage('shop')"><i class="fas fa-arrow-left"></i></span>
-<b>Saved Items</b>
-<span></span>
+<h2>Saved Products</h2>
+<button class="navbtn" onclick="openPage('shop')">Back to Shop</button>
 </div>
-</header>
-<div id="savedList"></div>
+<div class="grid" id="savedList"></div>
+</section><div class="floating">
+<a href="https://wa.me/91XXXXXXXXXX"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png"></a>
+<a href="tel:+91XXXXXXXXXX"><img src="https://cdn-icons-png.flaticon.com/512/724/724664.png"></a>
+<a href="mailto:youremail@gmail.com"><img src="https://cdn-icons-png.flaticon.com/512/561/561127.png"></a>
 </div><script>
-const data=[
-{name:"E Middle Flute",price:1100,size:"41cm",img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp"},
-{name:"D Middle Flute",price:1300,size:"45.5cm",img:"https://i.postimg.cc/zX0H0sSS/1771409161124.jpg"},
-{name:"C# Middle Flute",price:1470,size:"46.3cm",img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg"},
-{name:"C Middle Flute",price:1500,size:"50cm",img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png"},
-{name:"A# Bass Flute",price:1200,size:"56.5cm",img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png"},
-{name:"G# Bass Flute",price:1200,size:"60cm",img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg"},
-{name:"G Bass Flute",price:1800,size:"65.7cm",img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png"}
+const products=[
+{n:"E Middle Flute",p:1100,s:"41cm",img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp"},
+{n:"D Middle Flute",p:1300,s:"45.5cm",img:"https://i.postimg.cc/zX0H0sSS/1771409161124.jpg"},
+{n:"C# Middle Flute",p:1470,s:"46.3cm",img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg"},
+{n:"C Middle Flute",p:1500,s:"50cm",img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png"},
+{n:"A# Base Flute",p:1200,s:"56.5cm",img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png"},
+{n:"G# Base Flute",p:1200,s:"60cm",img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg"},
+{n:"G Base Flute",p:1800,s:"65.7cm",img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png"}
 ];
 
 let saved=[];
 
-function openPage(id){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-if(id==='saved')renderSaved();
-}
+function openPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('home').style.display='none';document.getElementById(id).classList.add('active');}
 
-function render(list=data){
-let html="";
-list.forEach((p,i)=>{
-html+=`<div class="card">
-<img src="${p.img}">
-<h4>${p.name}</h4>
-<div class="size">Size: ${p.size}</div>
-<div class="price">₹${p.price}</div>
-<div class="heart ${saved.includes(i)?'liked':''}" onclick="like(${i},this)"><i class="fas fa-heart"></i></div>
-<button class="buy" onclick="buy('${p.name}',${p.price})">Buy for WP</button>
+function render(){
+const list=document.getElementById('productList');
+list.innerHTML="";
+products.forEach((x,i)=>{
+list.innerHTML+=`<div class='product'>
+<img src='${x.img}'>
+<div>
+<div class='title'>${x.n}</div>
+<div class='price'>₹${x.p}</div>
+<div class='desc'>Professional tuned bamboo flute • Size ${x.s} • Rich bass tone • Smooth finish • Stage ready instrument</div>
+<div class='btns'>
+<button class='btn'>Buy Now</button>
+<button class='btn'>Add to Cart</button>
+<span class='heart ${saved.includes(i)?"saved":""}' onclick='toggleSave(${i},this)'>❤</span>
+</div>
+</div>
 </div>`});
-products.innerHTML=html;
+
+const sList=document.getElementById('savedList');
+sList.innerHTML="";
+saved.forEach(i=>{
+let x=products[i];
+sList.innerHTML+=`<div class='product'>
+<img src='${x.img}'>
+<div>
+<div class='title'>${x.n}</div>
+<div class='price'>₹${x.p}</div>
+<div class='desc'>Professional tuned bamboo flute • Size ${x.s} • Premium saved item</div>
+<div class='btns'><button class='btn'>Buy Now</button></div>
+</div></div>`});
 }
+
+function toggleSave(i,el){
+if(saved.includes(i))saved=saved.filter(x=>x!=i);else saved.push(i);
+el.classList.toggle('saved');
 render();
-
-function buy(n,p){window.open(`https://wa.me/919476091829?text=I want to buy ${n} for ₹${p}`)}
-
-function like(i,el){
-if(!saved.includes(i)){saved.push(i);el.classList.add('liked');}
 }
 
-function renderSaved(){
-if(saved.length==0){savedList.innerHTML='<div class="msg">You have not liked any product yet.</div>';return}
-let h="";
-saved.forEach(i=>{let p=data[i];h+=`<div class='card'><img src='${p.img}'><h4>${p.name}</h4><div class='price'>₹${p.price}</div></div>`});
-savedList.innerHTML=h;
-}
-
-function search(q){
-q=q.toLowerCase();
-render(data.filter(p=>p.name.toLowerCase().includes(q)||String(p.price).includes(q)));
-}
-
-function wa(){window.open("https://wa.me/919476091829?text=hey I am interested in shopping")}
-function callNow(){window.location.href="tel:+919434274060"}
-function mailNow(){window.location.href="mailto:pjcompanyofficial@gmail.com?subject=Shopping&body=hey I am interested in shopping"}
+render();
 </script></body>
 </html>
