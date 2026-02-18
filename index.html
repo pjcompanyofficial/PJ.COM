@@ -3,111 +3,157 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>PJ Shopping Web</title>
+<title>PJ Company 3D Buttons</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
-
 * { box-sizing: border-box; margin:0; padding:0;}
 body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow:hidden; background:#ffe5f0; perspective:1200px; }
 
-/* Background patterns */
-#background { position:fixed; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:-2; }
-.pattern{ position:absolute; width:100px; height:100px; background: radial-gradient(circle at 30% 30%, #ff0080, #ffdf00); border-radius:50%; opacity:0.7; }
-.bubble{ position:absolute; bottom:-50px; width:20px; height:20px; background: rgba(255,255,255,0.5); border-radius:50%; animation: rise linear infinite; }
-@keyframes rise{ 0% { transform: translateY(0) scale(0.5); opacity:0.6; } 100% { transform: translateY(-110vh) scale(1); opacity:0; } }
-
-/* Main heading */
-.main-title{
-    position:absolute;
-    top:20px; left:50%;
-    transform:translateX(-50%);
-    font-size:60px; /* Bigger size */
-    font-weight:bold;
-    color:orange;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-    z-index:10;
+/* Background container */
+#background {
+    position:fixed; top:0; left:0; width:100%; height:100%;
+    overflow:hidden; z-index:-2;
 }
 
-/* Shopping Section */
+/* Patterns inside background */
+.pattern{
+    position:absolute; width:100px; height:100px;
+    background: radial-gradient(circle at 30% 30%, #ff0080, #ffdf00);
+    border-radius:50%;
+    opacity:0.7;
+}
+
+/* Bubbles inside background */
+.bubble{
+    position:absolute; bottom:-50px;
+    width:20px; height:20px; background: rgba(255,255,255,0.5);
+    border-radius:50%;
+    animation: rise linear infinite;
+}
+@keyframes rise{
+    0% { transform: translateY(0) scale(0.5); opacity:0.6; }
+    100% { transform: translateY(-110vh) scale(1); opacity:0; }
+}
+
+/* Top shopping section */
 .shopping-section{
-    position:absolute; top:120px; left:50%;
-    transform:translateX(-50%);
+    position:absolute; top:40px; left:50%; transform:translateX(-50%);
     text-align:center; z-index:10;
 }
 .shop-title{
-    font-family: 'Great Vibes', cursive;
-    font-size:30px;
-    font-weight:bold;
-    margin-bottom:15px;
-    color:#333;
+    font-size:28px; font-weight:bold; margin-bottom:15px; color:orange; font-family:'Times New Roman', Times, serif;
 }
 .shop-btn{
-    padding:18px 36px; border-radius:20px; font-weight:bold; font-size:18px; color:#fff;
-    background: #ff8c00; cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.5);
+    padding:18px 36px; border-radius:20px; font-weight:bold;
+    font-size:18px; color:#fff; background: #ff8c00;
+    cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.5);
     transition: transform 0.3s, box-shadow 0.3s;
 }
-.shop-btn:hover{ transform: translateZ(15px) scale(1.05) rotateX(3deg) rotateY(3deg); box-shadow:0 18px 35px rgba(0,0,0,0.6); }
+.shop-btn:hover{
+    transform: translateZ(15px) scale(1.05) rotateX(3deg) rotateY(3deg);
+    box-shadow:0 18px 35px rgba(0,0,0,0.6);
+}
 
-/* Center glassy buttons (bottom row) */
+/* Center buttons container */
 .center-buttons{
-    position:absolute; bottom:60px; /* Slightly above bottom */
-    left:50%; transform:translateX(-50%);
-    display:flex; justify-content:center; gap:20px; z-index:10;
+    position:absolute; bottom:60px; left:50%;
+    transform:translateX(-50%);
+    display:flex; flex-wrap:wrap; justify-content:center; align-items:center;
+    gap:20px; z-index:10;
 }
+
+/* Glassy 3D style buttons */
 .center-btn{
-    padding:18px 28px; border-radius:20px; font-weight:bold; font-size:16px; color:#fff; text-align:center;
-    background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
-    border:1px solid rgba(255,255,255,0.3); cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.3);
+    padding:20px 28px; border-radius:20px;
+    font-weight:bold; font-size:16px; color:#fff; text-align:center;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border:1px solid rgba(255,255,255,0.3);
+    cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.3);
     transition: transform 0.3s, box-shadow 0.3s;
 }
-.center-btn:hover{ transform: translateZ(15px) scale(1.05) rotateX(3deg) rotateY(3deg); box-shadow:0 18px 35px rgba(0,0,0,0.5); }
-
-/* Footer microtext */
-.footer-text{
-    position:absolute; bottom:10px; left:50%;
-    transform:translateX(-50%);
-    font-size:10px;
-    color:#555;
-    z-index:10;
+.center-btn:hover{
+    transform: translateZ(15px) scale(1.05) rotateX(3deg) rotateY(3deg);
+    box-shadow:0 18px 35px rgba(0,0,0,0.5);
 }
 
-/* Top heart icon */
-#topHeart{ position:absolute; top:20px; right:20px; font-size:32px; color:#888; cursor:pointer; z-index:20; transition: color 0.3s; }
+/* Top Heart icon */
+#topHeart{
+    position:absolute; top:20px; right:20px;
+    font-size:36px; color:#888;
+    cursor:pointer; z-index:20;
+    transition: color 0.3s;
+}
 #topHeart.liked{ color:red; }
 
-/* Floating hearts */
-.floating-heart{ position:absolute; width:40px; height:40px; background:red; clip-path: polygon(50% 0%, 61% 10%, 75% 25%, 100% 50%, 75% 75%, 50% 100%, 25% 75%, 0% 50%, 25% 25%, 39% 10%); border-radius:50%; z-index:50; }
+/* Floating Heart */
+.floating-heart{
+    position:absolute;
+    background:red;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:9999;
+}
+
+/* Back arrow */
+.back-arrow{
+    position:absolute; top:20px; left:20px;
+    font-size:28px; color:#333;
+    cursor:pointer; z-index:20;
+}
 
 /* Shop Overlay */
-.overlay{ position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.95); display:none; flex-direction:column; align-items:center; overflow-y:auto; padding:20px; z-index:15; background-image: repeating-linear-gradient(45deg, rgba(255,200,150,0.05), rgba(255,200,150,0.05) 10px, transparent 10px, transparent 20px);}
-.overlay h2{ font-family: 'Great Vibes', cursive; font-size:32px; margin-bottom:25px; color:#ff6600; }
-.card{ width:90%; max-width:400px; margin:20px 0; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); overflow:hidden; background:#fff; border:2px solid orange; }
+.overlay{
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    background: rgba(255,255,255,0.95);
+    display:none; flex-direction:column; align-items:center;
+    overflow-y:auto; padding:20px; z-index:15;
+}
+.card{
+    width:90%; max-width:400px; margin:20px 0;
+    border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    overflow:hidden; border:2px solid orange;
+    background: linear-gradient(135deg, #fff, #ffe5f0);
+}
 .card img{ width:100%; display:block; }
 .card-content{ padding:12px; }
 .card-title{ font-weight:bold; font-size:16px; margin-bottom:5px; }
 .card-price{ font-weight:bold; color:#ff6600; margin-bottom:5px; }
 .card-desc{ font-size:13px; margin-bottom:8px; }
-.card-actions{ display:flex; gap:10px; justify-content:flex-start; }
-.like-btn{ font-size:18px; color:#888; cursor:pointer; transition: transform 0.3s;}
-.like-btn.liked{ color:red; transform:scale(1.2); }
-.order-btn{ flex-grow:1; padding:6px 10px; border:none; border-radius:6px; background:#ffa500; color:#fff; font-weight:bold; cursor:pointer; transition: transform 0.2s; }
+.card-actions{ display:flex; gap:10px; }
+.like-btn{ font-size:20px; color:#888; cursor:pointer; }
+.like-btn.liked{ color:red; }
+.order-btn{
+    flex-grow:1; padding:6px 10px; border:none; border-radius:6px;
+    background:#ffa500; color:#fff; font-weight:bold; cursor:pointer;
+    transition: transform 0.2s;
+}
 .order-btn:hover{ transform:scale(1.03); }
+
+/* "Are you shopping field" header */
+.shop-feed-title{
+    font-family: 'Brush Script MT', cursive;
+    font-size:28px;
+    margin:25px 0;
+    color:#ff6600;
+}
 </style>
 </head>
 <body>
 
 <div id="background"></div>
 
-<!-- Main heading -->
-<div class="main-title">PJ SHOPPING WEB</div>
-
-<!-- Shopping Section -->
+<!-- Top shopping section -->
 <div class="shopping-section">
-    <div class="shop-title">PJ Classical Flute Shop</div>
+    <div class="shop-title">PJ Classical Flutes Shop</div>
     <div class="shop-btn" onclick="openShop()">Shopping</div>
 </div>
 
-<!-- Bottom row buttons -->
+<!-- Top Heart icon -->
+<div id="topHeart" onclick="showLikedProducts()">&#10084;</div>
+
+<!-- Centered glassy buttons -->
 <div class="center-buttons">
     <div class="center-btn" onclick="openAIContact()">AI Chat</div>
     <div class="center-btn" onclick="callNumber()">Call</div>
@@ -116,20 +162,15 @@ body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow:h
     <div class="center-btn" onclick="sendEmail()">Email</div>
 </div>
 
-<!-- Footer microtext -->
-<div class="footer-text">© PJ Company – Official Website</div>
-
-<!-- Top heart -->
-<div id="topHeart" onclick="showLikedProducts()">&#10084;</div>
-
 <!-- Shop Overlay -->
 <div class="overlay" id="overlay">
-    <h2>Are You Shopping?</h2>
+    <div class="back-arrow" onclick="closeOverlay()">&#8592;</div>
+    <div class="shop-feed-title">Are you shopping field?</div>
     <div id="overlay-content"></div>
 </div>
 
 <script>
-// Background patterns
+/* Background Patterns */
 const patterns=[];
 for(let i=0;i<20;i++){
     let p=document.createElement('div');
@@ -139,16 +180,12 @@ for(let i=0;i<20;i++){
     document.getElementById('background').appendChild(p);
     patterns.push(p);
 }
-
-// Scroll reaction
 window.addEventListener('scroll',()=>{
     const scrollY=window.scrollY;
-    patterns.forEach((p,i)=>{
-        p.style.transform=`translateY(${scrollY*0.1}px) rotate(${scrollY*0.2}deg)`;
-    });
+    patterns.forEach(p=>{ p.style.transform=`translateY(${scrollY*0.1}px) rotate(${scrollY*0.2}deg)`; });
 });
 
-// Bubbles
+/* Bubbles */
 for(let i=0;i<25;i++){
     let b=document.createElement('div');
     b.className='bubble';
@@ -158,20 +195,20 @@ for(let i=0;i<25;i++){
     document.getElementById('background').appendChild(b);
 }
 
-// Contact functions
+/* Contact functions */
 function callNumber(){ window.location.href="tel:+919434274060"; }
 function whatsappMessage(){ window.open("https://wa.me/919476091829?text=Hey!", "_blank"); }
 function sendEmail(){ window.location.href="mailto:pjcompanyofficial@gmail.com"; }
 function openAIContact(){ alert("AI Chat will be implemented here."); }
 
-// Shop Overlay & Products
+/* Shop Overlay */
 const shopOverlay=document.getElementById('overlay');
 const overlayContent=document.getElementById('overlay-content');
 let posts=[
     {id:1,img:"https://i.postimg.cc/nhB6tbqH/Screenshot-20260218-002442-Whats-App-Business.png",name:"D middle Flute",price:450,desc:"Handcraft D middle flute perfect for flow",liked:false},
     {id:2,img:"https://i.postimg.cc/g2VBTyPP/Screenshot-20260218-002911-Whats-App-Business.png",name:"C middle Flute",price:1500,desc:"Flow with C middle Flute magical sound",liked:false}
 ];
-let likedProducts=[];
+let likedProducts = [];
 
 function openShop(){ showOverlay(); renderShop(posts); }
 function closeOverlay(){ shopOverlay.style.display='none'; }
@@ -179,6 +216,7 @@ function showOverlay(){ shopOverlay.style.display='flex'; }
 
 function renderShop(list){
     let html="";
+    if(list.length===0) html="<div style='margin:20px; font-size:16px; color:#888;'>No products liked yet.</div>";
     list.forEach(p=>{
         html+=`<div class="card" id="post-${p.id}">
             <img src="${p.img}" alt="Product"/>
@@ -196,6 +234,13 @@ function renderShop(list){
     overlayContent.innerHTML=html;
 }
 
+function sendOrder(id){
+    const p=posts.find(x=>x.id===id);
+    const msg=encodeURIComponent(`I am interested in this product:\nName: ${p.name}\nPrice: ₹${p.price}\nDescription: ${p.desc}`);
+    window.open("https://wa.me/919476091829?text="+msg,"_blank");
+}
+
+/* Floating heart animation & like toggle */
 function toggleLike(id, el){
     const product = posts.find(p=>p.id===id);
     product.liked = !product.liked;
@@ -205,43 +250,62 @@ function toggleLike(id, el){
         const rect = el.getBoundingClientRect();
         const topHeart = document.getElementById('topHeart');
         const topRect = topHeart.getBoundingClientRect();
+
         const fh = document.createElement('div');
         fh.className='floating-heart';
-        fh.style.left=rect.left+'px';
-        fh.style.top=rect.top+'px';
+        fh.style.left=rect.left + 'px';
+        fh.style.top=rect.top + 'px';
+        fh.style.width = '40px';
+        fh.style.height = '40px';
+        fh.style.transition = 'none';
         document.body.appendChild(fh);
 
-        setTimeout(()=>{
-            fh.style.transition='all 1.5s ease-in-out';
-            fh.style.left = topRect.left + 'px';
-            fh.style.top = topRect.top + 'px';
-            fh.style.transform='scale(1.2) rotate(360deg)';
-        },50);
+        // Animate using requestAnimationFrame for squiggly path
+        let startTime = null;
+        const duration = 1500; // 1.5 seconds
 
-        fh.addEventListener('transitionend',()=>{
-            topHeart.classList.add('liked');
-            setTimeout(()=>topHeart.classList.remove('liked'),1500);
-            fh.remove();
-        });
-    }else{
+        const startX = rect.left;
+        const startY = rect.top;
+        const endX = topRect.left;
+        const endY = topRect.top;
+
+        function animateHeart(time){
+            if(!startTime) startTime = time;
+            const elapsed = time - startTime;
+            const t = Math.min(elapsed / duration, 1);
+
+            const currentX = startX + (endX - startX) * t + Math.sin(t * 6 * Math.PI) * 20;
+            const currentY = startY + (endY - startY) * t + Math.sin(t * 4 * Math.PI) * 15;
+
+            fh.style.left = currentX + 'px';
+            fh.style.top = currentY + 'px';
+            fh.style.transform = `scale(${1 + 0.2*t}) rotate(${t*360}deg)`;
+
+            if(t < 1){
+                requestAnimationFrame(animateHeart);
+            } else {
+                topHeart.classList.add('liked');
+                setTimeout(()=> topHeart.classList.remove('liked'),1500);
+                fh.remove();
+            }
+        }
+
+        requestAnimationFrame(animateHeart);
+
+    } else {
         likedProducts = likedProducts.filter(p=>p.id!==id);
     }
+
     renderShop(posts);
 }
 
 function showLikedProducts(){
-    showOverlay();
     if(likedProducts.length===0){
-        overlayContent.innerHTML="<p>No products liked yet. Like some products to see them here.</p>";
-    }else{
+        overlayContent.innerHTML="<div style='margin:20px; font-size:16px; color:#888;'>No products liked yet.</div>";
+    } else {
         renderShop(likedProducts);
     }
-}
-
-function sendOrder(id){
-    const p = posts.find(x=>x.id===id);
-    const msg = encodeURIComponent(`I am interested in this product:\nName: ${p.name}\nPrice: ₹${p.price}\nDescription: ${p.desc}`);
-    window.open("https://wa.me/919476091829?text="+msg,"_blank");
+    showOverlay();
 }
 </script>
 </body>
