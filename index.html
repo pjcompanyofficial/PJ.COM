@@ -14,17 +14,27 @@ body, html { width:100%; height:100%; font-family: Arial, sans-serif; background
 .bubble{ position:absolute; bottom:-50px; width:20px; height:20px; border-radius:50%; background: rgba(255,255,255,0.5); animation: rise linear infinite; }
 @keyframes rise{ 0%{transform:translateY(0) scale(0.5); opacity:0.6} 100%{transform:translateY(-110vh) scale(1); opacity:0;} }
 
-/* Top Page Title */
-.top-title{ position:absolute; top:20px; left:50%; transform:translateX(-50%); font-size:64px; font-weight:bold; color:orange; text-align:center; z-index:10; }
+/* Premium animated title */
+.top-title{
+  position:absolute; top:20px; left:50%; transform:translateX(-50%);
+  font-size:72px; font-weight:bold; color:orange; text-align:center; z-index:10;
+  background: linear-gradient(45deg,#ff6600,#ffd700,#ff0080,#ff6600);
+  background-size:400% 400%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation: gradientBG 8s ease infinite;
+}
+@keyframes gradientBG{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
 
 /* Middle PJ Classical Flutes Shop */
 .shop-section{ position:absolute; top:45%; left:50%; transform:translate(-50%,-50%); text-align:center; z-index:10; }
 .shop-section .shop-name{ font-size:32px; font-family:'Brush Script MT', cursive; margin-bottom:15px; color:black; }
-.shop-section .shop-btn{ padding:18px 36px; border-radius:20px; font-size:18px; color:#fff; background:#ff8c00; cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.5); transition: transform 0.3s; }
-.shop-section .shop-btn:hover{ transform:translateZ(15px) scale(1.05) rotateX(3deg) rotateY(3deg); box-shadow:0 18px 35px rgba(0,0,0,0.6); }
-/* AI Button below Shopping */
-.ai-btn{ margin-top:15px; padding:18px 36px; border-radius:20px; font-size:18px; color:#fff; background:#ff8c00; cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.5); transition: transform 0.3s; }
-.ai-btn:hover{ transform:translateZ(15px) scale(1.05) rotateX(3deg) rotateY(3deg); box-shadow:0 18px 35px rgba(0,0,0,0.6); }
+.shop-section .shop-btn, .ai-btn{ padding:18px 36px; border-radius:20px; font-size:18px; color:#fff; background:#ff8c00; cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.5); transition: transform 0.3s; margin-top:10px; display:block; }
+.shop-section .shop-btn:hover, .ai-btn:hover{ transform:translateZ(15px) scale(1.05) rotateX(3deg) rotateY(3deg); box-shadow:0 18px 35px rgba(0,0,0,0.6); }
 
 /* Bottom microtext */
 .bottom-text{ position:absolute; bottom:10px; width:100%; text-align:center; font-size:12px; color:#333; z-index:10; }
@@ -73,6 +83,22 @@ body, html { width:100%; height:100%; font-family: Arial, sans-serif; background
 /* Flower patterns behind products */
 .flower-pattern{ position:absolute; width:150px; height:150px; border-radius:50%; background: radial-gradient(circle,#ff8c00,#ffdf00); opacity:0.15; animation: rotateFlower 40s linear infinite; z-index:1; }
 @keyframes rotateFlower{ 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg);} }
+
+/* AI Chat Overlay */
+#aiOverlay{
+    position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6);
+    display:none; flex-direction:column; justify-content:flex-end; z-index:50;
+}
+#aiChatBox{
+    background:#fff; width:100%; max-width:500px; margin:0 auto; border-radius:15px 15px 0 0; padding:10px; display:flex; flex-direction:column; max-height:70%;
+}
+#aiMessages{ flex:1; overflow-y:auto; margin-bottom:10px; }
+.ai-message{ margin:5px 0; padding:6px 10px; border-radius:10px; max-width:80%; }
+.ai-user{ background:#ffd700; align-self:flex-end; }
+.ai-bot{ background:#ff8c00; color:#fff; align-self:flex-start; }
+#aiInputContainer{ display:flex; gap:10px; }
+#aiInputContainer input{ flex:1; padding:8px; border-radius:8px; border:1px solid #ccc; }
+#aiInputContainer button{ padding:8px 12px; border:none; border-radius:8px; background:#ff6600; color:#fff; cursor:pointer; }
 </style>
 </head>
 <body>
@@ -86,7 +112,7 @@ body, html { width:100%; height:100%; font-family: Arial, sans-serif; background
 <div class="shop-section">
     <div class="shop-name">PJ Classical Flutes Shop</div>
     <div class="shop-btn" onclick="openShop()">Shopping</div>
-    <div class="ai-btn" onclick="openAIChat()">AI Chat</div>
+    <div class="ai-btn" onclick="openAI()">AI Chat</div>
 </div>
 
 <!-- Top Heart -->
@@ -108,6 +134,17 @@ body, html { width:100%; height:100%; font-family: Arial, sans-serif; background
     <div class="back-arrow" onclick="closeOverlay()">&#8592;</div>
     <div class="shop-feed-title">Are you shopping field?</div>
     <div id="overlay-content"></div>
+</div>
+
+<!-- AI Chat Overlay -->
+<div id="aiOverlay">
+    <div id="aiChatBox">
+        <div id="aiMessages"></div>
+        <div id="aiInputContainer">
+            <input type="text" id="aiInput" placeholder="Type your message here...">
+            <button onclick="sendAIMessage()">Send</button>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -135,12 +172,10 @@ function callNumber(){ window.location.href="tel:+919434274060"; }
 function whatsappMessage(){ window.open("https://wa.me/919476091829?text=Hey!", "_blank"); }
 function sendEmail(){ window.location.href="mailto:pjcompanyofficial@gmail.com"; }
 function openInstagram(){ window.open("https://instagram.com","_blank"); }
-function openAIChat(){ alert("AI Chat will be implemented here."); }
 
 /* Shop Overlay Logic */
 const shopOverlay=document.getElementById('overlay');
 const overlayContent=document.getElementById('overlay-content');
-
 let posts=[
     {id:1,img:"https://i.postimg.cc/nhB6tbqH/Screenshot-20260218-002442-Whats-App-Business.png",name:"D middle Flute",price:450,desc:"Handcraft D middle flute perfect for flow",liked:false},
     {id:2,img:"https://i.postimg.cc/g2VBTyPP/Screenshot-20260218-002911-Whats-App-Business.png",name:"C middle Flute",price:1500,desc:"Flow with C middle Flute magical sound",liked:false}
@@ -158,12 +193,6 @@ function renderShop(list){
         return;
     }
     list.forEach(p=>{
-        const flower=document.createElement('div');
-        flower.className='flower-pattern';
-        flower.style.left=Math.random()*70+'%';
-        flower.style.top=Math.random()*70+'%';
-        overlayContent.appendChild(flower);
-
         const card=document.createElement('div');
         card.className='card';
         card.id='post-'+p.id;
@@ -215,8 +244,6 @@ function toggleLike(id, el){
             if(!startTime) startTime=time;
             const elapsed=time-startTime;
             const t=Math.min(elapsed/duration,1);
-
-            // Leaf-like squiggly path
             const currentX=startX+(endX-startX)*t + Math.sin(t*6*Math.PI)*15;
             const currentY=startY+(endY-startY)*t + Math.sin(t*4*Math.PI)*10;
 
@@ -247,6 +274,23 @@ function showLikedProducts(){
         renderShop(likedProducts);
     }
     showOverlay();
+}
+
+/* AI Chat Logic */
+function openAI(){ document.getElementById('aiOverlay').style.display='flex'; document.getElementById('aiMessages').innerHTML=""; }
+async function sendAIMessage(){
+    const input=document.getElementById('aiInput');
+    const msg=input.value.trim();
+    if(!msg) return;
+    input.value="";
+    const messagesContainer=document.getElementById('aiMessages');
+    const userMsg=document.createElement('div'); userMsg.className='ai-message ai-user'; userMsg.textContent=msg; messagesContainer.appendChild(userMsg);
+    
+    // Fake API call simulation (replace this with actual API call to your server or OpenAI API)
+    const botReply=document.createElement('div'); botReply.className='ai-message ai-bot'; 
+    botReply.textContent="I can only answer questions about the app functionality."; // Placeholder response
+    messagesContainer.appendChild(botReply);
+    messagesContainer.scrollTop=messagesContainer.scrollHeight;
 }
 </script>
 </body>
