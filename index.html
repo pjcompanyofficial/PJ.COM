@@ -3,297 +3,326 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PJ Store</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<title>Flute Store Pro</title>
 
 <style>
-body{margin:0;background:#000;color:#ffe7b0;font-family:Poppins}
-.hidden{display:none}
+body{margin:0;font-family:sans-serif;background:#f5f5f5}
 
-/* TOP */
-.top{
-position:fixed;
-top:0;width:100%;
-height:1.5cm;
-background:#ff7a00;
+/* HEADER */
+header{
 display:flex;
+justify-content:space-between;
 align-items:center;
-padding:0 15px;
-z-index:999;
-}
-.logoBox{display:flex;align-items:center;gap:10px}
-.logo{width:42px;height:42px;border-radius:50%;border:2px solid white}
-
-.title{
-margin-top:2.3cm;
-text-align:center;
-font-size:55px;
-font-family:Great Vibes;
+padding:12px 16px;
+background:#111;
+color:#fff;
 }
 
-/* SLIDER */
-.slider{
-width:90%;
-margin:25px auto;
-overflow:hidden;
-border-radius:20px
-}
-.track{
+/* RIGHT ICONS */
+.topIcons{
 display:flex;
-transition:transform .9s ease
+gap:15px;
+align-items:center;
 }
-.track img{
-width:100%;
+
+/* QR ICON */
+#qrBtn{
+width:32px;height:32px;border-radius:8px;background:#fff;
+display:flex;align-items:center;justify-content:center;
+cursor:pointer;font-weight:bold;color:#000;
+}
+
+/* SAVE ICON */
+#saveBtn{
+font-size:22px;
+cursor:pointer;
+}
+
+/* PRODUCTS */
+.products{
+padding:15px;
+padding-bottom:120px;
+}
+
+.card{
+background:#fff;border-radius:16px;padding:15px;margin-bottom:25px;
+box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+.card img{
+width:auto;
+max-width:100%;
 height:auto;
-flex-shrink:0;
-object-fit:contain;
-}
-
-.dots{text-align:center}
-.dots span{width:8px;height:8px;background:#555;display:inline-block;margin:4px;border-radius:50%}
-.active{background:#ff7a00;transform:scale(1.3)}
-
-.hero{text-align:center;font-size:28px;margin-top:20px}
-
-/* 3D BTN */
-.shopBtn{
 display:block;
-margin:20px auto;
-background:linear-gradient(#ffa640,#ff7a00);
-color:white;
-border:none;
-padding:15px 40px;
-border-radius:35px;
-font-size:20px;
-box-shadow:0 6px 0 #c45c00;
-transition:.15s;
-}
-.shopBtn:active{
-transform:translateY(6px);
-box-shadow:0 0 0 #c45c00;
+margin:auto;
 }
 
-/* SHOP */
-#shop{
-position:fixed;
-top:0;width:100%;
-height:100%;
-background:black;
-overflow:auto;
-padding:1.7cm 0 120px;
-z-index:9999
+.name{font-size:18px;font-weight:bold;margin-top:10px}
+.price{color:green;font-weight:bold}
+.size{color:#555;margin:4px 0}
+
+.desc{
+background:orange;
+padding:10px;
+border-radius:10px;
+margin-top:10px;
+font-size:14px;
 }
 
-.header{display:flex;justify-content:space-between;padding:10px 20px;font-size:26px}
-.search{width:90%;margin:10px auto;display:block;padding:10px;border-radius:20px;border:none}
-.list{padding:20px;display:flex;flex-direction:column;gap:20px}
+.actions{
+display:flex;
+justify-content:space-between;
+margin-top:15px;
+align-items:center;
+}
 
-.product{background:#111;border-radius:18px;padding:15px;position:relative}
-.product img{width:100%;border-radius:15px}
-.like{position:absolute;top:15px;right:20px;font-size:22px;cursor:pointer;color:white}
+/* LIKE */
+.like{font-size:22px;cursor:pointer;}
 .liked{color:red}
-.buy{background:#ff7a00;border:none;padding:12px;width:100%;margin-top:10px;border-radius:20px;color:white;font-weight:bold}
 
-/* SAVED */
-#saved{
-position:fixed;
-top:0;width:100%;
-height:100%;
-background:black;
-overflow:auto;
-padding:1.7cm 0 120px;
-z-index:99999
+/* 3D BUTTON */
+.buy{
+padding:10px 18px;border:none;border-radius:12px;
+background:linear-gradient(#ff9800,#e65100);
+color:#fff;font-weight:bold;cursor:pointer;
+box-shadow:0 5px #999;
 }
+.buy:active{box-shadow:0 2px #666;transform:translateY(3px)}
 
+/* SAVE PAGE */
+#savePage{
+display:none;
+padding:20px;
+}
 .empty{
 text-align:center;
-margin-top:120px;
-font-size:22px;
-opacity:.7
+margin-top:80px;
+color:#777;
+font-size:18px;
+}
+
+/* NEW PRODUCTS SLIDER */
+.newWrap{overflow-x:auto;display:flex;gap:20px;padding:15px}
+.newCard{
+min-width:260px;background:#fff;border-radius:15px;
+box-shadow:0 4px 12px rgba(0,0,0,.15);padding:10px;
+scroll-snap-align:start;
+}
+.newCard img{width:100%;border-radius:10px}
+.nTitle{font-weight:bold;margin-top:8px}
+.nPrice{color:green}
+
+/* CONTACT */
+.contact{
+display:flex;
+justify-content:center;
+gap:20px;
+margin:30px 0;
+}
+.contact a{
+padding:10px 18px;
+background:#111;
+color:#fff;
+border-radius:25px;
+text-decoration:none;
+font-size:14px;
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:20px;
+color:#555;
+}
+
+/* QR MODAL */
+#qrModal{
+position:fixed;
+top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.8);
+display:none;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:999;
+}
+#qrBox{background:#fff;padding:20px;border-radius:20px;text-align:center;}
+.downloadBtn{
+margin-top:15px;padding:10px 20px;border:none;background:#111;
+color:#fff;border-radius:10px;cursor:pointer;
 }
 </style>
 </head>
+
 <body>
 
-<div class="top">
-<div class="logoBox">
-<img class="logo" src="https://i.postimg.cc/3w76Yfc0/file-00000000f0cc71faab033f0116f53261.jpg">
-<div style="font-size:14px;font-weight:bold">PJ Store Web</div>
+<header>
+<h3>Flute Store</h3>
+
+<div class="topIcons">
+<div id="saveBtn">❤</div>
+<div id="qrBtn">QR</div>
+</div>
+</header>
+
+<!-- PRODUCTS -->
+<div class="products" id="products"></div>
+
+<!-- NEW PRODUCTS -->
+<h2 style="padding-left:15px">New Products</h2>
+<div class="newWrap" id="newSlider"></div>
+
+<!-- CONTACT -->
+<div class="contact">
+<a href="https://wa.me/919476091829">WhatsApp</a>
+<a href="tel:+919434274060">Call</a>
+<a href="mailto:pjcompanyofficial@gmail.com">Email</a>
+</div>
+
+<footer>©2026 PJ Store</footer>
+
+<!-- SAVE PAGE -->
+<div id="savePage"></div>
+
+<!-- QR -->
+<div id="qrModal">
+<div id="qrBox">
+<div id="qrcode"></div>
+<button class="downloadBtn" onclick="downloadQR()">Download PNG</button>
 </div>
 </div>
 
-<div id="home">
-
-<div class="title">PJ Store</div>
-
-<div class="slider">
-<div class="track" id="track">
-<img src="https://i.postimg.cc/zXkJgfLD/IMG-20260218-194815-054.jpg">
-<img src="https://i.postimg.cc/N0KYS7dg/IMG-20260218-194851-468-2.jpg">
-</div>
-</div>
-
-<div class="dots">
-<span class="active"></span><span></span>
-</div>
-
-<div class="hero">PJ classical flutes shop</div>
-<button class="shopBtn" onclick="openShop()">Shop Now</button>
-
-</div>
-
-<!-- SHOP PAGE -->
-<div id="shop" class="hidden">
-<div class="header">
-<div onclick="closeShop()">←</div>
-<div onclick="openSaved()">❤</div>
-</div>
-
-<input class="search" placeholder="Search..." onkeyup="search(this.value)">
-<div class="list" id="list"></div>
-</div>
-
-<!-- SAVED PAGE -->
-<div id="saved" class="hidden">
-<div class="header">
-<div onclick="closeSaved()">←</div>
-</div>
-
-<div id="savedList"></div>
-<div class="empty" id="empty">No products saved yet. Like products to see them here.</div>
-</div>
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
 <script>
-
-/* SLIDER RIGHT → LEFT */
-let i=0;
-setInterval(()=>{
-i=(i+1)%2;
-track.style.transform=`translateX(-${i*100}%)`;
-document.querySelectorAll(".dots span").forEach(d=>d.classList.remove("active"));
-document.querySelectorAll(".dots span")[i].classList.add("active");
-},2500);
-
-/* PRODUCTS */
-const products=[
+const data=[
 {
 name:"E Middle Flute",
-price:1100,
+price:"₹1500",
 size:"41cm",
-img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp",
-desc:"This professional bamboo flute delivers balanced tone, smooth airflow response, stable tuning, and comfortable grip. Perfect for beginners and intermediate players practicing classical ragas, meditation music, recording sessions, and daily riyaaz with consistent sound quality."
+img:"https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png",
+desc:"This premium E middle flute delivers crystal clear tone balanced airflow smooth fingering response and strong durability perfect for beginners and professionals seeking rich sound quality reliable performance and comfortable playing experience daily."
 },
 {
 name:"D Middle Flute",
-price:1300,
+price:"₹1700",
 size:"45.5cm",
 img:"https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png",
-desc:"Handcrafted tuned flute producing rich resonance and warm tonal depth. Designed for classical performances, live concerts, recording studios, and dedicated learners seeking stable pitch control, breath efficiency, and smooth note transitions across full octave range."
+desc:"Expertly tuned D middle flute crafted from seasoned bamboo ensuring warm resonance precise pitch accuracy comfortable grip elegant finish ideal choice for classical practice stage performance and daily riyaaz with consistent tonal clarity."
 },
 {
 name:"C# Middle Flute",
-price:1470,
+price:"₹1800",
 size:"46.3cm",
-img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg",
-desc:"Precision crafted bansuri with bright tone clarity and excellent response. Ideal for classical practice, stage playing, studio recording, and meditation melodies. Produces stable notes, smooth pitch slides, and controlled airflow for expressive musical performance."
-},
-{
-name:"C Middle Flute",
-price:1500,
-size:"50cm",
-img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png",
-desc:"Long tuned bamboo flute designed for deep tonal richness and melodic flow. Excellent choice for classical artists, professionals, and serious learners wanting expressive sound, smooth fingering comfort, accurate tuning, and powerful resonance projection."
-},
-{
-name:"A# Base Flute",
-price:1200,
-size:"56.5cm",
-img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png",
-desc:"Low pitch bass flute producing deep meditative tones and calming vibrations. Ideal for spiritual music, background scoring, slow ragas, and relaxation sessions. Crafted bamboo body ensures durability, tuning stability, and comfortable long-play handling."
-},
-{
-name:"G# Base Flute",
-price:1200,
-size:"60cm",
-img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg",
-desc:"Extended bass bansuri offering warm deep resonance with powerful airflow response. Suitable for advanced musicians, recording artists, meditation performers, and classical instrumentalists needing rich tonal depth and stable pitch across low scale notes."
-},
-{
-name:"G Base Flute",
-price:1800,
-size:"65.7cm",
-img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png",
-desc:"Premium long bass flute delivering professional studio quality sound with strong resonance and deep tonal expression. Built for serious performers, concert players, recording sessions, and classical masters demanding powerful projection and smooth note transitions."
+img:"https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png",
+desc:"Handcrafted C sharp middle flute offering smooth airflow control deep tonal balance polished surface stable tuning designed for musicians wanting expressive sound easy note transition and professional grade performance reliability always."
 }
 ];
 
-const list=document.getElementById("list");
+const box=document.getElementById("products");
+const newSlider=document.getElementById("newSlider");
+const savePage=document.getElementById("savePage");
 
-function card(p){
-return `
-<div class="product">
-<div class="like" onclick="save('${p.name}',this)">❤</div>
+let saved=[];
+
+/* MAIN PRODUCTS */
+function render(){
+box.innerHTML="";
+data.forEach((p,i)=>{
+box.innerHTML+=`
+<div class="card">
 <img src="${p.img}">
-<h3>${p.name}</h3>
-Size: ${p.size}<br>
-₹${p.price}
-<p>${p.desc}</p>
-<button class="buy" onclick="buy('${p.name}','${p.price}','${p.size}')">Buy via WhatsApp</button>
+<div class="name">${p.name}</div>
+<div class="price">${p.price}</div>
+<div class="size">Size: ${p.size}</div>
+<div class="desc">${p.desc}</div>
+<div class="actions">
+<div class="like ${saved.includes(i)?"liked":""}" onclick="like(${i})">❤</div>
+<button class="buy" onclick="buy(${i})">Buy Now</button>
+</div>
 </div>`;
+});
 }
+render();
 
-function render(arr){
-list.innerHTML="";
-arr.forEach(p=>list.innerHTML+=card(p));
+/* NEW PRODUCTS SLIDER */
+data.forEach(p=>{
+newSlider.innerHTML+=`
+<div class="newCard">
+<img src="${p.img}">
+<div class="nTitle">${p.name}</div>
+<div class="nPrice">${p.price}</div>
+<div class="desc">${p.desc}<br><b>Size:</b> ${p.size}</div>
+</div>`;
+});
+
+/* LIKE */
+function like(i){
+if(saved.includes(i)){
+saved=saved.filter(x=>x!==i);
+}else{
+saved.push(i);
 }
-render(products);
-
-/* NAV */
-function openShop(){home.classList.add("hidden");shop.classList.remove("hidden")}
-function closeShop(){shop.classList.add("hidden");home.classList.remove("hidden")}
-
-/* SEARCH */
-function search(v){
-v=v.toLowerCase();
-render(products.filter(p=>p.name.toLowerCase().includes(v)));
+render();
 }
 
 /* BUY */
-function buy(n,p,s){
-window.open(`https://wa.me/919476091829?text=I want to buy ${n} | Price ₹${p} | Size ${s}`);
+function buy(i){
+let p=data[i];
+let msg=`I want to buy ${p.name}
+Price: ${p.price}
+Size: ${p.size}`;
+window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
 }
 
-/* SAVE SYSTEM */
-let saved=[];
+/* SAVE PAGE OPEN */
+document.getElementById("saveBtn").onclick=()=>{
+savePage.style.display="block";
+savePage.innerHTML="<h2>Saved Items</h2>";
 
-function save(name,el){
-let p=products.find(x=>x.name==name);
-if(!saved.includes(p)){
-saved.push(p);
-el.classList.add("liked");
-}
-renderSaved();
-}
-
-function openSaved(){
-savedPage.classList.remove("hidden");
-}
-
-function closeSaved(){
-savedPage.classList.add("hidden");
-}
-
-function renderSaved(){
-savedList.innerHTML="";
-if(saved.length===0){
-empty.style.display="block";
+if(saved.length==0){
+savePage.innerHTML+="<div class='empty'>No saved products yet. Like items to save them here.</div>";
 return;
 }
-empty.style.display="none";
-saved.forEach(p=>savedList.innerHTML+=card(p));
-}
 
+saved.forEach(i=>{
+let p=data[i];
+savePage.innerHTML+=`
+<div class="card">
+<img src="${p.img}">
+<div class="name">${p.name}</div>
+<div class="price">${p.price}</div>
+<div class="size">Size: ${p.size}</div>
+<div class="desc">${p.desc}</div>
+<button class="buy" onclick="buy(${i})">Buy Now</button>
+</div>`;
+});
+};
+
+/* QR */
+const qrBtn=document.getElementById("qrBtn");
+const modal=document.getElementById("qrModal");
+
+qrBtn.onclick=()=>{
+modal.style.display="flex";
+document.getElementById("qrcode").innerHTML="";
+QRCode.toCanvas(window.location.href,{width:200},(err,canvas)=>{
+document.getElementById("qrcode").appendChild(canvas);
+});
+};
+
+modal.onclick=e=>{
+if(e.target.id==="qrModal") modal.style.display="none";
+};
+
+function downloadQR(){
+const canvas=document.querySelector("#qrcode canvas");
+const link=document.createElement("a");
+link.download="QR.png";
+link.href=canvas.toDataURL();
+link.click();
+}
 </script>
+
 </body>
 </html>
