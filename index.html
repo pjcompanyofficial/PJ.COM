@@ -1,121 +1,58 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>PJ Company 3D Buttons</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PJ Shopping Web</title>
 <style>
-* { box-sizing: border-box; margin:0; padding:0;}
-body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow:hidden; background:#ffe5f0; perspective:1200px; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body, html { width:100%; height:100%; font-family: Arial, sans-serif; background:#ffe5f0; perspective:1200px; overflow-x:hidden; }
 
-/* Background container */
-#background {
-    position:fixed; top:0; left:0; width:100%; height:100%;
-    overflow:hidden; z-index:-2;
-}
+/* Background Patterns */
+#background { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; overflow:hidden; }
+.pattern{ position:absolute; width:100px; height:100px; background: radial-gradient(circle at 30% 30%, #ff0080, #ffdf00); border-radius:50%; opacity:0.7; }
+.bubble{ position:absolute; bottom:-50px; width:20px; height:20px; border-radius:50%; background: rgba(255,255,255,0.5); animation: rise linear infinite; }
+@keyframes rise{ 0%{transform:translateY(0) scale(0.5); opacity:0.6} 100%{transform:translateY(-110vh) scale(1); opacity:0;} }
 
-/* Patterns inside background */
-.pattern{
-    position:absolute; width:100px; height:100px;
-    background: radial-gradient(circle at 30% 30%, #ff0080, #ffdf00);
-    border-radius:50%;
-    opacity:0.7;
-}
+/* Top Page Title */
+.top-title{ position:absolute; top:20px; left:50%; transform:translateX(-50%); font-size:64px; font-weight:bold; color:orange; text-align:center; z-index:10; }
 
-/* Bubbles inside background */
-.bubble{
-    position:absolute; bottom:-50px;
-    width:20px; height:20px; background: rgba(255,255,255,0.5);
-    border-radius:50%;
-    animation: rise linear infinite;
-}
-@keyframes rise{
-    0% { transform: translateY(0) scale(0.5); opacity:0.6; }
-    100% { transform: translateY(-110vh) scale(1); opacity:0; }
-}
+/* Middle PJ Classical Flutes Shop */
+.shop-section{ position:absolute; top:45%; left:50%; transform:translate(-50%,-50%); text-align:center; z-index:10; }
+.shop-section .shop-name{ font-size:32px; font-family:'Brush Script MT', cursive; margin-bottom:15px; color:black; }
+.shop-section .shop-btn{ padding:18px 36px; border-radius:20px; font-size:18px; color:#fff; background:#ff8c00; cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.5); transition: transform 0.3s; }
+.shop-section .shop-btn:hover{ transform:translateZ(15px) scale(1.05) rotateX(3deg) rotateY(3deg); box-shadow:0 18px 35px rgba(0,0,0,0.6); }
 
-/* Top shopping section */
-.shopping-section{
-    position:absolute; top:40px; left:50%; transform:translateX(-50%);
-    text-align:center; z-index:10;
-}
-.shop-title{
-    font-size:28px; font-weight:bold; margin-bottom:15px; color:orange; font-family:'Times New Roman', Times, serif;
-}
-.shop-btn{
-    padding:18px 36px; border-radius:20px; font-weight:bold;
-    font-size:18px; color:#fff; background: #ff8c00;
-    cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.5);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-.shop-btn:hover{
-    transform: translateZ(15px) scale(1.05) rotateX(3deg) rotateY(3deg);
-    box-shadow:0 18px 35px rgba(0,0,0,0.6);
-}
+/* Bottom microtext */
+.bottom-text{ position:absolute; bottom:10px; width:100%; text-align:center; font-size:12px; color:#333; z-index:10; }
 
-/* Center buttons container */
-.center-buttons{
-    position:absolute; bottom:60px; left:50%;
-    transform:translateX(-50%);
-    display:flex; flex-wrap:wrap; justify-content:center; align-items:center;
-    gap:20px; z-index:10;
-}
+/* Bottom Buttons */
+.bottom-buttons{ position:absolute; bottom:60px; left:50%; transform:translateX(-50%); display:flex; gap:15px; z-index:10; }
+.bottom-buttons .btn{ padding:12px 20px; border-radius:15px; font-size:14px; color:#000; background: rgba(255,255,255,0.2); border:1px solid rgba(0,0,0,0.2); backdrop-filter: blur(10px); cursor:pointer; box-shadow:0 4px 15px rgba(0,0,0,0.3); transition: transform 0.3s; }
+.bottom-buttons .btn:hover{ transform:translateZ(10px) scale(1.05); }
 
-/* Glassy 3D style buttons */
-.center-btn{
-    padding:20px 28px; border-radius:20px;
-    font-weight:bold; font-size:16px; color:#fff; text-align:center;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    border:1px solid rgba(255,255,255,0.3);
-    cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-.center-btn:hover{
-    transform: translateZ(15px) scale(1.05) rotateX(3deg) rotateY(3deg);
-    box-shadow:0 18px 35px rgba(0,0,0,0.5);
-}
-
-/* Top Heart icon */
-#topHeart{
-    position:absolute; top:20px; right:20px;
-    font-size:36px; color:#888;
-    cursor:pointer; z-index:20;
-    transition: color 0.3s;
-}
+/* Top Heart Icon */
+#topHeart{ position:absolute; top:20px; right:20px; font-size:36px; color:#888; cursor:pointer; z-index:20; transition: color 0.3s; font-family: Arial, sans-serif; }
 #topHeart.liked{ color:red; }
 
 /* Floating Heart */
 .floating-heart{
     position:absolute;
-    background:red;
-    width:40px;
-    height:40px;
-    border-radius:50%;
+    width:50px;
+    height:50px;
+    background-color:red;
+    clip-path: polygon(50% 0%, 61% 13%, 75% 12%, 88% 25%, 88% 38%, 50% 100%, 12% 38%, 12% 25%, 25% 12%, 39% 13%);
     pointer-events:none;
     z-index:9999;
 }
 
-/* Back arrow */
-.back-arrow{
-    position:absolute; top:20px; left:20px;
-    font-size:28px; color:#333;
-    cursor:pointer; z-index:20;
-}
-
 /* Shop Overlay */
-.overlay{
-    position:absolute; top:0; left:0; width:100%; height:100%;
-    background: rgba(255,255,255,0.95);
-    display:none; flex-direction:column; align-items:center;
-    overflow-y:auto; padding:20px; z-index:15;
-}
-.card{
-    width:90%; max-width:400px; margin:20px 0;
-    border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1);
-    overflow:hidden; border:2px solid orange;
-    background: linear-gradient(135deg, #fff, #ffe5f0);
-}
+.overlay{ position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.95); display:none; flex-direction:column; align-items:center; overflow-y:auto; padding:20px; z-index:15; }
+.back-arrow{ position:absolute; top:20px; left:20px; font-size:28px; color:#333; cursor:pointer; z-index:20; }
+.shop-feed-title{ font-family:'Brush Script MT', cursive; font-size:28px; margin:25px 0; color:#ff6600; text-align:center; }
+
+/* Product Card */
+.card{ position:relative; width:90%; max-width:400px; margin:40px 0; border-radius:12px; overflow:hidden; border:2px solid orange; background: linear-gradient(135deg, #fff, #ffe5f0); box-shadow:0 4px 15px rgba(0,0,0,0.1); z-index:5; }
 .card img{ width:100%; display:block; }
 .card-content{ padding:12px; }
 .card-title{ font-weight:bold; font-size:16px; margin-bottom:5px; }
@@ -124,43 +61,40 @@ body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow:h
 .card-actions{ display:flex; gap:10px; }
 .like-btn{ font-size:20px; color:#888; cursor:pointer; }
 .like-btn.liked{ color:red; }
-.order-btn{
-    flex-grow:1; padding:6px 10px; border:none; border-radius:6px;
-    background:#ffa500; color:#fff; font-weight:bold; cursor:pointer;
-    transition: transform 0.2s;
-}
+.order-btn{ flex-grow:1; padding:6px 10px; border:none; border-radius:6px; background:#ffa500; color:#fff; font-weight:bold; cursor:pointer; transition: transform 0.2s; }
 .order-btn:hover{ transform:scale(1.03); }
 
-/* "Are you shopping field" header */
-.shop-feed-title{
-    font-family: 'Brush Script MT', cursive;
-    font-size:28px;
-    margin:25px 0;
-    color:#ff6600;
-}
+/* Flower patterns behind products */
+.flower-pattern{ position:absolute; width:150px; height:150px; border-radius:50%; background: radial-gradient(circle,#ff8c00,#ffdf00); opacity:0.15; animation: rotateFlower 40s linear infinite; z-index:1; }
+@keyframes rotateFlower{ 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg);} }
 </style>
 </head>
 <body>
 
 <div id="background"></div>
 
-<!-- Top shopping section -->
-<div class="shopping-section">
-    <div class="shop-title">PJ Classical Flutes Shop</div>
+<!-- Top Title -->
+<div class="top-title">PJ Shopping Web</div>
+
+<!-- Middle Shopping Section -->
+<div class="shop-section">
+    <div class="shop-name">PJ Classical Flutes Shop</div>
     <div class="shop-btn" onclick="openShop()">Shopping</div>
 </div>
 
-<!-- Top Heart icon -->
+<!-- Top Heart -->
 <div id="topHeart" onclick="showLikedProducts()">&#10084;</div>
 
-<!-- Centered glassy buttons -->
-<div class="center-buttons">
-    <div class="center-btn" onclick="openAIContact()">AI Chat</div>
-    <div class="center-btn" onclick="callNumber()">Call</div>
-    <div class="center-btn" onclick="whatsappMessage()">WhatsApp</div>
-    <div class="center-btn" id="instagramBtn">Instagram</div>
-    <div class="center-btn" onclick="sendEmail()">Email</div>
+<!-- Bottom Buttons -->
+<div class="bottom-buttons">
+    <div class="btn" onclick="callNumber()">Call</div>
+    <div class="btn" onclick="whatsappMessage()">WhatsApp</div>
+    <div class="btn" onclick="openInstagram()">Instagram</div>
+    <div class="btn" onclick="sendEmail()">Email</div>
 </div>
+
+<!-- Bottom Microtext -->
+<div class="bottom-text">PJ Official Website</div>
 
 <!-- Shop Overlay -->
 <div class="overlay" id="overlay">
@@ -171,19 +105,13 @@ body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow:h
 
 <script>
 /* Background Patterns */
-const patterns=[];
 for(let i=0;i<20;i++){
     let p=document.createElement('div');
     p.className='pattern';
     p.style.left=Math.random()*100+'vw';
     p.style.top=Math.random()*100+'vh';
     document.getElementById('background').appendChild(p);
-    patterns.push(p);
 }
-window.addEventListener('scroll',()=>{
-    const scrollY=window.scrollY;
-    patterns.forEach(p=>{ p.style.transform=`translateY(${scrollY*0.1}px) rotate(${scrollY*0.2}deg)`; });
-});
 
 /* Bubbles */
 for(let i=0;i<25;i++){
@@ -195,30 +123,48 @@ for(let i=0;i<25;i++){
     document.getElementById('background').appendChild(b);
 }
 
-/* Contact functions */
+/* Contact / Bottom Button Functions */
 function callNumber(){ window.location.href="tel:+919434274060"; }
 function whatsappMessage(){ window.open("https://wa.me/919476091829?text=Hey!", "_blank"); }
 function sendEmail(){ window.location.href="mailto:pjcompanyofficial@gmail.com"; }
+function openInstagram(){ window.open("https://instagram.com","_blank"); }
 function openAIContact(){ alert("AI Chat will be implemented here."); }
 
-/* Shop Overlay */
+/* Shop Overlay Logic */
 const shopOverlay=document.getElementById('overlay');
 const overlayContent=document.getElementById('overlay-content');
+
 let posts=[
     {id:1,img:"https://i.postimg.cc/nhB6tbqH/Screenshot-20260218-002442-Whats-App-Business.png",name:"D middle Flute",price:450,desc:"Handcraft D middle flute perfect for flow",liked:false},
     {id:2,img:"https://i.postimg.cc/g2VBTyPP/Screenshot-20260218-002911-Whats-App-Business.png",name:"C middle Flute",price:1500,desc:"Flow with C middle Flute magical sound",liked:false}
 ];
-let likedProducts = [];
+let likedProducts=[];
 
-function openShop(){ showOverlay(); renderShop(posts); }
+function openShop(){ 
+    showOverlay(); 
+    renderShop(posts); 
+}
+
 function closeOverlay(){ shopOverlay.style.display='none'; }
 function showOverlay(){ shopOverlay.style.display='flex'; }
 
 function renderShop(list){
-    let html="";
-    if(list.length===0) html="<div style='margin:20px; font-size:16px; color:#888;'>No products liked yet.</div>";
+    overlayContent.innerHTML=""; 
+    if(list.length===0){
+        overlayContent.innerHTML="<div style='margin:20px; font-size:16px; color:#888;'>No products liked yet.</div>";
+        return;
+    }
     list.forEach(p=>{
-        html+=`<div class="card" id="post-${p.id}">
+        const flower=document.createElement('div');
+        flower.className='flower-pattern';
+        flower.style.left=Math.random()*70+'%';
+        flower.style.top=Math.random()*70+'%';
+        overlayContent.appendChild(flower);
+
+        const card=document.createElement('div');
+        card.className='card';
+        card.id='post-'+p.id;
+        card.innerHTML=`
             <img src="${p.img}" alt="Product"/>
             <div class="card-content">
                 <div class="card-title">${p.name}</div>
@@ -228,10 +174,9 @@ function renderShop(list){
                     <span class="like-btn ${p.liked?'liked':''}" onclick="toggleLike(${p.id}, this)">&#10084;</span>
                     <button class="order-btn" onclick="sendOrder(${p.id})">Send Request</button>
                 </div>
-            </div>
-        </div>`;
+            </div>`;
+        overlayContent.appendChild(card);
     });
-    overlayContent.innerHTML=html;
 }
 
 function sendOrder(id){
@@ -240,60 +185,52 @@ function sendOrder(id){
     window.open("https://wa.me/919476091829?text="+msg,"_blank");
 }
 
-/* Floating heart animation & like toggle */
+/* Floating Heart Animation */
 function toggleLike(id, el){
-    const product = posts.find(p=>p.id===id);
-    product.liked = !product.liked;
+    const product=posts.find(p=>p.id===id);
+    product.liked=!product.liked;
 
     if(product.liked){
         likedProducts.push(product);
-        const rect = el.getBoundingClientRect();
-        const topHeart = document.getElementById('topHeart');
-        const topRect = topHeart.getBoundingClientRect();
+        const rect=el.getBoundingClientRect();
+        const topHeart=document.getElementById('topHeart');
+        const topRect=topHeart.getBoundingClientRect();
 
-        const fh = document.createElement('div');
+        const fh=document.createElement('div');
         fh.className='floating-heart';
-        fh.style.left=rect.left + 'px';
-        fh.style.top=rect.top + 'px';
-        fh.style.width = '40px';
-        fh.style.height = '40px';
-        fh.style.transition = 'none';
+        fh.style.left=rect.left+'px';
+        fh.style.top=rect.top+'px';
+        fh.style.transition='none';
         document.body.appendChild(fh);
 
-        // Animate using requestAnimationFrame for squiggly path
-        let startTime = null;
-        const duration = 1500; // 1.5 seconds
-
-        const startX = rect.left;
-        const startY = rect.top;
-        const endX = topRect.left;
-        const endY = topRect.top;
+        let startTime=null;
+        const duration=2000; // 2s
+        const startX=rect.left, startY=rect.top;
+        const endX=topRect.left, endY=topRect.top;
 
         function animateHeart(time){
-            if(!startTime) startTime = time;
-            const elapsed = time - startTime;
-            const t = Math.min(elapsed / duration, 1);
+            if(!startTime) startTime=time;
+            const elapsed=time-startTime;
+            const t=Math.min(elapsed/duration,1);
 
-            const currentX = startX + (endX - startX) * t + Math.sin(t * 6 * Math.PI) * 20;
-            const currentY = startY + (endY - startY) * t + Math.sin(t * 4 * Math.PI) * 15;
+            const currentX=startX+(endX-startX)*t+Math.sin(t*6*Math.PI)*20;
+            const currentY=startY+(endY-startY)*t+Math.sin(t*4*Math.PI)*15;
 
-            fh.style.left = currentX + 'px';
-            fh.style.top = currentY + 'px';
-            fh.style.transform = `scale(${1 + 0.2*t}) rotate(${t*360}deg)`;
+            fh.style.left=currentX+'px';
+            fh.style.top=currentY+'px';
+            fh.style.transform=`scale(${1+0.2*t}) rotate(${t*360}deg)`;
 
-            if(t < 1){
+            if(t<1){
                 requestAnimationFrame(animateHeart);
             } else {
                 topHeart.classList.add('liked');
-                setTimeout(()=> topHeart.classList.remove('liked'),1500);
+                setTimeout(()=>topHeart.classList.remove('liked'),1500);
                 fh.remove();
             }
         }
-
         requestAnimationFrame(animateHeart);
-
     } else {
-        likedProducts = likedProducts.filter(p=>p.id!==id);
+        likedProducts=likedProducts.filter(p=>p.id!==id);
     }
 
     renderShop(posts);
