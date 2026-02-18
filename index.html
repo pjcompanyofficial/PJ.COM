@@ -1,125 +1,49 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>PJ Company 3D Buttons</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PJ Classical Flute Shop</title>
 <style>
-* { box-sizing: border-box; margin:0; padding:0;}
+* { box-sizing: border-box; margin:0; padding:0; }
 body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow:hidden; background:#ffe5f0; perspective:1200px; }
 
 /* Background container */
-#background {
-    position:fixed; top:0; left:0; width:100%; height:100%;
-    overflow:hidden; z-index:-2;
-}
-
-/* Patterns inside background */
-.pattern{
-    position:absolute; width:100px; height:100px;
-    background: radial-gradient(circle at 30% 30%, #ff0080, #ffdf00);
-    border-radius:50%;
-    opacity:0.7;
-}
-
-/* Bubbles inside background */
-.bubble{
-    position:absolute; bottom:-50px;
-    width:20px; height:20px; background: rgba(255,255,255,0.5);
-    border-radius:50%;
-    animation: rise linear infinite;
-}
-@keyframes rise{
-    0% { transform: translateY(0) scale(0.5); opacity:0.6; }
-    100% { transform: translateY(-110vh) scale(1); opacity:0; }
-}
+#background { position:fixed; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:-2; }
+.pattern{ position:absolute; width:100px; height:100px; background: radial-gradient(circle at 30% 30%, #ff0080, #ffdf00); border-radius:50%; opacity:0.7; }
+.bubble{ position:absolute; bottom:-50px; width:20px; height:20px; background: rgba(255,255,255,0.5); border-radius:50%; animation: rise linear infinite; }
+@keyframes rise{ 0% { transform: translateY(0) scale(0.5); opacity:0.6; } 100% { transform: translateY(-110vh) scale(1); opacity:0; } }
 
 /* Top shopping section */
-.shopping-section{
-    position:absolute; top:20px; left:50%; transform:translateX(-50%);
-    text-align:center; z-index:10;
-}
-.shop-title{
-    font-size:22px; font-weight:bold; margin-bottom:15px; color:#333;
-}
-.shop-btn{
-    padding:18px 36px; border-radius:20px; font-weight:bold;
-    font-size:18px; color:#fff; background: #ff8c00;
-    cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.5);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-.shop-btn:hover{
-    transform: translateZ(15px) scale(1.05) rotateX(3deg) rotateY(3deg);
-    box-shadow:0 18px 35px rgba(0,0,0,0.6);
-}
+.shopping-section{ position:absolute; top:20px; left:50%; transform:translateX(-50%); text-align:center; z-index:10; }
+.shop-title{ font-size:22px; font-weight:bold; margin-bottom:15px; color:#333; }
+.shop-btn{ padding:18px 36px; border-radius:20px; font-weight:bold; font-size:18px; color:#fff; background: #ff8c00; cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.5); transition: transform 0.3s, box-shadow 0.3s; }
+.shop-btn:hover{ transform: translateZ(15px) scale(1.05) rotateX(3deg) rotateY(3deg); box-shadow:0 18px 35px rgba(0,0,0,0.6); }
+
+/* Top-right heart */
+#topHeart { position:absolute; top:25px; right:25px; font-size:36px; cursor:pointer; color:#ccc; transition: color 0.3s; z-index:20; }
+#topHeart.active { color:red; }
 
 /* Center buttons container */
-.center-buttons{
-    position:absolute; top:50%; left:50%;
-    transform:translate(-50%, -50%);
-    display:flex; flex-wrap:wrap; justify-content:center; align-items:center;
-    gap:20px; z-index:10;
-}
+.center-buttons{ position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:20px; z-index:10; }
+.center-btn{ padding:20px 28px; border-radius:20px; font-weight:bold; font-size:16px; color:#fff; text-align:center; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border:1px solid rgba(255,255,255,0.3); cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.3); transition: transform 0.3s, box-shadow 0.3s; }
+.center-btn:hover{ transform: translateZ(15px) scale(1.05) rotateX(3deg) rotateY(3deg); box-shadow:0 18px 35px rgba(0,0,0,0.5); }
 
-/* Glassy 3D style buttons */
-.center-btn{
-    padding:20px 28px; border-radius:20px;
-    font-weight:bold; font-size:16px; color:#fff; text-align:center;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    border:1px solid rgba(255,255,255,0.3);
-    cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-.center-btn:hover{
-    transform: translateZ(15px) scale(1.05) rotateX(3deg) rotateY(3deg);
-    box-shadow:0 18px 35px rgba(0,0,0,0.5);
-}
+/* Floating hearts */
+.floating-heart{ position:absolute; font-size:24px; color:red; pointer-events:none; z-index:50; transition: transform 1.5s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 1.5s; }
 
 /* Shop Overlay */
-.overlay{
-    position:absolute; top:0; left:0; width:100%; height:100%;
-    background: rgba(255,255,255,0.95);
-    display:none; flex-direction:column; align-items:center;
-    overflow-y:auto; padding:20px; z-index:15;
-}
-
-/* top heart icon in overlay */
-.top-heart{
-    position:absolute; top:15px; right:20px;
-    font-size:30px; cursor:pointer; color:#888;
-    transition: transform 0.3s, color 0.3s;
-    z-index:20;
-}
-.top-heart.liked{ color:#e74c3c; }
-
-/* animating flying heart */
-@keyframes flyToTop {
-    to {
-        transform: translate(var(--dx), var(--dy)) scale(0.3);
-        opacity: 0;
-    }
-}
-
-/* Card style */
-.card{
-    width:90%; max-width:400px; margin-bottom:25px;
-    border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1);
-    overflow:hidden; background:#fff;
-}
+.overlay{ position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.95); display:none; flex-direction:column; align-items:center; overflow-y:auto; padding:20px; z-index:15; }
+.card{ width:90%; max-width:400px; margin-bottom:25px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); overflow:hidden; background:#fff; }
 .card img{ width:100%; display:block; }
 .card-content{ padding:12px; }
 .card-title{ font-weight:bold; font-size:16px; margin-bottom:5px; }
 .card-price{ font-weight:bold; color:#ff6600; margin-bottom:5px; }
 .card-desc{ font-size:13px; margin-bottom:8px; }
 .card-actions{ display:flex; gap:10px; }
-.like-btn{ font-size:18px; color:#888; cursor:pointer; }
+.like-btn{ font-size:18px; color:#888; cursor:pointer; transition: color 0.3s; }
 .like-btn.liked{ color:red; }
-.order-btn{
-    flex-grow:1; padding:6px 10px; border:none; border-radius:6px;
-    background:#ffa500; color:#fff; font-weight:bold; cursor:pointer;
-    transition: transform 0.2s;
-}
+.order-btn{ flex-grow:1; padding:6px 10px; border:none; border-radius:6px; background:#ffa500; color:#fff; font-weight:bold; cursor:pointer; transition: transform 0.2s; }
 .order-btn:hover{ transform:scale(1.03); }
 
 /* Close button */
@@ -136,7 +60,10 @@ body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow:h
     <div class="shop-btn" onclick="openShop()">Shopping</div>
 </div>
 
-<!-- Centered glassy buttons -->
+<!-- Top heart for liked products -->
+<div id="topHeart" onclick="showLiked()">&#10084;</div>
+
+<!-- Center buttons -->
 <div class="center-buttons">
     <div class="center-btn" onclick="openAIContact()">AI Chat</div>
     <div class="center-btn" onclick="callNumber()">Call</div>
@@ -147,15 +74,12 @@ body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow:h
 
 <!-- Shop Overlay -->
 <div class="overlay" id="overlay">
-    <!-- top heart icon -->
-    <div class="top-heart" id="topHeart">&#10084;</div>
-
     <span class="close-btn" onclick="closeOverlay()">×</span>
     <div id="overlay-content"></div>
 </div>
 
 <script>
-/* Patterns inside background */
+// Background patterns
 const patterns=[];
 for(let i=0;i<20;i++){
     let p=document.createElement('div');
@@ -165,16 +89,11 @@ for(let i=0;i<20;i++){
     document.getElementById('background').appendChild(p);
     patterns.push(p);
 }
-
-/* Scroll reaction for patterns */
 window.addEventListener('scroll',()=>{
     const scrollY=window.scrollY;
-    patterns.forEach((p,i)=>{
-        p.style.transform=`translateY(${scrollY*0.1}px) rotate(${scrollY*0.2}deg)`;
-    });
+    patterns.forEach(p=>{ p.style.transform=`translateY(${scrollY*0.1}px) rotate(${scrollY*0.2}deg)`; });
 });
-
-/* Bubbles */
+// Bubbles
 for(let i=0;i<25;i++){
     let b=document.createElement('div');
     b.className='bubble';
@@ -184,40 +103,47 @@ for(let i=0;i<25;i++){
     document.getElementById('background').appendChild(b);
 }
 
-/* Contact functions */
+// Contact functions
 function callNumber(){ window.location.href="tel:+919434274060"; }
 function whatsappMessage(){ window.open("https://wa.me/919476091829?text=Hey!", "_blank"); }
 function sendEmail(){ window.location.href="mailto:pjcompanyofficial@gmail.com"; }
 function openAIContact(){ alert("AI Chat will be implemented here."); }
 
-/* Shop Overlay */
+// Shop overlay
 const shopOverlay=document.getElementById('overlay');
 const overlayContent=document.getElementById('overlay-content');
-const topHeartEl = document.getElementById('topHeart');
-
 let posts=[
-    {
-        id:1,
-        img:"https://i.postimg.cc/nhB6tbqH/Screenshot-20260218-002442-Whats-App-Business.png",
-        name:"D middle Flute",
-        price:450,
-        desc:"handcraft D middle flute perfect for flow",
-        liked:false
-    },
-    {
-        id:2,
-        img:"https://i.postimg.cc/g2VBTyPP/Screenshot-20260218-002911-Whats-App-Business.png",
-        name:"C middle Flute",
-        price:1500,
-        desc:"Flow with C middle Flute magical sound",
-        liked:false
-    }
+    {id:1,img:"https://i.postimg.cc/nhB6tbqH/Screenshot-20260218-002442-Whats-App-Business.png",name:"D middle Flute",price:450,desc:"handcraft D middle flute perfect for flow",liked:false},
+    {id:2,img:"https://i.postimg.cc/g2VBTyPP/Screenshot-20260218-002911-Whats-App-Business.png",name:"C middle Flute",price:1500,desc:"Flow with C middle Flute magical sound",liked:false}
 ];
+let likedPosts=[];
 
+// Floating heart animation
+function createFloatingHeart(productId, startX, startY){
+    const topHeart=document.getElementById('topHeart');
+    const rect=topHeart.getBoundingClientRect();
+    const heart=document.createElement('div');
+    heart.className='floating-heart';
+    heart.style.left=startX+'px';
+    heart.style.top=startY+'px';
+    heart.textContent='❤';
+    document.body.appendChild(heart);
+    setTimeout(()=>{
+        heart.style.transform=`translate(${rect.left-startX}px,${rect.top-startY}px)`;
+        heart.style.opacity='0';
+    },10);
+    heart.addEventListener('transitionend',()=>{
+        heart.remove();
+        topHeart.classList.add('active');
+        setTimeout(()=>topHeart.classList.remove('active'),1500);
+        if(!likedPosts.includes(productId)) likedPosts.push(productId);
+    });
+}
+
+// Render shop overlay
 function openShop(){ showOverlay(); renderShop(posts); }
 function closeOverlay(){ shopOverlay.style.display='none'; }
 function showOverlay(){ shopOverlay.style.display='flex'; }
-
 function renderShop(list){
     let html="<h2>Shopping Feed</h2>";
     list.forEach(p=>{
@@ -237,69 +163,32 @@ function renderShop(list){
     overlayContent.innerHTML=html;
 }
 
-/* Handle like toggle plus flying heart */
-function toggleLike(id, event){
-    const p=posts.find(x=>x.id===id);
-    if(!p) return;
-    p.liked=!p.liked;
-    renderShop(posts);
-
-    // Only animate when turning liked on
-    if(p.liked){
-        animateHeartToTop(event.target);
-        // highlight top heart briefly
-        topHeartEl.classList.add('liked');
-        setTimeout(()=> topHeartEl.classList.remove('liked'), 800);
+// Toggle like
+function toggleLike(id, e){
+    const product=posts.find(p=>p.id===id);
+    product.liked=!product.liked;
+    if(product.liked){
+        const rect=e.target.getBoundingClientRect();
+        createFloatingHeart(id, rect.left, rect.top);
+    } else {
+        likedPosts=likedPosts.filter(x=>x!==id);
     }
+    renderShop(posts);
 }
 
-/* send order via WhatsApp */
-function sendOrder(id){ const p=posts.find(x=>x.id===id);
-    if(!p) return;
+// Show liked products
+function showLiked(){
+    if(likedPosts.length===0){ alert("No liked products yet"); return; }
+    showOverlay();
+    const likedList=posts.filter(p=>likedPosts.includes(p.id));
+    renderShop(likedList);
+}
+
+// Send order
+function sendOrder(id){
+    const p=posts.find(x=>x.id===id);
     const msg=encodeURIComponent(`I am interested in this product:\nName: ${p.name}\nPrice: ₹${p.price}\nDescription: ${p.desc}`);
     window.open("https://wa.me/919476091829?text="+msg,"_blank");
-}
-
-/* Animation: flying heart */
-function animateHeartToTop(sourceEl){
-    // Create heart element
-    const heart = document.createElement('div');
-    heart.innerHTML = '&#10084;';
-    heart.style.position = 'fixed';
-    heart.style.color = '#e74c3c';
-    heart.style.fontSize = '20px';
-    heart.style.zIndex = 9999;
-    heart.style.pointerEvents = 'none';
-    document.body.appendChild(heart);
-
-    // Starting position (from clicked heart)
-    const srcRect = sourceEl.getBoundingClientRect();
-    const startX = srcRect.left + srcRect.width/2;
-    const startY = srcRect.top + srcRect.height/2;
-
-    heart.style.left = startX + 'px';
-    heart.style.top = startY + 'px';
-
-    // Ending position (top heart)
-    const destRect = topHeartEl.getBoundingClientRect();
-    const endX = destRect.left + destRect.width/2;
-    const endY = destRect.top + destRect.height/2;
-
-    // compute delta
-    const dx = endX - startX;
-    const dy = endY - startY;
-
-    // apply CSS variable for animation
-    heart.style.setProperty('--dx', dx + 'px');
-    heart.style.setProperty('--dy', dy + 'px');
-
-    // trigger animation
-    heart.style.animation = 'flyToTop 0.8s ease-out forwards';
-
-    // remove after animation
-    heart.addEventListener('animationend', () => {
-        heart.remove();
-    });
 }
 </script>
 </body>
