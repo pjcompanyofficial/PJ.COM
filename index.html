@@ -3,275 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PJ Store Pro</title>
-
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#ff7a00">
+<title>PJ Store</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
+<!-- PWA ADD -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff7a00">
+
 <style>
-
-/* ================= GLOBAL ================= */
-
-body{
-margin:0;
-font-family:Poppins;
-background:black;
-color:#ffe7b0;
-overflow-x:hidden;
-}
-
+body{margin:0;background:#000;color:#ffe7b0;font-family:Poppins}
 .hidden{display:none}
 
-/* ================= TOP BAR ================= */
-
-.topbar{
+/* TOP BAR */
+.top{
 position:fixed;
-top:0;
-width:100%;
+top:0;width:100%;
 height:1.5cm;
 background:#ff7a00;
 display:flex;
-align-items:center;
 justify-content:space-between;
+align-items:center;
 padding:0 15px;
 z-index:999;
 }
-
 .logoBox{display:flex;align-items:center;gap:10px}
+.logo{width:42px;height:42px;border-radius:50%;border:2px solid white}
+.install{background:black;color:#ffe7b0;border:none;padding:7px 15px;border-radius:20px}
 
-.logo{
-width:42px;
-height:42px;
-border-radius:50%;
-border:2px solid white;
-object-fit:cover;
-}
-
-.install{
-background:black;
-color:#ffe7b0;
-border:none;
-padding:7px 16px;
-border-radius:20px;
-font-weight:600;
-cursor:pointer;
-}
-
-/* ================= TITLE ================= */
-
+/* TITLE */
 .title{
 margin-top:2.3cm;
 text-align:center;
-font-family:Great Vibes;
 font-size:55px;
+font-family:Great Vibes;
 }
 
-/* ================= SLIDER ================= */
-
-.slider{
-width:90%;
-margin:25px auto;
-overflow:hidden;
-border-radius:18px;
-}
-
-.track{
-display:flex;
-transition:0.7s;
-}
-
-.track img{
-width:100%;
-height:auto;
-object-fit:contain; /* FIXED RATIO */
-flex-shrink:0;
-}
+/* SLIDER */
+.slider{width:90%;margin:25px auto;overflow:hidden;border-radius:20px}
+.track{display:flex;transition:.7s}
+.track img{width:100%;object-fit:contain}
 
 .dots{text-align:center}
-.dots span{
-width:8px;
-height:8px;
-display:inline-block;
-background:#555;
-margin:4px;
-border-radius:50%;
-}
-.activeDot{background:#ff7a00;transform:scale(1.4)}
+.dots span{width:8px;height:8px;background:#555;display:inline-block;margin:4px;border-radius:50%}
+.active{background:#ff7a00;transform:scale(1.3)}
 
-/* ================= TEXT ================= */
+.hero{text-align:center;font-size:28px;margin-top:20px}
+.shopBtn{display:block;margin:20px auto;background:#ff7a00;color:white;border:none;padding:15px 40px;border-radius:30px;font-size:20px}
 
-.hero{
-text-align:center;
-font-size:28px;
-margin-top:20px;
-}
-
-.shopBtn{
-display:block;
-margin:20px auto;
-background:#ff7a00;
-color:white;
-border:none;
-padding:15px 40px;
-border-radius:30px;
-font-size:20px;
-cursor:pointer;
-box-shadow:0 8px 0 #c65b00;
-}
-
-/* ================= NEW PRODUCTS ================= */
-
+/* NEW */
 .sectionTitle{text-align:center;font-size:25px;margin-top:40px}
-
-.scroll{
-display:flex;
-overflow-x:auto;
-gap:20px;
-padding:20px;
-}
-
-.card{
-min-width:250px;
-background:#111;
-border-radius:18px;
-padding:15px;
-}
-
+.scroll{display:flex;overflow-x:auto;gap:20px;padding:20px}
+.card{min-width:250px;background:#111;padding:15px;border-radius:18px}
 .card img{width:100%;border-radius:12px}
 
+/* FOOTER */
 .footer{text-align:center;margin:80px 0}
+.contact{display:flex;justify-content:center;gap:25px;margin-bottom:20px}
+.contact a{background:#ff7a00;color:white;padding:10px 18px;border-radius:25px;text-decoration:none}
 
-.contact{
-display:flex;
-justify-content:center;
-gap:25px;
-margin-bottom:20px;
-}
+/* SHOP */
+#shop{position:fixed;top:0;width:100%;height:100%;background:black;overflow:auto;padding-top:1.7cm;z-index:9999}
+.header{display:flex;justify-content:space-between;padding:10px 20px;font-size:26px}
+.search{width:90%;margin:10px auto;display:block;padding:10px;border-radius:20px;border:none}
+.list{padding:20px;display:flex;flex-direction:column;gap:20px}
 
-.contact a{
-background:#ff7a00;
-color:white;
-padding:10px 18px;
-border-radius:25px;
-text-decoration:none;
-}
-
-/* ================= SHOP PAGE ================= */
-
-#shop{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:black;
-overflow:auto;
-padding-top:1.7cm;
-z-index:9999;
-}
-
-.header{
-display:flex;
-justify-content:space-between;
-padding:10px 20px;
-font-size:26px;
-}
-
-.search{
-width:90%;
-margin:10px auto;
-display:block;
-padding:10px;
-border-radius:20px;
-border:none;
-}
-
-.list{
-padding:20px;
-display:flex;
-flex-direction:column;
-gap:20px;
-}
-
-.product{
-background:#111;
-border-radius:18px;
-padding:15px;
-position:relative;
-}
-
+.product{background:#111;border-radius:18px;padding:15px;position:relative}
 .product img{width:100%;border-radius:15px}
-
-.buy{
-background:#ff7a00;
-border:none;
-padding:10px;
-width:100%;
-margin-top:10px;
-border-radius:20px;
-color:white;
-font-weight:bold;
-}
-
-.like{
-position:absolute;
-top:15px;
-right:20px;
-font-size:22px;
-cursor:pointer;
-color:white;
-}
+.like{position:absolute;top:15px;right:20px;font-size:22px;cursor:pointer;color:white}
 .liked{color:red}
+.buy{background:#ff7a00;border:none;padding:10px;width:100%;margin-top:10px;border-radius:20px;color:white;font-weight:bold}
 
-/* ================= SAVED ================= */
-
-#saved{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:black;
-overflow:auto;
-z-index:99999;
-padding-top:1.7cm;
-}
-
-.empty{
-text-align:center;
-margin-top:120px;
-font-size:22px;
-}
-
-/* ================= BG PATTERN ================= */
-
-body::before{
-content:"";
-position:fixed;
-width:100%;
-height:100%;
-background-image:
-radial-gradient(circle,rgba(255,122,0,.07) 2%,transparent 3%);
-background-size:120px 120px;
-z-index:-1;
-}
-
+/* SAVED */
+#saved{position:fixed;top:0;width:100%;height:100%;background:black;overflow:auto;padding-top:1.7cm;z-index:99999}
+.empty{text-align:center;margin-top:120px;font-size:22px}
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
+<div class="top">
 <div class="logoBox">
 <img class="logo" src="https://i.postimg.cc/3w76Yfc0/file-00000000f0cc71faab033f0116f53261.jpg">
-<div style="font-size:12px">Install app on mobile</div>
+<div style="font-size:12px">Install app</div>
 </div>
-<button class="install" id="installBtn">Install</button>
+<button class="install">Install</button>
 </div>
 
-<!-- HOME -->
 <div id="home">
 
 <div class="title">PJ Store</div>
@@ -285,9 +102,7 @@ z-index:-1;
 </div>
 
 <div class="dots">
-<span class="activeDot"></span>
-<span></span>
-<span></span>
+<span class="active"></span><span></span><span></span>
 </div>
 
 <div class="hero">PJ classical flutes shop</div>
@@ -297,15 +112,13 @@ z-index:-1;
 
 <div class="scroll">
 
-<div class="card">
-<img src="https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp">
-E Middle Flute ₹1100
-</div>
-
-<div class="card">
-<img src="https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png">
-D Middle Flute ₹1300
-</div>
+<div class="card"><img src="https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp">E Middle Flute ₹1100</div>
+<div class="card"><img src="https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png">D Middle Flute ₹1300</div>
+<div class="card"><img src="https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg">C# Middle ₹1470</div>
+<div class="card"><img src="https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png">C Middle ₹1500</div>
+<div class="card"><img src="https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png">A# Base ₹1200</div>
+<div class="card"><img src="https://i.postimg.cc/7YGbn56K/1771410309328.jpg">G# Base ₹1200</div>
+<div class="card"><img src="https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png">G Base ₹1800</div>
 
 </div>
 
@@ -328,8 +141,7 @@ D Middle Flute ₹1300
 <div onclick="openSaved()">❤</div>
 </div>
 
-<input class="search" placeholder="Search product..." onkeyup="search(this.value)">
-
+<input class="search" placeholder="Search..." onkeyup="search(this.value)">
 <div class="list" id="list"></div>
 
 </div>
@@ -342,7 +154,7 @@ D Middle Flute ₹1300
 
 <input class="search" placeholder="Search saved..." onkeyup="searchSaved(this.value)">
 <div id="savedList"></div>
-<div id="empty" class="empty">No saved products yet</div>
+<div class="empty" id="empty">No saved products yet</div>
 </div>
 
 <script>
@@ -351,20 +163,23 @@ D Middle Flute ₹1300
 let i=0;
 setInterval(()=>{
 i=(i+1)%3;
-track.style.transform="translateX(-"+i*100+"%)";
-document.querySelectorAll(".dots span").forEach(d=>d.classList.remove("activeDot"));
-document.querySelectorAll(".dots span")[i].classList.add("activeDot");
+track.style.transform=`translateX(-${i*100}%)`;
+document.querySelectorAll(".dots span").forEach(d=>d.classList.remove("active"));
+document.querySelectorAll(".dots span")[i].classList.add("active");
 },2000);
 
 /* PRODUCTS */
-
 const products=[
 {name:"E Middle Flute",price:1100,img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp"},
-{name:"D Middle Flute",price:1300,img:"https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png"}
+{name:"D Middle Flute",price:1300,img:"https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png"},
+{name:"C# Middle Flute",price:1470,img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg"},
+{name:"C Middle Flute",price:1500,img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png"},
+{name:"A# Base Flute",price:1200,img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png"},
+{name:"G# Base Flute",price:1200,img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg"},
+{name:"G Base Flute",price:1800,img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png"}
 ];
 
 const list=document.getElementById("list");
-
 function render(arr){
 list.innerHTML="";
 arr.forEach(p=>{
@@ -381,36 +196,27 @@ list.innerHTML+=`
 render(products);
 
 /* NAV */
-
 function openShop(){home.classList.add("hidden");shop.classList.remove("hidden")}
 function closeShop(){shop.classList.add("hidden");home.classList.remove("hidden")}
 
 /* SEARCH */
-
 function search(v){
 v=v.toLowerCase();
 render(products.filter(p=>p.name.toLowerCase().includes(v)));
 }
 
 /* BUY */
-
 function buy(n,p){
 window.open(`https://wa.me/919476091829?text=Hi I am interested in ${n} Price ₹${p}`);
 }
 
 /* SAVE */
-
 let saved=[];
-
 function save(name,el){
 let p=products.find(x=>x.name==name);
-if(!saved.includes(p)){
-saved.push(p);
-el.classList.add("liked");
-}
+if(!saved.includes(p)){saved.push(p);el.classList.add("liked")}
 renderSaved();
 }
-
 function openSaved(){savedPage.classList.remove("hidden")}
 function closeSaved(){savedPage.classList.add("hidden")}
 
@@ -418,7 +224,6 @@ function renderSaved(arr=saved){
 savedList.innerHTML="";
 if(arr.length==0){empty.style.display="block";return}
 empty.style.display="none";
-
 arr.forEach(p=>{
 savedList.innerHTML+=`
 <div class="product">
@@ -429,21 +234,29 @@ savedList.innerHTML+=`
 </div>`;
 });
 }
-
 function searchSaved(v){
 v=v.toLowerCase();
 renderSaved(saved.filter(p=>p.name.toLowerCase().includes(v)));
 }
 
-/* PWA */
+/* INSTALL */
+let deferredPrompt;
+const installBtn=document.querySelector(".install");
 
-let promptEvent;
 window.addEventListener("beforeinstallprompt",e=>{
 e.preventDefault();
-promptEvent=e;
+deferredPrompt=e;
 });
-installBtn.onclick=()=>{if(promptEvent)promptEvent.prompt()}
 
+installBtn.addEventListener("click",async()=>{
+if(!deferredPrompt) return alert("Install option not ready yet");
+deferredPrompt.prompt();
+});
+
+/* SW */
+if("serviceWorker" in navigator){
+navigator.serviceWorker.register("sw.js");
+}
 </script>
 </body>
 </html>
