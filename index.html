@@ -4,95 +4,109 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PJ Shop Web</title>
 <style>
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0f0f0f;color:#fff}
-header{background:#111;padding:15px;text-align:center;border-bottom:2px solid orange;position:relative}
-.logo{max-width:120px}
-.lang{position:absolute;right:15px;top:20px}
-select{padding:5px;border-radius:5px}
-.container{padding:15px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:15px}
-.card{background:#1a1a1a;border-radius:15px;padding:10px;text-align:center;box-shadow:0 0 15px rgba(255,140,0,.25);transition:.3s}
-.card:hover{transform:scale(1.05)}
-.card img{width:100%;border-radius:10px}
-p{font-size:13px;color:#ffd9a0}
-.price{color:orange;font-weight:bold;margin:5px 0;font-size:18px}
-.btn{display:inline-block;padding:10px 15px;background:orange;color:#000;border-radius:20px;text-decoration:none;font-weight:bold;margin-top:5px}
-.btn:hover{background:#ffb347}
-footer{text-align:center;padding:15px;background:#111;margin-top:20px;color:#ffcc80}
-#adminPanel{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000e;justify-content:center;align-items:center}
-.adminBox{background:#111;padding:20px;border-radius:10px;text-align:center}
-input{padding:8px;border-radius:5px;border:none;margin-top:10px}
+body{margin:0;font-family:Segoe UI,Arial;background:#0a0a0a;color:#fff;overflow-x:hidden}
+.page{display:none;min-height:100vh}
+.active{display:block}
+.center{display:flex;justify-content:center;align-items:center;text-align:center}/* HOME */ #home{background:#000;flex-direction:column;position:relative} #home img{width:260px;opacity:.15;position:absolute} #home h1{color:orange;font-size:42px;font-family:cursive;margin-top:60px} #home h2{color:#ffb347;font-style:italic;margin:20px} .shopbtn{background:orange;border:none;padding:15px 35px;border-radius:40px;font-size:18px;font-weight:bold;box-shadow:0 0 20px orange;cursor:pointer}
+
+.bottomBar{position:absolute;bottom:15px;width:100%;text-align:center} .iconRow{display:flex;justify-content:center;gap:25px;margin-bottom:10px} .circle{width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;background:rgba(255,255,255,.05);backdrop-filter:blur(6px)} .wh{color:#25D366;border:1px solid #25D366} .call{color:orange;border:1px solid orange} .mail{color:#4da6ff;border:1px solid #4da6ff}
+
+/* SHOP */ header{background:#111;padding:12px;text-align:center;border-bottom:2px solid orange;position:sticky;top:0} .search{margin-top:10px;padding:10px;width:90%;max-width:400px;border-radius:25px;border:none} .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:15px;padding:15px} .card{background:#141414;border-radius:18px;padding:10px;box-shadow:0 0 15px rgba(255,140,0,.2);position:relative} .card img{width:100%;border-radius:12px} .price{color:orange;font-weight:bold} .size{font-size:12px;color:#ffcc80} .buy{background:orange;color:#000;border:none;padding:10px;border-radius:25px;width:100%;font-weight:bold;margin-top:5px} .heart{position:absolute;right:12px;bottom:75px;font-size:20px;color:#777;cursor:pointer;transition:.3s} .heart.liked{color:red;transform:scale(1.2)} .topbar{display:flex;justify-content:space-between;align-items:center;padding:10px} .icon{font-size:22px;cursor:pointer}
+
+/* SAVED */ #savedList{padding:15px} .msg{opacity:.7;text-align:center;margin-top:40px}
+
 </style>
 </head>
-<body><header>
-<img src="logo.png" class="logo">
-<h2>PJ Shop Web</h2>
-<div class="lang">
-<select onchange="setLang(this.value)">
-<option value="en">English</option>
-<option value="hi">Hindi</option>
-<option value="bn">Bengali</option>
-</select>
+<body><!-- HOME --><div id="home" class="page active center">
+<img src="https://i.postimg.cc/4NR4TBwn/1771328655074.png">
+<div>
+<h1>PJ shop</h1>
+<h2>PJ classical flute shop</h2>
+<button class="shopbtn" onclick="openPage('shop')">Shop Now</button>
+</div><div class="bottomBar">
+<div class="iconRow">
+<div class="circle wh" onclick="wa()">🟢</div>
+<div class="circle call" onclick="callNow()">📞</div>
+<div class="circle mail" onclick="mailNow()">✉️</div>
 </div>
-</header><div class="container">
-<h3>Our Flutes</h3>
-<div class="grid"><div class="card">
-<img src="https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp">
-<h4>E Middle Flute</h4>
-<p>Professional bamboo flute tuned in E scale. Smooth airflow, balanced tone and ideal for beginners as well as performers.</p>
-<div class="price">₹1,100</div>
-<a class="btn" href="https://wa.me/919476091829?text=I want to buy E Middle Flute for ₹1100" target="_blank">Buy for WP</a>
-</div><div class="card">
-<img src="https://i.postimg.cc/zX0H0sSS/1771409161124.jpg">
-<h4>D Middle Flute</h4>
-<p>D scale handcrafted flute with clear pitch accuracy and stable resonance. Perfect for practice and recording.</p>
-<div class="price">₹1,300</div>
-<a class="btn" href="https://wa.me/919476091829?text=I want to buy D Middle Flute for ₹1300" target="_blank">Buy for WP</a>
-</div><div class="card">
-<img src="https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg">
-<h4>C# Middle Flute</h4>
-<p>Rich sounding C# flute designed for classical music lovers. Smooth finger placement and accurate tuning.</p>
-<div class="price">₹1,470</div>
-<a class="btn" href="https://wa.me/919476091829?text=I want to buy C# Middle Flute for ₹1470" target="_blank">Buy for WP</a>
-</div><div class="card">
-<img src="https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png">
-<h4>C Middle Flute</h4>
-<p>Standard C scale flute delivering warm tone and consistent pitch. Great choice for learners and live shows.</p>
-<div class="price">₹1,500</div>
-<a class="btn" href="https://wa.me/919476091829?text=I want to buy C Middle Flute for ₹1500" target="_blank">Buy for WP</a>
-</div><div class="card">
-<img src="https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png">
-<h4>A# Bass Flute</h4>
-<p>Deep tone A# bass flute with long resonance body and powerful sound output. Ideal for bass note lovers.</p>
-<div class="price">₹1,200</div>
-<a class="btn" href="https://wa.me/919476091829?text=I want to buy A# Bass Flute for ₹1200" target="_blank">Buy for WP</a>
-</div><div class="card">
-<img src="https://i.postimg.cc/7YGbn56K/1771410309328.jpg">
-<h4>G# Bass Flute</h4>
-<p>Premium G# bass flute known for deep vibration tone and strong bamboo body for durability.</p>
-<div class="price">₹1,200</div>
-<a class="btn" href="https://wa.me/919476091829?text=I want to buy G# Bass Flute for ₹1200" target="_blank">Buy for WP</a>
-</div><div class="card">
-<img src="https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png">
-<h4>G Bass Flute</h4>
-<p>Professional G bass flute with powerful low notes and concert level sound clarity. Designed for serious musicians.</p>
-<div class="price">₹1,800</div>
-<a class="btn" href="https://wa.me/919476091829?text=I want to buy G Bass Flute for ₹1800" target="_blank">Buy for WP</a>
-</div></div>
-</div><footer>
-© 2026 PJ Shop Web
-</footer><div id="adminPanel">
-<div class="adminBox">
-<h3>Admin Access</h3>
-<input type="password" id="pass" placeholder="Enter Password">
-<br>
-<button class="btn" onclick="checkPass()">Open</button>
+<small>©2026 PJ Shop Web</small>
 </div>
+</div><!-- SHOP --><div id="shop" class="page">
+<header>
+<div class="topbar">
+<span class="icon" onclick="openPage('home')">⬅</span>
+<b>PJ Shop</b>
+<span class="icon" onclick="openPage('saved')">♡</span>
+</div>
+<input class="search" placeholder="Search flute or price..." onkeyup="search(this.value)">
+</header><div class="grid" id="products"></div>
+</div><!-- SAVED --><div id="saved" class="page">
+<header>
+<div class="topbar">
+<span class="icon" onclick="openPage('shop')">⬅</span>
+<b>Saved Items</b>
+<span></span>
+</div>
+</header>
+<div id="savedList"></div>
 </div><script>
-function setLang(l){localStorage.setItem("lang",l);alert("Language saved: "+l)}
-window.onload=function(){let l=localStorage.getItem("lang");if(l){console.log("Saved language:",l)}}
-window.addEventListener("keydown",e=>{if(e.ctrlKey&&e.key==="."){document.getElementById("adminPanel").style.display="flex"}})
-function checkPass(){let p=document.getElementById("pass").value;if(p==="sonu@jeet"){alert("Welcome Admin");document.getElementById("adminPanel").style.display="none"}else{alert("Wrong Password")}}
-window.onclick=function(e){if(e.target.id==="adminPanel"){document.getElementById("adminPanel").style.display="none"}}
+const data=[
+{name:"E Middle Flute",price:1100,size:"41cm",img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp"},
+{name:"D Middle Flute",price:1300,size:"45.5cm",img:"https://i.postimg.cc/zX0H0sSS/1771409161124.jpg"},
+{name:"C# Middle Flute",price:1470,size:"46.3cm",img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg"},
+{name:"C Middle Flute",price:1500,size:"50cm",img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png"},
+{name:"A# Bass Flute",price:1200,size:"56.5cm",img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png"},
+{name:"G# Bass Flute",price:1200,size:"60cm",img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg"},
+{name:"G Bass Flute",price:1800,size:"65.7cm",img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png"}
+];
+
+let saved=[];
+
+function openPage(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+if(id==='saved')renderSaved();
+}
+
+function render(list=data){
+let html="";
+list.forEach((p,i)=>{
+html+=`<div class="card">
+<img src="${p.img}">
+<h4>${p.name}</h4>
+<div class="size">Size: ${p.size}</div>
+<div class="price">₹${p.price}</div>
+<div class="heart ${saved.includes(i)?'liked':''}" onclick="like(${i},this)">❤</div>
+<button class="buy" onclick="buy('${p.name}',${p.price})">Buy for WP</button>
+</div>`});
+products.innerHTML=html;
+}
+render();
+
+function buy(n,p){
+window.open(`https://wa.me/919476091829?text=I want to buy ${n} for ₹${p}`);
+}
+
+function like(i,el){
+if(!saved.includes(i)){saved.push(i);el.classList.add('liked');}
+}
+
+function renderSaved(){
+if(saved.length==0){savedList.innerHTML='<div class="msg">You have not liked any product yet.</div>';return}
+let h="";
+saved.forEach(i=>{
+let p=data[i];
+h+=`<div class='card'><img src='${p.img}'><h4>${p.name}</h4><div class='price'>₹${p.price}</div></div>`});
+savedList.innerHTML=h;
+}
+
+function search(q){
+q=q.toLowerCase();
+render(data.filter(p=>p.name.toLowerCase().includes(q)||String(p.price).includes(q)));
+}
+
+function wa(){window.open("https://wa.me/919476091829?text=hey I am interested in shopping")}
+function callNow(){window.location.href="tel:+919434274060"}
+function mailNow(){window.location.href="mailto:pjcompanyofficial@gmail.com?subject=Shopping&body=hey I am interested in shopping"}
 </script></body>
 </html>
