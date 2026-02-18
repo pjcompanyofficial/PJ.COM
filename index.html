@@ -7,7 +7,6 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-<!-- PWA ADD -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ff7a00">
 
@@ -29,7 +28,6 @@ z-index:999;
 }
 .logoBox{display:flex;align-items:center;gap:10px}
 .logo{width:42px;height:42px;border-radius:50%;border:2px solid white}
-.install{background:black;color:#ffe7b0;border:none;padding:7px 15px;border-radius:20px}
 
 /* TITLE */
 .title{
@@ -41,9 +39,10 @@ font-family:Great Vibes;
 
 /* SLIDER */
 .slider{width:90%;margin:25px auto;overflow:hidden;border-radius:20px}
-.track{display:flex;transition:.7s}
-.track img{width:100%;object-fit:contain}
+.track{display:flex;transition:transform .8s ease}
+.track img{width:100%;flex-shrink:0}
 
+/* dots */
 .dots{text-align:center}
 .dots span{width:8px;height:8px;background:#555;display:inline-block;margin:4px;border-radius:50%}
 .active{background:#ff7a00;transform:scale(1.3)}
@@ -84,9 +83,8 @@ font-family:Great Vibes;
 <div class="top">
 <div class="logoBox">
 <img class="logo" src="https://i.postimg.cc/3w76Yfc0/file-00000000f0cc71faab033f0116f53261.jpg">
-<div style="font-size:12px">Install app</div>
+<div style="font-size:14px;font-weight:bold">PJ Store Web</div>
 </div>
-<button class="install">Install</button>
 </div>
 
 <div id="home">
@@ -95,9 +93,9 @@ font-family:Great Vibes;
 
 <div class="slider">
 <div class="track" id="track">
-<img src="https://i.postimg.cc/FFCKWzrc/IMG-20260218-194815-054.webp">
-<img src="https://i.postimg.cc/G3fcPfKy/IMG-20260218-194851-468.webp">
-<img src="https://i.postimg.cc/cJdZ4G1t/Screenshot-20260218-195904-Gallery.png">
+<img src="https://i.postimg.cc/zXkJgfLD/IMG-20260218-194815-054.jpg">
+<img src="https://i.postimg.cc/N0KYS7dg/IMG-20260218-194851-468-2.jpg">
+<img src="https://i.postimg.cc/mkyGCdgq/IMG-20260218-195846-240.jpg">
 </div>
 </div>
 
@@ -133,7 +131,7 @@ font-family:Great Vibes;
 
 </div>
 
-<!-- SHOP PAGE -->
+<!-- SHOP -->
 <div id="shop" class="hidden">
 
 <div class="header">
@@ -146,7 +144,7 @@ font-family:Great Vibes;
 
 </div>
 
-<!-- SAVED PAGE -->
+<!-- SAVED -->
 <div id="saved" class="hidden">
 <div class="header">
 <div onclick="closeSaved()">←</div>
@@ -166,20 +164,41 @@ i=(i+1)%3;
 track.style.transform=`translateX(-${i*100}%)`;
 document.querySelectorAll(".dots span").forEach(d=>d.classList.remove("active"));
 document.querySelectorAll(".dots span")[i].classList.add("active");
-},2000);
+},2500);
 
 /* PRODUCTS */
 const products=[
-{name:"E Middle Flute",price:1100,img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp"},
-{name:"D Middle Flute",price:1300,img:"https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png"},
-{name:"C# Middle Flute",price:1470,img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg"},
-{name:"C Middle Flute",price:1500,img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png"},
-{name:"A# Base Flute",price:1200,img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png"},
-{name:"G# Base Flute",price:1200,img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg"},
-{name:"G Base Flute",price:1800,img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png"}
+{name:"E Middle Flute",price:1100,size:"Medium",
+desc:"Premium handcrafted bamboo flute designed for balanced tone, smooth airflow, and precise tuning. Ideal for beginners and professionals seeking warm classical sound with durable polished finish and comfortable grip for long practice sessions.",
+img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp"},
+
+{name:"D Middle Flute",price:1300,size:"Medium",
+desc:"Carefully tuned D scale flute producing rich resonance and stable pitch. Crafted from quality bamboo for durability, smooth finger placement, and expressive tonal control suitable for stage performance, recording sessions, and daily riyaaz practice.",
+img:"https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png"},
+
+{name:"C# Middle Flute",price:1470,size:"Medium",
+desc:"Professional C sharp flute offering bright tone clarity and consistent airflow response. Designed for classical musicians wanting accurate scale balance, elegant finish, and reliable performance across high and low octaves effortlessly.",
+img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg"},
+
+{name:"C Middle Flute",price:1500,size:"Medium",
+desc:"Smooth tuned C scale flute delivering soft tonal warmth and excellent note stability. Crafted for comfort grip, long durability, and expressive control perfect for concerts, studio sessions, meditation music, and traditional melodies.",
+img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png"},
+
+{name:"A# Base Flute",price:1200,size:"Large",
+desc:"Deep bass A sharp flute producing powerful low frequency resonance and rich depth. Ideal for professional performers wanting strong projection, stable tuning, and premium bamboo craftsmanship for stage and recording environments.",
+img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png"},
+
+{name:"G# Base Flute",price:1200,size:"Large",
+desc:"Elegant G sharp bass flute delivering deep tonal body and smooth response. Designed with precision holes, polished finish, and comfortable spacing ensuring accurate pitch control and enjoyable long playing experience.",
+img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg"},
+
+{name:"G Base Flute",price:1800,size:"Large",
+desc:"Concert grade G bass flute crafted for strong resonance and warm tonal richness. Perfect for advanced players seeking professional sound quality, reliable tuning stability, and beautifully finished bamboo body.",
+img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png"}
 ];
 
 const list=document.getElementById("list");
+
 function render(arr){
 list.innerHTML="";
 arr.forEach(p=>{
@@ -188,7 +207,9 @@ list.innerHTML+=`
 <div class="like" onclick="save('${p.name}',this)">❤</div>
 <img src="${p.img}">
 <h3>${p.name}</h3>
+Size: ${p.size}<br>
 ₹${p.price}
+<p style="font-size:14px;opacity:.8">${p.desc}</p>
 <button class="buy" onclick="buy('${p.name}',${p.price})">Buy via WhatsApp</button>
 </div>`;
 });
@@ -229,7 +250,9 @@ savedList.innerHTML+=`
 <div class="product">
 <img src="${p.img}">
 <h3>${p.name}</h3>
+Size: ${p.size}<br>
 ₹${p.price}
+<p style="font-size:14px">${p.desc}</p>
 <button class="buy" onclick="buy('${p.name}',${p.price})">Buy</button>
 </div>`;
 });
@@ -238,20 +261,6 @@ function searchSaved(v){
 v=v.toLowerCase();
 renderSaved(saved.filter(p=>p.name.toLowerCase().includes(v)));
 }
-
-/* INSTALL */
-let deferredPrompt;
-const installBtn=document.querySelector(".install");
-
-window.addEventListener("beforeinstallprompt",e=>{
-e.preventDefault();
-deferredPrompt=e;
-});
-
-installBtn.addEventListener("click",async()=>{
-if(!deferredPrompt) return alert("Install option not ready yet");
-deferredPrompt.prompt();
-});
 
 /* SW */
 if("serviceWorker" in navigator){
