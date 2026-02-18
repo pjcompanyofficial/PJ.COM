@@ -3,31 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>PJ Company 3D Scroll UI</title>
+<title>PJ Company 3D Buttons</title>
 <style>
 * { box-sizing: border-box; margin:0; padding:0;}
-body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow-x:hidden; background:#ffe5f0; perspective:1200px; }
+body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow:hidden; background:#ffe5f0; display:flex; justify-content:center; align-items:center; perspective:1200px; }
 
-/* Background container */
+/* Background container without watermark */
 #background {
     position:fixed; top:0; left:0; width:100%; height:100%;
     overflow:hidden; z-index:-2;
-    display:flex; justify-content:center; align-items:center;
-}
-
-/* Holographic logo */
-#logo {
-    position:absolute; top:50%; left:50%;
-    width:350px; height:350px;
-    margin-left:-175px; margin-top:-175px;
-    background: url('https://i.postimg.cc/kMKGZLzc/1771384685512.png') no-repeat center/contain;
-    animation: hologlow 4s linear infinite alternate;
-    z-index:-1;
-}
-@keyframes hologlow{
-    0% { transform: scale(1) rotateY(0deg); filter: drop-shadow(0 0 20px #0ff);}
-    50% { transform: scale(1.05) rotateY(10deg); filter: drop-shadow(0 0 35px #f0f);}
-    100% { transform: scale(1) rotateY(-10deg); filter: drop-shadow(0 0 25px #0ff);}
 }
 
 /* Patterns inside background */
@@ -50,22 +34,25 @@ body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow-x
     100% { transform: translateY(-110vh) scale(1); opacity:0; }
 }
 
-/* Bottom buttons */
-.bottom-buttons{
-    position:fixed; bottom:15px; left:50%;
-    transform:translateX(-50%);
-    display:flex; gap:15px; flex-wrap:wrap; z-index:10;
+/* Center buttons container */
+.center-buttons{
+    position:absolute; top:50%; left:50%;
+    transform:translate(-50%, -50%);
+    display:flex; flex-wrap:wrap; justify-content:center; align-items:center;
+    gap:20px; z-index:10;
 }
-.bottom-btn{
-    padding:12px 18px; border-radius:15px;
-    font-weight:bold; font-size:14px; color:#fff; text-align:center;
+
+/* 3D style buttons */
+.center-btn{
+    padding:20px 28px; border-radius:20px;
+    font-weight:bold; font-size:16px; color:#fff; text-align:center;
     background: linear-gradient(145deg,#ff8c00,#ffb84d);
-    cursor:pointer; box-shadow:0 8px 20px rgba(0,0,0,0.4);
+    cursor:pointer; box-shadow:0 12px 25px rgba(0,0,0,0.5);
     transition: transform 0.3s, box-shadow 0.3s;
 }
-.bottom-btn:hover{
-    transform: translateZ(20px) scale(1.05);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+.center-btn:hover{
+    transform: translateZ(20px) scale(1.1) rotateX(5deg) rotateY(5deg);
+    box-shadow:0 18px 35px rgba(0,0,0,0.6);
 }
 
 /* Shop Overlay */
@@ -101,18 +88,16 @@ body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow-x
 </head>
 <body>
 
-<div id="background">
-    <div id="logo"></div>
-</div>
+<div id="background"></div>
 
-<!-- Bottom buttons: Shopping, AI, Contacts -->
-<div class="bottom-buttons">
-    <div class="bottom-btn" onclick="openShop()">Shopping</div>
-    <div class="bottom-btn" onclick="openAIContact()">AI Chat</div>
-    <div class="bottom-btn" onclick="callNumber()">Call</div>
-    <div class="bottom-btn" onclick="whatsappMessage()">WhatsApp</div>
-    <div class="bottom-btn" id="instagramBtn">Instagram</div>
-    <div class="bottom-btn" onclick="sendEmail()">Email</div>
+<!-- Centered buttons -->
+<div class="center-buttons">
+    <div class="center-btn" onclick="openShop()">Shopping</div>
+    <div class="center-btn" onclick="openAIContact()">AI Chat</div>
+    <div class="center-btn" onclick="callNumber()">Call</div>
+    <div class="center-btn" onclick="whatsappMessage()">WhatsApp</div>
+    <div class="center-btn" id="instagramBtn">Instagram</div>
+    <div class="center-btn" onclick="sendEmail()">Email</div>
 </div>
 
 <!-- Shop Overlay -->
@@ -124,7 +109,7 @@ body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow-x
 <script>
 /* Patterns inside background */
 const patterns=[];
-for(let i=0;i<25;i++){
+for(let i=0;i<20;i++){
     let p=document.createElement('div');
     p.className='pattern';
     p.style.left=Math.random()*100+'vw';
@@ -133,21 +118,21 @@ for(let i=0;i<25;i++){
     patterns.push(p);
 }
 
-/* Scroll reaction */
+/* Scroll reaction for patterns */
 window.addEventListener('scroll',()=>{
     const scrollY=window.scrollY;
     patterns.forEach((p,i)=>{
-        p.style.transform=`translateY(${scrollY*0.15}px) rotate(${scrollY*0.2}deg)`;
+        p.style.transform=`translateY(${scrollY*0.1}px) rotate(${scrollY*0.2}deg)`;
     });
 });
 
 /* Bubbles */
-for(let i=0;i<20;i++){
+for(let i=0;i<25;i++){
     let b=document.createElement('div');
     b.className='bubble';
     b.style.left=Math.random()*100+'vw';
-    b.style.width=b.style.height=(15+Math.random()*20)+'px';
-    b.style.animationDuration=(6+Math.random()*8)+'s';
+    b.style.width=b.style.height=(15+Math.random()*25)+'px';
+    b.style.animationDuration=(6+Math.random()*10)+'s';
     document.getElementById('background').appendChild(b);
 }
 
