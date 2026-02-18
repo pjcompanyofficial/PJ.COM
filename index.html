@@ -83,6 +83,25 @@ body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow:h
     display:none; flex-direction:column; align-items:center;
     overflow-y:auto; padding:20px; z-index:15;
 }
+
+/* top heart icon in overlay */
+.top-heart{
+    position:absolute; top:15px; right:20px;
+    font-size:30px; cursor:pointer; color:#888;
+    transition: transform 0.3s, color 0.3s;
+    z-index:20;
+}
+.top-heart.liked{ color:#e74c3c; }
+
+/* animating flying heart */
+@keyframes flyToTop {
+    to {
+        transform: translate(var(--dx), var(--dy)) scale(0.3);
+        opacity: 0;
+    }
+}
+
+/* Card style */
 .card{
     width:90%; max-width:400px; margin-bottom:25px;
     border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1);
@@ -128,6 +147,9 @@ body, html { width:100%; height:100%; font-family: Arial, sans-serif; overflow:h
 
 <!-- Shop Overlay -->
 <div class="overlay" id="overlay">
+    <!-- top heart icon -->
+    <div class="top-heart" id="topHeart">&#10084;</div>
+
     <span class="close-btn" onclick="closeOverlay()">×</span>
     <div id="overlay-content"></div>
 </div>
@@ -171,6 +193,8 @@ function openAIContact(){ alert("AI Chat will be implemented here."); }
 /* Shop Overlay */
 const shopOverlay=document.getElementById('overlay');
 const overlayContent=document.getElementById('overlay-content');
+const topHeartEl = document.getElementById('topHeart');
+
 let posts=[
     {
         id:1,
@@ -193,6 +217,7 @@ let posts=[
 function openShop(){ showOverlay(); renderShop(posts); }
 function closeOverlay(){ shopOverlay.style.display='none'; }
 function showOverlay(){ shopOverlay.style.display='flex'; }
+
 function renderShop(list){
     let html="<h2>Shopping Feed</h2>";
     list.forEach(p=>{
@@ -203,7 +228,7 @@ function renderShop(list){
                 <div class="card-price">₹${p.price}</div>
                 <div class="card-desc">${p.desc}</div>
                 <div class="card-actions">
-                    <span class="like-btn ${p.liked?'liked':''}" onclick="toggleLike(${p.id})">&#10084;</span>
+                    <span class="like-btn ${p.liked?'liked':''}" onclick="toggleLike(${p.id}, event)">&#10084;</span>
                     <button class="order-btn" onclick="sendOrder(${p.id})">Send Request</button>
                 </div>
             </div>
@@ -212,10 +237,69 @@ function renderShop(list){
     overlayContent.innerHTML=html;
 }
 
-function toggleLike(id){ const p=posts.find(x=>x.id===id); p.liked=!p.liked; renderShop(posts);}
+/* Handle like toggle plus flying heart */
+function toggleLike(id, event){
+    const p=posts.find(x=>x.id===id);
+    if(!p) return;
+    p.liked=!p.liked;
+    renderShop(posts);
+
+    // Only animate when turning liked on
+    if(p.liked){
+        animateHeartToTop(event.target);
+        // highlight top heart briefly
+        topHeartEl.classList.add('liked');
+        setTimeout(()=> topHeartEl.classList.remove('liked'), 800);
+    }
+}
+
+/* send order via WhatsApp */
 function sendOrder(id){ const p=posts.find(x=>x.id===id);
+    if(!p) return;
     const msg=encodeURIComponent(`I am interested in this product:\nName: ${p.name}\nPrice: ₹${p.price}\nDescription: ${p.desc}`);
     window.open("https://wa.me/919476091829?text="+msg,"_blank");
+}
+
+/* Animation: flying heart */
+function animateHeartToTop(sourceEl){
+    // Create heart element
+    const heart = document.createElement('div');
+    heart.innerHTML = '&#10084;';
+    heart.style.position = 'fixed';
+    heart.style.color = '#e74c3c';
+    heart.style.fontSize = '20px';
+    heart.style.zIndex = 9999;
+    heart.style.pointerEvents = 'none';
+    document.body.appendChild(heart);
+
+    // Starting position (from clicked heart)
+    const srcRect = sourceEl.getBoundingClientRect();
+    const startX = srcRect.left + srcRect.width/2;
+    const startY = srcRect.top + srcRect.height/2;
+
+    heart.style.left = startX + 'px';
+    heart.style.top = startY + 'px';
+
+    // Ending position (top heart)
+    const destRect = topHeartEl.getBoundingClientRect();
+    const endX = destRect.left + destRect.width/2;
+    const endY = destRect.top + destRect.height/2;
+
+    // compute delta
+    const dx = endX - startX;
+    const dy = endY - startY;
+
+    // apply CSS variable for animation
+    heart.style.setProperty('--dx', dx + 'px');
+    heart.style.setProperty('--dy', dy + 'px');
+
+    // trigger animation
+    heart.style.animation = 'flyToTop 0.8s ease-out forwards';
+
+    // remove after animation
+    heart.addEventListener('animationend', () => {
+        heart.remove();
+    });
 }
 </script>
 </body>
