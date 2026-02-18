@@ -3,58 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PJ Store</title>
+<title>PJ Store Pro</title>
 
-<!-- ========================================================= -->
-<!-- ===================== PWA META ========================== -->
-<!-- ========================================================= -->
-<link rel="manifest" href="data:application/json,{
-'name':'PJ Store',
-'short_name':'PJ Store',
-'start_url':'.',
-'display':'standalone',
-'background_color':'#000000',
-'theme_color':'#ff7a00',
-'icons':[{
-'src':'https://i.postimg.cc/3w76Yfc0/file-00000000f0cc71faab033f0116f53261.jpg',
-'sizes':'192x192',
-'type':'image/png'
-}]
-}">
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ff7a00">
 
-<!-- ========================================================= -->
-<!-- ===================== FONTS ============================= -->
-<!-- ========================================================= -->
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-<!-- ========================================================= -->
-<!-- ===================== STYLE ============================= -->
-<!-- ========================================================= -->
 <style>
 
-/* ========================================================= */
-/* ================= GLOBAL ================================ */
-/* ========================================================= */
+/* ================= GLOBAL ================= */
 
 body{
 margin:0;
-font-family:'Poppins',sans-serif;
+font-family:Poppins;
 background:black;
 color:#ffe7b0;
 overflow-x:hidden;
 }
 
-.hidden{display:none;}
+.hidden{display:none}
 
-/* ========================================================= */
-/* ================= TOP STRIP ============================= */
-/* ========================================================= */
+/* ================= TOP BAR ================= */
 
-.top-strip{
+.topbar{
 position:fixed;
 top:0;
-left:0;
 width:100%;
 height:1.5cm;
 background:#ff7a00;
@@ -62,205 +36,131 @@ display:flex;
 align-items:center;
 justify-content:space-between;
 padding:0 15px;
-z-index:9999;
-box-shadow:0 3px 10px rgba(0,0,0,.7);
+z-index:999;
 }
 
-.logo-area{
-display:flex;
-align-items:center;
-gap:10px;
-}
+.logoBox{display:flex;align-items:center;gap:10px}
 
 .logo{
 width:42px;
 height:42px;
 border-radius:50%;
+border:2px solid white;
 object-fit:cover;
-border:2px solid #fff;
 }
 
-.install-btn{
-background:#000;
+.install{
+background:black;
 color:#ffe7b0;
 border:none;
-padding:8px 15px;
+padding:7px 16px;
 border-radius:20px;
-cursor:pointer;
 font-weight:600;
-transition:.3s;
+cursor:pointer;
 }
-.install-btn:hover{transform:scale(1.1);}
 
-/* ========================================================= */
-/* ================= TITLE ================================ */
-/* ========================================================= */
+/* ================= TITLE ================= */
 
 .title{
-margin-top:2.2cm;
+margin-top:2.3cm;
 text-align:center;
-font-family:'Great Vibes',cursive;
-font-size:50px;
-color:#ffe7b0;
+font-family:Great Vibes;
+font-size:55px;
 }
 
-/* ========================================================= */
-/* ================= HERO TEXT ============================ */
-/* ========================================================= */
+/* ================= SLIDER ================= */
 
-.hero-text{
+.slider{
+width:90%;
+margin:25px auto;
+overflow:hidden;
+border-radius:18px;
+}
+
+.track{
+display:flex;
+transition:0.7s;
+}
+
+.track img{
+width:100%;
+height:auto;
+object-fit:contain; /* FIXED RATIO */
+flex-shrink:0;
+}
+
+.dots{text-align:center}
+.dots span{
+width:8px;
+height:8px;
+display:inline-block;
+background:#555;
+margin:4px;
+border-radius:50%;
+}
+.activeDot{background:#ff7a00;transform:scale(1.4)}
+
+/* ================= TEXT ================= */
+
+.hero{
 text-align:center;
 font-size:28px;
-margin-top:30px;
-font-weight:600;
+margin-top:20px;
 }
 
-/* ========================================================= */
-/* ================= BUTTON =============================== */
-/* ========================================================= */
-
-.shop-btn{
+.shopBtn{
 display:block;
 margin:20px auto;
 background:#ff7a00;
 color:white;
 border:none;
 padding:15px 40px;
-font-size:20px;
 border-radius:30px;
+font-size:20px;
 cursor:pointer;
-box-shadow:0 8px 0 #c65b00,0 10px 15px rgba(0,0,0,.6);
-transition:.2s;
-}
-.shop-btn:active{
-transform:translateY(5px);
-box-shadow:0 3px 0 #c65b00;
+box-shadow:0 8px 0 #c65b00;
 }
 
-/* ========================================================= */
-/* ================= MAP SLIDER =========================== */
-/* ========================================================= */
+/* ================= NEW PRODUCTS ================= */
 
-.slider{
-width:90%;
-margin:30px auto;
-overflow:hidden;
-border-radius:20px;
-position:relative;
-}
+.sectionTitle{text-align:center;font-size:25px;margin-top:40px}
 
-.slide-track{
-display:flex;
-transition:transform .7s ease;
-}
-
-.slide-track img{
-width:100%;
-flex-shrink:0;
-}
-
-.dots{
-text-align:center;
-margin-top:10px;
-}
-
-.dots span{
-height:8px;
-width:8px;
-margin:4px;
-background:#777;
-display:inline-block;
-border-radius:50%;
-transition:.3s;
-}
-.dots .active{background:#ff7a00;transform:scale(1.4);}
-
-/* ========================================================= */
-/* ================= NEW PRODUCT SCROLL =================== */
-/* ========================================================= */
-
-.product-section{
-margin-top:40px;
-}
-
-.product-title{
-text-align:center;
-font-size:26px;
-margin-bottom:10px;
-}
-
-.product-scroll{
+.scroll{
 display:flex;
 overflow-x:auto;
-scroll-behavior:smooth;
 gap:20px;
 padding:20px;
 }
 
-.product-card{
+.card{
 min-width:250px;
 background:#111;
-border-radius:20px;
+border-radius:18px;
 padding:15px;
-box-shadow:0 0 15px rgba(255,122,0,.3);
 }
 
-.product-card img{
-width:100%;
-border-radius:15px;
-}
+.card img{width:100%;border-radius:12px}
 
-.product-detail{
-font-size:14px;
-margin-top:10px;
-}
+.footer{text-align:center;margin:80px 0}
 
-.scroll-dots{
-text-align:center;
-margin-top:10px;
-}
-.scroll-dots span{
-display:inline-block;
-width:8px;
-height:8px;
-margin:3px;
-background:#555;
-border-radius:50%;
-}
-.scroll-dots .full{background:#ff7a00;transform:scale(1.5);}
-.scroll-dots .half{background:#ff7a00;transform:scale(1.2);}
-
-/* ========================================================= */
-/* ================= FOOTER =============================== */
-/* ========================================================= */
-
-.footer{
-text-align:center;
-margin-top:80px;
-padding-bottom:40px;
-}
-
-.contact-row{
+.contact{
 display:flex;
 justify-content:center;
-gap:30px;
+gap:25px;
 margin-bottom:20px;
 }
 
-.contact-btn{
+.contact a{
 background:#ff7a00;
-padding:12px 20px;
-border-radius:25px;
 color:white;
+padding:10px 18px;
+border-radius:25px;
 text-decoration:none;
-font-weight:600;
 }
 
-/* ========================================================= */
-/* ================= SHOP PAGE ============================ */
-/* ========================================================= */
+/* ================= SHOP PAGE ================= */
 
-#shopPage{
+#shop{
 position:fixed;
 top:0;
 left:0;
@@ -268,25 +168,15 @@ width:100%;
 height:100%;
 background:black;
 overflow:auto;
-z-index:9998;
-padding-top:1.8cm;
+padding-top:1.7cm;
+z-index:9999;
 }
 
-.shop-header{
+.header{
 display:flex;
 justify-content:space-between;
-align-items:center;
 padding:10px 20px;
-}
-
-.arrow{
-font-size:28px;
-cursor:pointer;
-}
-
-.heart{
 font-size:26px;
-cursor:pointer;
 }
 
 .search{
@@ -298,32 +188,31 @@ border-radius:20px;
 border:none;
 }
 
-.shop-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
+.list{
 padding:20px;
+display:flex;
+flex-direction:column;
+gap:20px;
 }
 
-.shop-card{
+.product{
 background:#111;
+border-radius:18px;
 padding:15px;
-border-radius:20px;
 position:relative;
 }
 
-.shop-card img{width:100%;border-radius:15px;}
+.product img{width:100%;border-radius:15px}
 
-.buy-btn{
-margin-top:10px;
-width:100%;
+.buy{
 background:#ff7a00;
 border:none;
 padding:10px;
+width:100%;
+margin-top:10px;
 border-radius:20px;
 color:white;
 font-weight:bold;
-cursor:pointer;
 }
 
 .like{
@@ -332,33 +221,31 @@ top:15px;
 right:20px;
 font-size:22px;
 cursor:pointer;
+color:white;
 }
+.liked{color:red}
 
-/* ========================================================= */
-/* ================= SAVED PAGE =========================== */
-/* ========================================================= */
+/* ================= SAVED ================= */
 
-#savedPage{
+#saved{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
 background:black;
-z-index:9999;
 overflow:auto;
-padding-top:1.8cm;
+z-index:99999;
+padding-top:1.7cm;
 }
 
 .empty{
 text-align:center;
-margin-top:100px;
-font-size:20px;
+margin-top:120px;
+font-size:22px;
 }
 
-/* ========================================================= */
-/* ================= BACKGROUND PATTERN =================== */
-/* ========================================================= */
+/* ================= BG PATTERN ================= */
 
 body::before{
 content:"";
@@ -366,353 +253,179 @@ position:fixed;
 width:100%;
 height:100%;
 background-image:
-radial-gradient(circle at 20% 20%,rgba(255,122,0,.08) 2%,transparent 3%),
-radial-gradient(circle at 80% 40%,rgba(255,122,0,.08) 2%,transparent 3%),
-radial-gradient(circle at 50% 80%,rgba(255,122,0,.08) 2%,transparent 3%);
+radial-gradient(circle,rgba(255,122,0,.07) 2%,transparent 3%);
+background-size:120px 120px;
 z-index:-1;
 }
-
-/* ========================================================= */
-/* ================= PETALS BG ============================ */
-/* ========================================================= */
-
-.petal{
-position:fixed;
-width:12px;
-height:12px;
-background:#ff7a00;
-opacity:.2;
-border-radius:50% 50% 50% 0;
-animation:fall linear infinite;
-}
-
-@keyframes fall{
-from{transform:translateY(-100px) rotate(0deg);}
-to{transform:translateY(120vh) rotate(360deg);}
-}
-
-/* MANY PETALS */
-.petal:nth-child(1){left:10%;animation-duration:10s;}
-.petal:nth-child(2){left:30%;animation-duration:12s;}
-.petal:nth-child(3){left:50%;animation-duration:9s;}
-.petal:nth-child(4){left:70%;animation-duration:11s;}
-.petal:nth-child(5){left:90%;animation-duration:13s;}
 
 </style>
 </head>
 <body>
 
-<!-- PETALS -->
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-
-<!-- ========================================================= -->
-<!-- ================= TOP STRIP ============================= -->
-<!-- ========================================================= -->
-
-<div class="top-strip">
-<div class="logo-area">
+<!-- TOP BAR -->
+<div class="topbar">
+<div class="logoBox">
 <img class="logo" src="https://i.postimg.cc/3w76Yfc0/file-00000000f0cc71faab033f0116f53261.jpg">
-<div style="font-size:12px;">Install our app on mobile</div>
+<div style="font-size:12px">Install app on mobile</div>
 </div>
-<button class="install-btn" id="installBtn">Install</button>
+<button class="install" id="installBtn">Install</button>
 </div>
 
-<!-- ========================================================= -->
-<!-- ================= HOME PAGE ============================= -->
-<!-- ========================================================= -->
-
-<div id="homePage">
+<!-- HOME -->
+<div id="home">
 
 <div class="title">PJ Store</div>
 
-<!-- MAP SLIDER -->
 <div class="slider">
-<div class="slide-track" id="track">
+<div class="track" id="track">
 <img src="https://i.postimg.cc/FFCKWzrc/IMG-20260218-194815-054.webp">
 <img src="https://i.postimg.cc/G3fcPfKy/IMG-20260218-194851-468.webp">
 <img src="https://i.postimg.cc/cJdZ4G1t/Screenshot-20260218-195904-Gallery.png">
 </div>
 </div>
+
 <div class="dots">
-<span class="active"></span>
+<span class="activeDot"></span>
 <span></span>
 <span></span>
 </div>
 
-<div class="hero-text">PJ classical flutes shop</div>
+<div class="hero">PJ classical flutes shop</div>
+<button class="shopBtn" onclick="openShop()">Shop Now</button>
 
-<button class="shop-btn" onclick="openShop()">Shop Now</button>
+<div class="sectionTitle">New Products</div>
 
-<!-- NEW PRODUCTS -->
-<div class="product-section">
-<div class="product-title">New Products</div>
+<div class="scroll">
 
-<div class="product-scroll" id="scrollArea">
-
-<!-- PRODUCT 1 -->
-<div class="product-card">
+<div class="card">
 <img src="https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp">
-<div class="product-detail">
-<b>E Middle Flute</b><br>
-₹1100 • 41cm<br>
-Premium tuned bamboo flute with deep resonance, balanced tone holes, smooth finish, elegant black orange thread binding, lightweight body, perfect for beginners and professionals seeking melodious classical sound quality instrument.
-</div>
+E Middle Flute ₹1100
 </div>
 
-<!-- PRODUCT 2 -->
-<div class="product-card">
-<img src="https://i.postimg.cc/zXOHOsSS/1771409161124.jpg">
-<div class="product-detail">
-<b>D Middle Flute</b><br>
-₹1300 • 45.5cm<br>
-Carefully crafted bamboo flute offering rich tonal clarity, accurate pitch alignment, durable polish, traditional design, warm resonance, ideal for concerts practice recordings meditation and smooth classical music performance.
-</div>
-</div>
-
-<!-- PRODUCT 3 -->
-<div class="product-card">
-<img src="https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg">
-<div class="product-detail">
-<b>C# Middle Flute</b><br>
-₹1470 • 46.3cm<br>
-Hand-tuned professional flute designed for expressive playing, smooth airflow response, polished bamboo texture, stable tuning, elegant binding, perfect for learners stage artists and devotional performances.
-</div>
-</div>
-
-<!-- PRODUCT 4 -->
-<div class="product-card">
-<img src="https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png">
-<div class="product-detail">
-<b>C Middle Flute</b><br>
-₹1500 • 50cm<br>
-Long body bamboo flute producing deep soothing tone, accurate finger placement, glossy finish, strong structure, traditional craftsmanship, suitable for classical ragas studio practice and advanced musicians.
-</div>
-</div>
-
-<!-- PRODUCT 5 -->
-<div class="product-card">
-<img src="https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png">
-<div class="product-detail">
-<b>A# Base Flute</b><br>
-₹1200 • 56.5cm<br>
-Large base flute crafted from seasoned bamboo, powerful bass resonance, precision tuned holes, decorative thread binding, comfortable grip, ideal for deep meditative music and professional stage use.
-</div>
-</div>
-
-<!-- PRODUCT 6 -->
-<div class="product-card">
-<img src="https://i.postimg.cc/7YGbn56K/1771410309328.jpg">
-<div class="product-detail">
-<b>G# Base Flute</b><br>
-₹1200 • 60cm<br>
-Extended length bamboo flute giving warm bass notes, polished surface finish, stable tuning design, strong body durability, classic binding decoration, best for performances recordings and classical compositions.
-</div>
-</div>
-
-<!-- PRODUCT 7 -->
-<div class="product-card">
-<img src="https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png">
-<div class="product-detail">
-<b>G Base Flute</b><br>
-₹1800 • 65.7cm<br>
-Professional bass flute delivering powerful resonance, handcrafted precision holes, glossy texture, decorative thread style, premium bamboo build, perfect for concerts recordings advanced practice and classical mastery.
-</div>
+<div class="card">
+<img src="https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png">
+D Middle Flute ₹1300
 </div>
 
 </div>
-</div>
 
-<!-- FOOTER -->
 <div class="footer">
-
-<div class="contact-row">
-<a class="contact-btn" href="https://wa.me/919476091829?text=Hi%20I%20am%20interested%20in%20products!">WhatsApp</a>
-<a class="contact-btn" href="tel:+919434274060">Call</a>
-<a class="contact-btn" href="mailto:pjcompanyofficial@gmail.com?subject=Product%20Inquiry&body=Hi%20I%20am%20interested%20in%20products!">Email</a>
+<div class="contact">
+<a href="https://wa.me/919476091829?text=Hi%20I%20am%20interested%20in%20products!">WhatsApp</a>
+<a href="tel:+919434274060">Call</a>
+<a href="mailto:pjcompanyofficial@gmail.com?body=Hi I am interested in products!">Email</a>
 </div>
-
-<div>©2026 PJ Store</div>
-
+©2026 PJ Store
 </div>
-</div>
-
-<!-- ========================================================= -->
-<!-- ================= SHOP PAGE ============================ -->
-<!-- ========================================================= -->
-
-<div id="shopPage" class="hidden">
-
-<div class="shop-header">
-<div class="arrow" onclick="closeShop()">←</div>
-<div class="heart" onclick="openSaved()">❤</div>
-</div>
-
-<input class="search" placeholder="Search products..." onkeyup="searchProducts(this.value)">
-
-<div class="shop-grid" id="shopGrid"></div>
 
 </div>
 
-<!-- ========================================================= -->
-<!-- ================= SAVED PAGE =========================== -->
-<!-- ========================================================= -->
+<!-- SHOP PAGE -->
+<div id="shop" class="hidden">
 
-<div id="savedPage" class="hidden">
+<div class="header">
+<div onclick="closeShop()">←</div>
+<div onclick="openSaved()">❤</div>
+</div>
 
-<div class="shop-header">
-<div class="arrow" onclick="closeSaved()">←</div>
-<div></div>
+<input class="search" placeholder="Search product..." onkeyup="search(this.value)">
+
+<div class="list" id="list"></div>
+
+</div>
+
+<!-- SAVED PAGE -->
+<div id="saved" class="hidden">
+<div class="header">
+<div onclick="closeSaved()">←</div>
 </div>
 
 <input class="search" placeholder="Search saved..." onkeyup="searchSaved(this.value)">
-<div id="savedContainer"></div>
-
-<div class="empty" id="emptyMsg">No saved products yet. Like products to save them.</div>
-
+<div id="savedList"></div>
+<div id="empty" class="empty">No saved products yet</div>
 </div>
-
-<!-- ========================================================= -->
-<!-- ================= SCRIPT =============================== -->
-<!-- ========================================================= -->
 
 <script>
 
-/* ========================================================= */
-/* ================= INSTALL PWA ========================== */
-/* ========================================================= */
+/* SLIDER */
+let i=0;
+setInterval(()=>{
+i=(i+1)%3;
+track.style.transform="translateX(-"+i*100+"%)";
+document.querySelectorAll(".dots span").forEach(d=>d.classList.remove("activeDot"));
+document.querySelectorAll(".dots span")[i].classList.add("activeDot");
+},2000);
 
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt',e=>{
-e.preventDefault();
-deferredPrompt=e;
-});
-
-installBtn.onclick=async()=>{
-if(deferredPrompt){
-deferredPrompt.prompt();
-deferredPrompt=null;
-}
-};
-
-/* ========================================================= */
-/* ================= SLIDER ================================ */
-/* ========================================================= */
-
-let index=0;
-const track=document.getElementById("track");
-const dots=document.querySelectorAll(".dots span");
-
-function moveSlide(){
-index=(index+1)%3;
-track.style.transform="translateX(-"+index*100+"%)";
-dots.forEach(d=>d.classList.remove("active"));
-dots[index].classList.add("active");
-}
-setInterval(moveSlide,2000);
-
-/* ========================================================= */
-/* ================= PRODUCTS ============================== */
-/* ========================================================= */
+/* PRODUCTS */
 
 const products=[
-{name:"E Middle Flute",price:"1100",img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp",size:"41cm"},
-{name:"D Middle Flute",price:"1300",img:"https://i.postimg.cc/zXOHOsSS/1771409161124.jpg",size:"45.5cm"},
-{name:"C# Middle Flute",price:"1470",img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg",size:"46.3cm"},
-{name:"C Middle Flute",price:"1500",img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png",size:"50cm"},
-{name:"A# Base Flute",price:"1200",img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png",size:"56.5cm"},
-{name:"G# Base Flute",price:"1200",img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg",size:"60cm"},
-{name:"G Base Flute",price:"1800",img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png",size:"65.7cm"}
+{name:"E Middle Flute",price:1100,img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp"},
+{name:"D Middle Flute",price:1300,img:"https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png"}
 ];
 
-const grid=document.getElementById("shopGrid");
+const list=document.getElementById("list");
 
-function renderProducts(list){
-grid.innerHTML="";
-list.forEach(p=>{
-grid.innerHTML+=`
-<div class="shop-card">
-<div class="like" onclick="toggleSave('${p.name}')">♡</div>
+function render(arr){
+list.innerHTML="";
+arr.forEach(p=>{
+list.innerHTML+=`
+<div class="product">
+<div class="like" onclick="save('${p.name}',this)">❤</div>
 <img src="${p.img}">
 <h3>${p.name}</h3>
-<div>₹${p.price}</div>
-<div>Size: ${p.size}</div>
-<button class="buy-btn" onclick="buy('${p.name}','${p.price}','${p.size}')">Buy via WhatsApp</button>
+₹${p.price}
+<button class="buy" onclick="buy('${p.name}',${p.price})">Buy via WhatsApp</button>
 </div>`;
 });
 }
-renderProducts(products);
+render(products);
 
-/* ========================================================= */
-/* ================= NAVIGATION ============================ */
-/* ========================================================= */
+/* NAV */
 
-function openShop(){
-homePage.classList.add("hidden");
-shopPage.classList.remove("hidden");
-}
-function closeShop(){
-shopPage.classList.add("hidden");
-homePage.classList.remove("hidden");
-}
+function openShop(){home.classList.add("hidden");shop.classList.remove("hidden")}
+function closeShop(){shop.classList.add("hidden");home.classList.remove("hidden")}
 
-/* ========================================================= */
-/* ================= SEARCH ================================ */
-/* ========================================================= */
+/* SEARCH */
 
-function searchProducts(v){
+function search(v){
 v=v.toLowerCase();
-renderProducts(products.filter(p=>p.name.toLowerCase().includes(v)));
+render(products.filter(p=>p.name.toLowerCase().includes(v)));
 }
 
-/* ========================================================= */
-/* ================= BUY ================================== */
-/* ========================================================= */
+/* BUY */
 
-function buy(name,price,size){
-let msg=`Hi I am interested in ${name} Price ₹${price} Size ${size}`;
-window.open(`https://wa.me/919476091829?text=${encodeURIComponent(msg)}`);
+function buy(n,p){
+window.open(`https://wa.me/919476091829?text=Hi I am interested in ${n} Price ₹${p}`);
 }
 
-/* ========================================================= */
-/* ================= SAVE SYSTEM =========================== */
-/* ========================================================= */
+/* SAVE */
 
 let saved=[];
 
-function toggleSave(name){
+function save(name,el){
 let p=products.find(x=>x.name==name);
-if(!saved.includes(p)){saved.push(p);}
+if(!saved.includes(p)){
+saved.push(p);
+el.classList.add("liked");
+}
 renderSaved();
 }
 
-function openSaved(){
-savedPage.classList.remove("hidden");
-renderSaved();
-}
-function closeSaved(){
-savedPage.classList.add("hidden");
-}
+function openSaved(){savedPage.classList.remove("hidden")}
+function closeSaved(){savedPage.classList.add("hidden")}
 
-function renderSaved(list=saved){
-const box=document.getElementById("savedContainer");
-box.innerHTML="";
-if(list.length==0){
-emptyMsg.style.display="block";
-return;
-}
-emptyMsg.style.display="none";
+function renderSaved(arr=saved){
+savedList.innerHTML="";
+if(arr.length==0){empty.style.display="block";return}
+empty.style.display="none";
 
-list.forEach(p=>{
-box.innerHTML+=`
-<div class="shop-card">
+arr.forEach(p=>{
+savedList.innerHTML+=`
+<div class="product">
 <img src="${p.img}">
 <h3>${p.name}</h3>
-<div>₹${p.price}</div>
-<button class="buy-btn" onclick="buy('${p.name}','${p.price}','${p.size}')">Buy</button>
+₹${p.price}
+<button class="buy" onclick="buy('${p.name}',${p.price})">Buy</button>
 </div>`;
 });
 }
@@ -722,18 +435,15 @@ v=v.toLowerCase();
 renderSaved(saved.filter(p=>p.name.toLowerCase().includes(v)));
 }
 
-/* ========================================================= */
-/* ================= SERVICE WORKER ======================== */
-/* ========================================================= */
+/* PWA */
 
-if("serviceWorker" in navigator){
-navigator.serviceWorker.register(URL.createObjectURL(new Blob([`
-self.addEventListener('install',e=>self.skipWaiting());
-self.addEventListener('fetch',e=>{});
-`],{type:"text/javascript"})));
-}
+let promptEvent;
+window.addEventListener("beforeinstallprompt",e=>{
+e.preventDefault();
+promptEvent=e;
+});
+installBtn.onclick=()=>{if(promptEvent)promptEvent.prompt()}
 
 </script>
-
 </body>
 </html>
