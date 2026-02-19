@@ -325,8 +325,12 @@ totalPrice+=subtotal;
 totalItems+=p.qty;
 });
 
-msg+=`%0A📦 Total Items = ${totalItems}%0A`;
-msg+=`₹ Total = ${totalPrice}`;
+msg+=`\n📦 Total Items: ${totalItems}\n`;
+msg+=`💰 Total Price: ₹${totalPrice}\n\n`;
+msg+="Please confirm this order.";
+
+let encodedMsg =
+encodeURIComponent(msg);
 
 window.open(`https://wa.me/919476091829?text=${msg}`);
 }
