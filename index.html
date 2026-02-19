@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PJ Store</title>
 
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
@@ -61,23 +64,20 @@ border:none;
 padding:15px 40px;
 border-radius:35px;
 font-size:20px;
-box-shadow:0 6px 0 #c45c00
+box-shadow:0 6px 0 #c45c00;
+cursor:pointer;
 }
 .shopBtn:active{transform:translateY(6px);box-shadow:0 0 0}
 
-/* IMAGE INFO SECTION */
+/* IMAGE */
 .infoImage{
 width:90%;
 margin:40px auto;
 background:linear-gradient(135deg,#1c1c1c,#3a2a00);
 padding:20px;
 border-radius:20px;
-position:relative;
 }
-.infoImage img{
-width:100%;
-border-radius:15px;
-}
+.infoImage img{width:100%;border-radius:15px}
 
 /* LOCATIONS */
 .locations{
@@ -102,8 +102,50 @@ line-height:1.9;
 
 .product{background:#111;border-radius:18px;padding:15px}
 .product img{width:100%;border-radius:15px}
-.buy{background:#ff7a00;border:none;padding:12px;width:100%;margin-top:10px;border-radius:20px;color:white;font-weight:bold}
+.buy{
+background:linear-gradient(#ff9a2f,#ff7a00);
+border:none;
+padding:12px;
+width:100%;
+margin-top:10px;
+border-radius:20px;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
 .desc{font-size:14px;margin-top:5px;opacity:.8}
+
+/* CART BUTTON DESIGN */
+.qtyBtn{
+background:#ff7a00;
+border:none;
+color:white;
+padding:6px 14px;
+border-radius:8px;
+font-size:18px;
+cursor:pointer;
+box-shadow:0 3px 0 #b95600;
+}
+.qtyBtn:active{transform:translateY(3px);box-shadow:0 0 0}
+
+.removeBtn{
+background:#ff3b1f;
+border:none;
+color:white;
+padding:6px 14px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+box-shadow:0 3px 0 #a61d0a;
+}
+.removeBtn:active{transform:translateY(3px);box-shadow:0 0 0}
+
+.emptyMsg{
+text-align:center;
+margin-top:60px;
+font-size:18px;
+opacity:.7;
+}
 </style>
 </head>
 <body>
@@ -131,38 +173,22 @@ line-height:1.9;
 
 <button class="shopBtn" onclick="openShop()">Shop Now</button>
 
-<!-- IMAGE -->
 <div class="infoImage">
 <img src="https://i.postimg.cc/WzBLFRnN/1771467813134.jpg">
 </div>
 
-<!-- LOCATIONS -->
 <div class="locations">
 📍 <b>Manufacturing Unit</b> — Ramnagar, Diglipur, N. Andaman<br>
 🏢 <b>Main Dispatch & Sales Office</b> — Subashgram, Diglipur, N. Andaman
 </div>
 
-<!-- CONTACT -->
 <div class="contact">
-
-<a href="https://wa.me/919476091829?text=Hi%20I%20am%20interested%20in%20product%20can%20you%20help%20me">
-WhatsApp
-</a>
-
-<a href="tel:9434274060">
-Call
-</a>
-
-<a href="mailto:pjcompanyofficial@gmail.com?subject=Product%20Inquiry&body=Hi%20I%20am%20interested%20in%20product%20can%20you%20help%20me">
-Email
-</a>
-
+<a href="https://wa.me/919476091829?text=Hi%20I%20am%20interested%20in%20product%20can%20you%20help%20me">WhatsApp</a>
+<a href="tel:9434274060">Call</a>
+<a href="mailto:pjcompanyofficial@gmail.com">Email</a>
 </div>
 
-<div class="footer">
-©2026 PJ Store
-</div>
-
+<div class="footer">©2026 PJ Store</div>
 </div>
 
 <!-- SHOP PAGE -->
@@ -238,12 +264,22 @@ cart.push({...p,qty:1});
 alert("Added to cart");
 }
 
-function openCart(){cartPage.classList.remove("hidden");renderCart();}
+function openCart(){
+cartPage.classList.remove("hidden");
+renderCart();
+}
+
 function closeCart(){cartPage.classList.add("hidden")}
 
 function renderCart(){
 cartItems.innerHTML="";
 let total=0;
+
+if(cart.length===0){
+cartItems.innerHTML=`<div class="emptyMsg">No products added to cart yet.</div>`;
+document.getElementById("total").innerText=0;
+return;
+}
 
 cart.forEach(p=>{
 total+=p.price*p.qty;
@@ -251,11 +287,11 @@ cartItems.innerHTML+=`
 <div class="product">
 <h3>${p.name}</h3>
 ₹${p.price}
-<div style="display:flex;gap:10px;margin-top:10px">
-<button onclick="changeQty('${p.name}',-1)">−</button>
+<div style="display:flex;gap:10px;margin-top:10px;align-items:center">
+<button class="qtyBtn" onclick="changeQty('${p.name}',-1)">−</button>
 <b>${p.qty}</b>
-<button onclick="changeQty('${p.name}',1)">+</button>
-<button onclick="removeItem('${p.name}')">Remove</button>
+<button class="qtyBtn" onclick="changeQty('${p.name}',1)">+</button>
+<button class="removeBtn" onclick="removeItem('${p.name}')">Remove</button>
 </div>
 </div>`;
 });
@@ -276,7 +312,7 @@ renderCart();
 }
 
 function sendOrder(){
-if(cart.length==0){alert("Cart empty");return;}
+if(cart.length==0){alert("Cart is empty");return;}
 
 let msg="Order Details:%0A";
 let totalPrice=0;
