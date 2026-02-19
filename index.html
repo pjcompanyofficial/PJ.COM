@@ -37,7 +37,7 @@ padding-right:10px;
 /* TITLE */
 .title{margin-top:2.3cm;text-align:center;font-size:55px;font-family:Great Vibes}
 
-/* TAGLINE */
+/* CURSIVE TAGLINE */
 .heroTitle{
 text-align:center;
 font-size:42px;
@@ -64,6 +64,20 @@ font-size:20px;
 box-shadow:0 6px 0 #c45c00
 }
 .shopBtn:active{transform:translateY(6px);box-shadow:0 0 0}
+
+/* IMAGE INFO SECTION */
+.infoImage{
+width:90%;
+margin:40px auto;
+background:linear-gradient(135deg,#1c1c1c,#3a2a00);
+padding:20px;
+border-radius:20px;
+position:relative;
+}
+.infoImage img{
+width:100%;
+border-radius:15px;
+}
 
 /* LOCATIONS */
 .locations{
@@ -113,10 +127,14 @@ line-height:1.9;
 </div>
 </div>
 
+<div class="heroTitle">PJ classical flutes Shop</div>
+
 <button class="shopBtn" onclick="openShop()">Shop Now</button>
 
-<!-- TAGLINE MOVED HERE -->
-<div class="heroTitle">PJ classical flutes Shop</div>
+<!-- IMAGE -->
+<div class="infoImage">
+<img src="https://i.postimg.cc/WzBLFRnN/1771467813134.jpg">
+</div>
 
 <!-- LOCATIONS -->
 <div class="locations">
@@ -146,3 +164,142 @@ Email
 </div>
 
 </div>
+
+<!-- SHOP PAGE -->
+<div id="shop" class="hidden">
+<div class="header">
+<div onclick="closeShop()">←</div>
+<div>Shop</div>
+</div>
+
+<input class="search" placeholder="Search..." onkeyup="search(this.value)">
+<div class="list" id="list"></div>
+</div>
+
+<!-- CART PAGE -->
+<div id="cartPage" class="hidden">
+<div class="header">
+<div onclick="closeCart()">←</div>
+<div>Cart</div>
+</div>
+
+<div id="cartItems" style="padding:20px"></div>
+<h2 style="text-align:center">Total ₹ <span id="total">0</span></h2>
+
+<button class="shopBtn" onclick="sendOrder()">Order on WhatsApp</button>
+</div>
+
+<script>
+const products=[
+{name:"E Middle Flute",price:1100,size:"41cm",desc:"Soft tone flute ideal for beginners.",img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp"},
+{name:"D Middle Flute",price:1300,size:"45.5cm",desc:"Professional tuned classical flute.",img:"https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png"},
+{name:"C# Middle Flute",price:1470,size:"46.3cm",desc:"Sharp pitch clarity for stage.",img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg"},
+{name:"C Middle Flute",price:1500,size:"50cm",desc:"Balanced tone bamboo flute.",img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png"},
+{name:"A# Base Flute",price:1200,size:"56.5cm",desc:"Deep bass vibration tone.",img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png"},
+{name:"G# Base Flute",price:1200,size:"60cm",desc:"Perfect for alaap.",img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg"},
+{name:"G Base Flute",price:1800,size:"65.7cm",desc:"Concert bass flute.",img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png"}
+];
+
+const list=document.getElementById("list");
+let cart=[];
+
+function render(arr){
+list.innerHTML="";
+arr.forEach(p=>{
+list.innerHTML+=`
+<div class="product">
+<img src="${p.img}">
+<h3>${p.name}</h3>
+Size: ${p.size}<br>
+₹${p.price}
+<div class="desc">${p.desc}</div>
+<button class="buy" onclick="addCart('${p.name}')">Add to Cart</button>
+<button class="buy" onclick="buyNow('${p.name}')">Buy Now</button>
+</div>`;
+});
+}
+render(products);
+
+function openShop(){home.classList.add("hidden");shop.classList.remove("hidden")}
+function closeShop(){shop.classList.add("hidden");home.classList.remove("hidden")}
+
+function search(v){
+v=v.toLowerCase();
+render(products.filter(p=>p.name.toLowerCase().includes(v)));
+}
+
+function addCart(name){
+let item=cart.find(p=>p.name==name);
+if(item){item.qty++}
+else{
+let p=products.find(x=>x.name==name);
+cart.push({...p,qty:1});
+}
+alert("Added to cart");
+}
+
+function openCart(){cartPage.classList.remove("hidden");renderCart();}
+function closeCart(){cartPage.classList.add("hidden")}
+
+function renderCart(){
+cartItems.innerHTML="";
+let total=0;
+
+cart.forEach(p=>{
+total+=p.price*p.qty;
+cartItems.innerHTML+=`
+<div class="product">
+<h3>${p.name}</h3>
+₹${p.price}
+<div style="display:flex;gap:10px;margin-top:10px">
+<button onclick="changeQty('${p.name}',-1)">−</button>
+<b>${p.qty}</b>
+<button onclick="changeQty('${p.name}',1)">+</button>
+<button onclick="removeItem('${p.name}')">Remove</button>
+</div>
+</div>`;
+});
+
+document.getElementById("total").innerText=total;
+}
+
+function changeQty(name,val){
+let item=cart.find(p=>p.name==name);
+item.qty+=val;
+if(item.qty<=0) cart=cart.filter(p=>p.name!=name);
+renderCart();
+}
+
+function removeItem(name){
+cart=cart.filter(p=>p.name!=name);
+renderCart();
+}
+
+function sendOrder(){
+if(cart.length==0){alert("Cart empty");return;}
+
+let msg="Order Details:%0A";
+let totalPrice=0;
+let totalItems=0;
+
+cart.forEach(p=>{
+let subtotal=p.price*p.qty;
+msg+=`${p.name} ₹${p.price} x${p.qty} = ₹${subtotal}%0A`;
+totalPrice+=subtotal;
+totalItems+=p.qty;
+});
+
+msg+=`%0A📦 Total Items = ${totalItems}%0A`;
+msg+=`₹ Total = ${totalPrice}`;
+
+window.open(`https://wa.me/919476091829?text=${msg}`);
+}
+
+function buyNow(name){
+addCart(name);
+openCart();
+}
+</script>
+
+</body>
+</html>
