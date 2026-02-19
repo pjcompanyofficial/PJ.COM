@@ -22,7 +22,7 @@ body {
     overflow-x: hidden;
 }
 
-.hidden { display: none; }
+.hidden { display: none !important; }
 
 /* WATERMARK BACKGROUND */
 .watermark-bg {
@@ -125,16 +125,6 @@ body {
 
 .slide.active { opacity: 1; }
 
-.slide::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background: linear-gradient(transparent, rgba(0,0,0,0.8));
-}
-
 /* 3D BUTTON */
 .shopBtn {
     display: block;
@@ -155,12 +145,6 @@ body {
 .shopBtn:active {
     transform: translateY(6px);
     box-shadow: 0 2px 0 #c45c00;
-}
-
-.smallShopBtn {
-    padding: 10px 25px;
-    font-size: 16px;
-    margin-top: 20px;
 }
 
 /* SECTION STYLING */
@@ -251,7 +235,6 @@ body {
     align-items: center;
 }
 
-/* FIXED SEARCH UI */
 .search-container {
     width: 100%;
     max-width: 500px;
@@ -269,7 +252,6 @@ body {
     color: white; 
     outline: none;
     box-sizing: border-box;
-    display: block;
 }
 
 .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
@@ -285,6 +267,14 @@ body {
 
 .buy-alt { background: transparent; border: 1px solid var(--primary); color: var(--primary); box-shadow: none; }
 
+/* QUANTITY UI */
+.qty-ctrl {
+    display: flex; align-items: center; gap: 10px; margin-top: 10px;
+}
+.qty-btn {
+    background: #333; border: none; color: white; width: 25px; height: 25px; border-radius: 5px; cursor: pointer;
+}
+
 </style>
 </head>
 <body>
@@ -297,7 +287,6 @@ body {
         <span>PJ STORE</span>
     </div>
     <div class="nav-right">
-        <!-- YouTube Icon with updated link -->
         <a href="https://www.youtube.com/@PJCompany-432" target="_blank">
             <svg class="ytIcon" viewBox="0 0 24 24">
                 <path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/>
@@ -331,7 +320,6 @@ body {
         <img src="https://i.postimg.cc/sg32c8SP/Screenshot-20260219-102520-Instagram.png" style="width:100%; display:block;">
     </div>
 
-    <!-- WHY CHOOSE US -->
     <div class="info-section">
         <h2>Why Choose PJ Flutes</h2>
         <ul class="info-list">
@@ -343,44 +331,6 @@ body {
         </ul>
     </div>
 
-    <!-- HISTORY SECTION -->
-    <div class="info-section">
-        <h2>History of the Flute</h2>
-        <div style="margin-bottom:20px;">
-            <b style="color:#fff; display:block; margin-bottom:10px;">Indian Heritage</b>
-            <ul class="info-list">
-                <li>Ancient Vedic instrument, mentioned in texts over 3000 years old.</li>
-                <li>Divine symbol of Lord Krishna, representing love and nature.</li>
-                <li>Central to Hindustani Classical music for its vocal-like tonal quality.</li>
-            </ul>
-        </div>
-        <div>
-            <b style="color:#fff; display:block; margin-bottom:10px;">Global Context</b>
-            <ul class="info-list">
-                <li>Used in cultures worldwide, from Japanese Shakuhachi to Native American flutes.</li>
-                <li>The Indian Bansuri is unique for its use of finger pads to create microtones (Meend).</li>
-                <li>Gaining international popularity in Fusion, Jazz, and Meditation music.</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- FLUTE CARE TIPS -->
-    <div class="info-section">
-        <h2>Flute Care Tips</h2>
-        <ul class="info-list">
-            <li>Keep the flute away from direct sunlight and extreme temperatures.</li>
-            <li>After playing, clean the moisture inside the flute with a soft cotton cloth.</li>
-            <li>Oil the flute periodically (Mustard or Linseed oil) to prevent cracks.</li>
-            <li>Always store the flute in a hard case or a protective bag when not in use.</li>
-        </ul>
-    </div>
-
-    <div style="text-align: center; margin: 40px 20px; font-size: 15px; opacity: 0.9;">
-        <b>Manufacturing Unit:</b> Ramnagar, Diglipur, North Andaman<br>
-        <b>Sales Office:</b> Subashgram, Diglipur, North Andaman
-    </div>
-
-    <!-- CONTACT SECTION (LINED UP) -->
     <div class="contact-container">
         <a href="https://wa.me/919476091829" class="btn-contact">WhatsApp</a>
         <a href="tel:9434274060" class="btn-contact">Call Us</a>
@@ -422,53 +372,56 @@ body {
     </div>
     <div id="cartItems"></div>
     <div id="orderControls" style="background:#111; padding:20px; border-radius:20px; margin-top:20px; text-align:center">
-        <h2>Total: ₹ <span id="total">0</span></h2>
+        <h2 style="color:white">Total: ₹ <span id="total">0</span></h2>
         <button class="shopBtn" onclick="sendOrder()">Confirm Order via WhatsApp</button>
     </div>
 </div>
 
-<!-- Firebase SDKs -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 const firebaseConfig = JSON.parse(__firebase_config);
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+const appId = typeof __app_id !== 'undefined' ? __app_id : 'pj-store-v2';
 
 let currentUser = null;
 let cart = [];
 
-// Auth setup
+const products = [
+    {name:"E Middle Flute", price:1100, size:"41cm", img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp"},
+    {name:"D Middle Flute", price:1300, size:"45.5cm", img:"https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png"},
+    {name:"C# Middle Flute", price:1470, size:"46.3cm", img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg"},
+    {name:"C Middle Flute", price:1500, size:"50cm", img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png"},
+    {name:"A# Base Flute", price:1200, size:"56.5cm", img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png"},
+    {name:"G# Base Flute", price:1200, size:"60cm", img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg"},
+    {name:"G Base Flute", price:1800, size:"65.7cm", img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png"}
+];
+
 signInAnonymously(auth).catch(console.error);
 onAuthStateChanged(auth, (user) => {
     if (user) {
         currentUser = user;
-        // Listen to Cart changes from Cloud
         const cartRef = doc(db, 'artifacts', appId, 'users', user.uid, 'store', 'cart');
         onSnapshot(cartRef, (docSnap) => {
             if (docSnap.exists()) {
                 cart = docSnap.data().items || [];
                 updateCartIcon();
-                if (!document.getElementById("cartPage").classList.contains("hidden")) {
-                    renderCart();
-                }
+                if (!document.getElementById("cartPage").classList.contains("hidden")) renderCart();
             }
-        }, (err) => console.log("Firestore error:", err));
+        });
     }
 });
 
-// Sync Cart to Cloud
 async function syncCart() {
     if (!currentUser) return;
     const cartRef = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'store', 'cart');
     await setDoc(cartRef, { items: cart });
 }
 
-// Global functions accessible from HTML
 window.addCart = (name) => {
     let p = products.find(x => x.name === name);
     let item = cart.find(x => x.name === name);
@@ -481,25 +434,35 @@ window.removeItem = (i) => {
     syncCart();
 };
 
-// Slider Logic
-let currentSlide = 0;
-const slides = document.querySelectorAll('.slide');
-setInterval(() => {
-    slides[currentSlide].classList.remove('active');
-    currentSlide = (currentSlide + 1) % slides.length;
-    slides[currentSlide].classList.add('active');
-}, 10000);
+window.updateQty = (i, delta) => {
+    cart[i].qty += delta;
+    if (cart[i].qty < 1) cart[i].qty = 1;
+    syncCart();
+};
 
-// Products with ₹ symbol
-const products = [
-    {name:"E Middle Flute", price:1100, size:"41cm", img:"https://i.postimg.cc/PJDKmt83/IMG-20260218-153859-964.webp"},
-    {name:"D Middle Flute", price:1300, size:"45.5cm", img:"https://i.postimg.cc/02TxJJnR/Screenshot-20260218-203603-Google.png"},
-    {name:"C# Middle Flute", price:1470, size:"46.3cm", img:"https://i.postimg.cc/QMrD5t9Y/Screenshot-20260218-154446-Google.jpg"},
-    {name:"C Middle Flute", price:1500, size:"50cm", img:"https://i.postimg.cc/mZFGdCYd/Screenshot-20260218-154844-Google.png"},
-    {name:"A# Base Flute", price:1200, size:"56.5cm", img:"https://i.postimg.cc/nVK3cLZy/Screenshot-20260218-155124-Google.png"},
-    {name:"G# Base Flute", price:1200, size:"60cm", img:"https://i.postimg.cc/7YGbn56K/1771410309328.jpg"},
-    {name:"G Base Flute", price:1800, size:"65.7cm", img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png"}
-];
+window.buyNow = (name) => {
+    let p = products.find(x => x.name === name);
+    let msg = `Order Details:\n\n*${p.name}*\nPrice: ₹${p.price}\nQty: 1\n\nTotal: ₹${p.price}\n\nPlease confirm my order!`;
+    window.open("https://wa.me/919476091829?text=" + encodeURIComponent(msg), "_blank");
+};
+
+window.sendOrder = () => {
+    if (cart.length == 0) return;
+    let msg = "Order Details:\n";
+    let total = 0, items = 0;
+
+    cart.forEach(p => {
+        let sub = p.price * p.qty;
+        msg += `${p.name} ₹${p.price} x${p.qty} = ₹${sub}\n`;
+        total += sub;
+        items += p.qty;
+    });
+
+    msg += `\n📦 Total Items = ${items}\n`;
+    msg += `₹ Final Total = ₹${total}\n\nPlease confirm my order!`;
+
+    window.open("https://wa.me/919476091829?text=" + encodeURIComponent(msg), "_blank");
+};
 
 window.render = (arr) => {
     const shopList = document.getElementById("list");
@@ -517,20 +480,33 @@ window.render = (arr) => {
     });
 };
 
-window.openShop = () => { document.getElementById("home").classList.add("hidden"); document.getElementById("shop").classList.remove("hidden"); document.getElementById("cartPage").classList.add("hidden"); render(products); };
-window.closeShop = () => { document.getElementById("shop").classList.add("hidden"); document.getElementById("home").classList.remove("hidden"); };
-window.openCart = () => { document.getElementById("cartPage").classList.remove("hidden"); renderCart(); };
-window.closeCart = () => { document.getElementById("cartPage").classList.add("hidden"); };
-
-window.search = (v) => { render(products.filter(p => p.name.toLowerCase().includes(v.toLowerCase()))); };
-
-function updateCartIcon() { document.getElementById("cartCount").innerText = cart.reduce((t, i) => t + i.qty, 0); }
-
-window.buyNow = (name) => {
-    let p = products.find(x => x.name === name);
-    let msg = `Hello PJ Store! I want to buy:\nProduct: ${p.name}\nPrice: ₹ ${p.price}`;
-    window.open("https://wa.me/919476091829?text=" + encodeURIComponent(msg), "_blank");
+window.openShop = () => { 
+    document.getElementById("home").classList.add("hidden"); 
+    document.getElementById("shop").classList.remove("hidden"); 
+    document.getElementById("cartPage").classList.add("hidden");
+    window.render(products); 
 };
+window.closeShop = () => { 
+    document.getElementById("shop").classList.add("hidden"); 
+    document.getElementById("home").classList.remove("hidden"); 
+};
+window.openCart = () => { 
+    document.getElementById("home").classList.add("hidden");
+    document.getElementById("shop").classList.add("hidden");
+    document.getElementById("cartPage").classList.remove("hidden"); 
+    renderCart(); 
+};
+window.closeCart = () => { 
+    document.getElementById("cartPage").classList.add("hidden"); 
+    document.getElementById("home").classList.remove("hidden"); 
+};
+window.search = (v) => { 
+    window.render(products.filter(p => p.name.toLowerCase().includes(v.toLowerCase()))); 
+};
+
+function updateCartIcon() { 
+    document.getElementById("cartCount").innerText = cart.reduce((t, i) => t + i.qty, 0); 
+}
 
 function renderCart() {
     const cartDiv = document.getElementById("cartItems");
@@ -538,11 +514,7 @@ function renderCart() {
     let total = 0;
     
     if (cart.length === 0) {
-        cartDiv.innerHTML = `
-        <div style="text-align:center; padding:60px 20px; color: white;">
-            <p style="font-size: 18px; opacity: 0.8; margin-bottom: 20px;">Your cart is empty. Add flutes to save them here!</p>
-            <button class="shopBtn smallShopBtn" onclick="openShop()">Go to Shop</button>
-        </div>`;
+        cartDiv.innerHTML = `<div style="text-align:center; padding:50px; color:white">Cart is empty! <br><br> <button class="buy buy-alt" onclick="openShop()">Shop Now</button></div>`;
         orderControls.style.display = "none";
     } else {
         cartDiv.innerHTML = "";
@@ -550,26 +522,32 @@ function renderCart() {
         cart.forEach((p, i) => {
             total += p.price * p.qty;
             cartDiv.innerHTML += `
-            <div class="product" style="margin-bottom:15px; display:flex; gap:15px; align-items:center;">
-                <img src="${p.img}" style="width:60px; height:60px; object-fit:cover; border-radius:10px;">
+            <div class="product" style="margin-bottom:10px; display:flex; gap:15px; align-items:center;">
+                <img src="${p.img}" style="width:50px; height:50px; border-radius:8px;">
                 <div style="flex-grow:1">
-                    <h4 style="margin:0; color: white;">${p.name}</h4>
-                    <div style="color:var(--primary)">₹ ${p.price} x ${p.qty}</div>
+                    <h4 style="margin:0; color:white">${p.name}</h4>
+                    <div style="color:var(--primary)">₹${p.price}</div>
+                    <div class="qty-ctrl">
+                        <button class="qty-btn" onclick="updateQty(${i},-1)">-</button>
+                        <span>${p.qty}</span>
+                        <button class="qty-btn" onclick="updateQty(${i},1)">+</button>
+                    </div>
                 </div>
-                <span style="color:red; cursor:pointer; font-weight: bold; font-size: 18px;" onclick="removeItem(${i})">✕</span>
+                <span style="color:red; cursor:pointer" onclick="removeItem(${i})">✕</span>
             </div>`;
         });
     }
     document.getElementById("total").innerText = total;
 }
 
-window.sendOrder = () => {
-    if(!cart.length) return;
-    let msg = "New Order from PJ Store App:\n";
-    cart.forEach(p => msg += `- ${p.name} (x${p.qty})\n`);
-    msg += `Total: ₹ ${document.getElementById("total").innerText}`;
-    window.open("https://wa.me/919476091829?text=" + encodeURIComponent(msg), "_blank");
-};
+// Auto-slide logic
+let curSlide = 0;
+const slideEls = document.querySelectorAll('.slide');
+setInterval(() => {
+    slideEls[curSlide].classList.remove('active');
+    curSlide = (curSlide + 1) % slideEls.length;
+    slideEls[curSlide].classList.add('active');
+}, 8000);
 </script>
 
 </body>
