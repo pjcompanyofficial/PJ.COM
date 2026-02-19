@@ -132,22 +132,6 @@ width:100%;
 background:#00c853;
 margin-top:15px;
 }
-
-.member{
-background:#292929;
-padding:15px;
-margin:20px;
-border-radius:12px;
-text-align:center;
-}
-
-input{
-padding:10px;
-border-radius:8px;
-border:none;
-margin-top:10px;
-width:80%;
-}
 </style>
 </head>
 <body>
@@ -156,14 +140,6 @@ width:80%;
 <div class="logo">PJ Flute Store</div>
 <button class="cart-btn" onclick="toggleCart()">Cart 🛒 (<span id="count">0</span>)</button>
 </header>
-
-<!-- MEMBERSHIP -->
-<div class="member">
-<h3>Membership</h3>
-<p>Members get 20% OFF</p>
-<button onclick="buyMembership()">Activate Membership</button>
-<p id="memberStatus">Not Member</p>
-</div>
 
 <!-- PRODUCTS -->
 <div class="products" id="products"></div>
@@ -185,15 +161,18 @@ const products=[
 ];
 
 let cart=[];
-let member=false;
-let userCity="Unknown";
+let userCountry="Unknown";
+let userPlace="Unknown";
 
 
-// LOCATION
+// LOCATION DETECT
 navigator.geolocation.getCurrentPosition(pos=>{
 fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`)
 .then(r=>r.json())
-.then(d=> userCity=d.address.city||d.address.state||"Unknown");
+.then(d=>{
+userCountry=d.address.country||"Unknown";
+userPlace=d.address.city||d.address.state||"Unknown";
+});
 });
 
 
@@ -205,8 +184,7 @@ container.innerHTML+=`
 <h3>${p.name}</h3>
 <div class="price">₹${p.price}</div>
 <button class="add" onclick="addCart(${i})">Add to Cart</button>
-</div>
-`;
+</div>`;
 });
 
 
@@ -236,8 +214,7 @@ let count=0;
 
 cart.forEach((c,i)=>{
 let p=products[c.id];
-let price=member?p.price*0.8:p.price;
-let sub=price*c.qty;
+let sub=p.price*c.qty;
 
 total+=sub;
 count+=c.qty;
@@ -245,7 +222,7 @@ count+=c.qty;
 html+=`
 <div class="item">
 <b>${p.name}</b><br>
-₹${price.toFixed(0)} × ${c.qty} = ₹${sub.toFixed(0)}
+₹${p.price} × ${c.qty} = ₹${sub}
 <div class="qty">
 <button onclick="changeQty(${i},-1)">−</button>
 <button onclick="changeQty(${i},1)">+</button>
@@ -255,7 +232,7 @@ html+=`
 });
 
 document.getElementById("cartItems").innerHTML=html;
-document.getElementById("total").innerText="Total ₹"+total.toFixed(0);
+document.getElementById("total").innerText="Total ₹"+total;
 document.getElementById("count").innerText=count;
 }
 
@@ -264,23 +241,14 @@ document.getElementById("cart").classList.toggle("active");
 }
 
 
-// MEMBERSHIP
-function buyMembership(){
-member=true;
-document.getElementById("memberStatus").innerText="Active Member (20% OFF)";
-renderCart();
-}
-
-
-// DELIVERY CALCULATION
+// DELIVERY CALCULATOR
 function deliveryCharge(){
-if(userCity=="Unknown") return 80;
-if(userCity.toLowerCase().includes("delhi")) return 100;
-return 80;
+if(userCountry.toLowerCase().includes("india")) return 100;
+return 300;
 }
 
 
-// CHECKOUT
+// CHECKOUT MESSAGE
 function checkout(){
 
 if(cart.length==0){alert("Cart Empty");return;}
@@ -291,10 +259,9 @@ let items=0;
 
 cart.forEach(c=>{
 let p=products[c.id];
-let price=member?p.price*0.8:p.price;
-let sub=price*c.qty;
+let sub=p.price*c.qty;
 
-msg+=`${p.name} ₹${price} x${c.qty} = ₹${sub}%0A`;
+msg+=`${p.name} ₹${p.price} x${c.qty} = ₹${sub}%0A`;
 total+=sub;
 items+=c.qty;
 });
@@ -302,8 +269,9 @@ items+=c.qty;
 let delivery=deliveryCharge();
 
 msg+=`%0A📦 Total Items = ${items}`;
-msg+=`%0A🚚 Delivery: Andaman → ${userCity} = ₹${delivery}`;
-msg+=`%0A💰 Total = ₹${total+delivery}`;
+msg+=`%0A🌍 Location: ${userPlace}, ${userCountry}`;
+msg+=`%0A🚚 Delivery Charge = ₹${delivery}`;
+msg+=`%0A💰 Total Price = ₹${total+delivery}`;
 
 window.open(`https://wa.me/?text=${msg}`);
 }
