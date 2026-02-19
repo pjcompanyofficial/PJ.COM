@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PJ Store</title>
 
-<link rel="stylesheet" href="style.css">
-<script src="script.js" defer></script>
-
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
@@ -40,7 +37,7 @@ padding-right:10px;
 /* TITLE */
 .title{margin-top:2.3cm;text-align:center;font-size:55px;font-family:Great Vibes}
 
-/* CURSIVE TAGLINE */
+/* TAGLINE */
 .heroTitle{
 text-align:center;
 font-size:42px;
@@ -102,6 +99,7 @@ line-height:1.9;
 
 .product{background:#111;border-radius:18px;padding:15px}
 .product img{width:100%;border-radius:15px}
+
 .buy{
 background:linear-gradient(#ff9a2f,#ff7a00);
 border:none;
@@ -113,9 +111,10 @@ color:white;
 font-weight:bold;
 cursor:pointer;
 }
+
 .desc{font-size:14px;margin-top:5px;opacity:.8}
 
-/* CART BUTTON DESIGN */
+/* CART BUTTONS */
 .qtyBtn{
 background:#ff7a00;
 border:none;
@@ -183,7 +182,7 @@ opacity:.7;
 </div>
 
 <div class="contact">
-<a href="https://wa.me/919476091829?text=Hi%20I%20am%20interested%20in%20product%20can%20you%20help%20me">WhatsApp</a>
+<a href="https://wa.me/919476091829">WhatsApp</a>
 <a href="tel:9434274060">Call</a>
 <a href="mailto:pjcompanyofficial@gmail.com">Email</a>
 </div>
@@ -191,7 +190,7 @@ opacity:.7;
 <div class="footer">©2026 PJ Store</div>
 </div>
 
-<!-- SHOP PAGE -->
+<!-- SHOP -->
 <div id="shop" class="hidden">
 <div class="header">
 <div onclick="closeShop()">←</div>
@@ -202,7 +201,7 @@ opacity:.7;
 <div class="list" id="list"></div>
 </div>
 
-<!-- CART PAGE -->
+<!-- CART -->
 <div id="cartPage" class="hidden">
 <div class="header">
 <div onclick="closeCart()">←</div>
@@ -231,7 +230,7 @@ let cart=[];
 
 function render(arr){
 list.innerHTML="";
-arr.forEach(p=>{
+arr.forEach((p,i)=>{
 list.innerHTML+=`
 <div class="product">
 <img src="${p.img}">
@@ -239,8 +238,9 @@ list.innerHTML+=`
 Size: ${p.size}<br>
 ₹${p.price}
 <div class="desc">${p.desc}</div>
-<button class="buy" onclick="addCart('${p.name}')">Add to Cart</button>
-<button class="buy" onclick="buyNow('${p.name}')">Buy Now</button>
+
+<button class="buy" onclick="addCart(${i})">Add to Cart</button>
+<button class="buy" onclick="buyNow(${i})">Buy Now</button>
 </div>`;
 });
 }
@@ -254,14 +254,17 @@ v=v.toLowerCase();
 render(products.filter(p=>p.name.toLowerCase().includes(v)));
 }
 
-function addCart(name){
-let item=cart.find(p=>p.name==name);
+function addCart(index){
+let p=products[index];
+let item=cart.find(x=>x.name==p.name);
 if(item){item.qty++}
-else{
-let p=products.find(x=>x.name==name);
-cart.push({...p,qty:1});
-}
+else{cart.push({...p,qty:1});}
 alert("Added to cart");
+}
+
+function buyNow(index){
+addCart(index);
+openCart();
 }
 
 function openCart(){
@@ -277,26 +280,37 @@ let total=0;
 
 if(cart.length===0){
 cartItems.innerHTML=`<div class="emptyMsg">No products added to cart yet.</div>`;
-document.getElementById("total").innerText=0;
+total.innerText=0;
 return;
 }
 
-cart.forEach(p=>{
+cart.forEach((p,i)=>{
 total+=p.price*p.qty;
 cartItems.innerHTML+=`
 <div class="product">
 <h3>${p.name}</h3>
 ₹${p.price}
 <div style="display:flex;gap:10px;margin-top:10px;align-items:center">
-<button class="qtyBtn" onclick="changeQty('${p.name}',-1)">−</button>
+<button class="qtyBtn" onclick="changeQty(${i},-1)">−</button>
 <b>${p.qty}</b>
-<button class="qtyBtn" onclick="changeQty('${p.name}',1)">+</button>
-<button class="removeBtn" onclick="removeItem('${p.name}')">Remove</button>
+<button class="qtyBtn" onclick="changeQty(${i},1)">+</button>
+<button class="removeBtn" onclick="removeItem(${i})">Remove</button>
 </div>
 </div>`;
 });
 
 document.getElementById("total").innerText=total;
+}
+
+function changeQty(index,val){
+cart[index].qty+=val;
+if(cart[index].qty<=0) cart.splice(index,1);
+renderCart();
+}
+
+function removeItem(index){
+cart.splice(index,1);
+renderCart();
 }
 
 function sendOrder(){
@@ -319,12 +333,8 @@ msgLines.push("");
 msgLines.push(`📦 Total Items = ${totalItems}`);
 msgLines.push(`₹ Total = ${totalPrice}`);
 
-/* join first → encode later */
-let finalMsg = encodeURIComponent(msgLines.join("\n"));
-
-let url = "https://wa.me/919476091829?text=" + finalMsg;
-
-window.open(url,"_blank");
+let finalMsg=encodeURIComponent(msgLines.join("\n"));
+window.open("https://wa.me/919476091829?text="+finalMsg,"_blank");
 }
 </script>
 
