@@ -20,16 +20,14 @@ body {
     color: var(--accent);
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
-    /* Remove mobile tap highlight globally */
     -webkit-tap-highlight-color: transparent;
 }
 
-/* Remove focus outlines for all interactive elements */
 button, a, input, div, span {
     outline: none;
 }
 
-.hidden { display: none; }
+.hidden { display: none !important; }
 
 /* WATERMARK BACKGROUND */
 .watermark-bg {
@@ -360,43 +358,6 @@ button, a, input, div, span {
         </ul>
     </div>
 
-    <!-- HISTORY SECTION -->
-    <div class="info-section">
-        <h2>History of the Flute</h2>
-        <div style="margin-bottom:20px;">
-            <b style="color:#fff; display:block; margin-bottom:10px;">Indian Heritage</b>
-            <ul class="info-list">
-                <li>Ancient Vedic instrument, mentioned in texts over 3000 years old.</li>
-                <li>Divine symbol of Lord Krishna, representing love and nature.</li>
-                <li>Central to Hindustani Classical music for its vocal-like tonal quality.</li>
-            </ul>
-        </div>
-        <div>
-            <b style="color:#fff; display:block; margin-bottom:10px;">Global Context</b>
-            <ul class="info-list">
-                <li>Used in cultures worldwide, from Japanese Shakuhachi to Native American flutes.</li>
-                <li>The Indian Bansuri is unique for its use of finger pads to create microtones (Meend).</li>
-                <li>Gaining international popularity in Fusion, Jazz, and Meditation music.</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- FLUTE CARE TIPS -->
-    <div class="info-section">
-        <h2>Flute Care Tips</h2>
-        <ul class="info-list">
-            <li>Keep the flute away from direct sunlight and extreme temperatures.</li>
-            <li>After playing, clean the moisture inside the flute with a soft cotton cloth.</li>
-            <li>Oil the flute periodically (Mustard or Linseed oil) to prevent cracks.</li>
-            <li>Always store the flute in a hard case or a protective bag when not in use.</li>
-        </ul>
-    </div>
-
-    <div style="text-align: center; margin: 40px 20px; font-size: 15px; opacity: 0.9;">
-        <b>Manufacturing Unit:</b> Ramnagar, Diglipur, North Andaman<br>
-        <b>Sales Office:</b> Subashgram, Diglipur, North Andaman
-    </div>
-
     <!-- CONTACT SECTION (LINED UP) -->
     <div class="contact-container">
         <a href="https://wa.me/919476091829" class="btn-contact">WhatsApp</a>
@@ -437,17 +398,10 @@ button, a, input, div, span {
     </div>
     <div id="cartItems"></div>
     <div style="background:#111; padding:20px; border-radius:20px; margin-top:20px; text-align:center">
-        <h2>Total: ₹ <span id="total">0</span></h2>
+        <h2 style="color:white">Total: ₹ <span id="total">0</span></h2>
         <button class="shopBtn" onclick="sendOrder()">Confirm Order via WhatsApp</button>
     </div>
 </div>
-
-<script>
-function openShop(){ if(window.openShop) window.openShop(); }
-function closeShop(){ if(window.closeShop) window.closeShop(); }
-function openCart(){ if(window.openCart) window.openCart(); }
-function closeCart(){ if(window.closeCart) window.closeCart(); }
-</script>
 
 <!-- Firebase SDKs -->
 <script type="module">
@@ -455,46 +409,57 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebas
 import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-const firebaseConfig = JSON.parse(__firebase_config);
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-
+// Global Setup
 let currentUser = null;
 let cart = [];
+let app = null, auth = null, db = null;
+const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 
-// Auth setup
-signInAnonymously(auth).catch(console.error);
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        currentUser = user;
-        const cartRef = doc(db, 'artifacts', appId, 'users', user.uid, 'store', 'cart');
-        onSnapshot(cartRef, (docSnap) => {
-            if (docSnap.exists()) {
-                cart = docSnap.data().items || [];
-                updateCartIcon();
-                if (!document.getElementById("cartPage").classList.contains("hidden")) {
-                    renderCart();
-                }
+// SAFE INITIALIZATION
+if (typeof __firebase_config !== "undefined" && __firebase_config) {
+    try {
+        const firebaseConfig = JSON.parse(__firebase_config);
+        app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
+
+        // Auth setup
+        signInAnonymously(auth).catch(console.error);
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+                const cartRef = doc(db, 'artifacts', appId, 'users', user.uid, 'store', 'cart');
+                onSnapshot(cartRef, (docSnap) => {
+                    if (docSnap.exists()) {
+                        cart = docSnap.data().items || [];
+                        updateCartIcon();
+                        if (!document.getElementById("cartPage").classList.contains("hidden")) {
+                            renderCart();
+                        }
+                    }
+                }, (err) => console.log("Firestore sync error:", err));
             }
-        }, (err) => console.log("Firestore error:", err));
+        });
+    } catch(e) {
+        console.warn("Firebase failed to init:", e);
     }
-});
+}
 
 async function syncCart() {
-    if (!currentUser) return;
+    updateCartIcon();
+    if (!currentUser || !db) return;
     const cartRef = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'store', 'cart');
     await setDoc(cartRef, { items: cart });
 }
 
-// Global UI Quantities for Shop list (independent of cart)
+// Global UI Quantities for Shop list
 let shopQtys = {};
 
 window.updateShopQty = (name, delta) => {
     if (!shopQtys[name]) shopQtys[name] = 1;
     shopQtys[name] = Math.max(1, shopQtys[name] + delta);
-    const qtyEl = document.getElementById(`sqty-${name.replace(/\s+/g, '')}`);
+    const pId = name.replace(/\s+/g, '');
+    const qtyEl = document.getElementById(`sqty-${pId}`);
     if(qtyEl) qtyEl.innerText = shopQtys[name];
 };
 
@@ -509,9 +474,9 @@ window.addCart = (name) => {
         cart.push({...p, qty: qtyToAdd});
     }
     
-    // Reset shop qty UI after adding
     shopQtys[name] = 1;
-    const qtySpan = document.getElementById(`sqty-${name.replace(/\s+/g, '')}`);
+    const pId = name.replace(/\s+/g, '');
+    const qtySpan = document.getElementById(`sqty-${pId}`);
     if(qtySpan) qtySpan.innerText = 1;
     
     syncCart();
@@ -520,6 +485,7 @@ window.addCart = (name) => {
 window.removeItem = (i) => {
     cart.splice(i, 1);
     syncCart();
+    renderCart();
 };
 
 // Slider Logic
@@ -531,7 +497,7 @@ setInterval(() => {
         currentSlide = (currentSlide + 1) % slides.length;
         slides[currentSlide].classList.add('active');
     }
-}, 10000);
+}, 8000);
 
 // Products
 const products = [
@@ -544,7 +510,7 @@ const products = [
     {name:"G Base Flute", price:1800, size:"65.7cm", img:"https://i.postimg.cc/BnC8XdtD/Screenshot-20260218-155724-Google.png"}
 ];
 
-window.render = (arr) => {
+function render(arr) {
     const shopList = document.getElementById("list");
     if(!shopList) return;
     shopList.innerHTML = "";
@@ -556,7 +522,7 @@ window.render = (arr) => {
             <img src="${p.img}">
             <h3 style="margin:0; color:var(--primary)">${p.name}</h3>
             <p style="font-size:13px; opacity:0.7">Size: ${p.size}</p>
-            <div style="font-size:20px; font-weight:bold; margin:10px 0">₹ ${p.price}</div>
+            <div style="font-size:20px; font-weight:bold; margin:10px 0; color: white;">₹ ${p.price}</div>
             
             <div class="qty-box">
                 <button class="qty-btn" onclick="updateShopQty('${p.name}', -1)">-</button>
@@ -570,14 +536,30 @@ window.render = (arr) => {
     });
 };
 
-window.openShop = () => { document.getElementById("home").classList.add("hidden"); document.getElementById("shop").classList.remove("hidden"); render(products); };
-window.closeShop = () => { document.getElementById("shop").classList.add("hidden"); document.getElementById("home").classList.remove("hidden"); };
-window.openCart = () => { document.getElementById("cartPage").classList.remove("hidden"); renderCart(); };
-window.closeCart = () => { document.getElementById("cartPage").classList.add("hidden"); };
+window.openShop = () => { 
+    document.getElementById("home").classList.add("hidden"); 
+    document.getElementById("shop").classList.remove("hidden"); 
+    render(products); 
+};
+window.closeShop = () => { 
+    document.getElementById("shop").classList.add("hidden"); 
+    document.getElementById("home").classList.remove("hidden"); 
+};
+window.openCart = () => { 
+    document.getElementById("cartPage").classList.remove("hidden"); 
+    renderCart(); 
+};
+window.closeCart = () => { 
+    document.getElementById("cartPage").classList.add("hidden"); 
+};
 
-window.search = (v) => { render(products.filter(p => p.name.toLowerCase().includes(v.toLowerCase()))); };
+window.search = (v) => { 
+    render(products.filter(p => p.name.toLowerCase().includes(v.toLowerCase()))); 
+};
 
-function updateCartIcon() { document.getElementById("cartCount").innerText = cart.reduce((t, i) => t + i.qty, 0); }
+function updateCartIcon() { 
+    document.getElementById("cartCount").innerText = cart.reduce((t, i) => t + i.qty, 0); 
+}
 
 window.buyNow = (name) => {
     let p = products.find(x => x.name === name);
@@ -594,7 +576,7 @@ function renderCart() {
     cart.forEach((p, i) => {
         total += p.price * p.qty;
         cartDiv.innerHTML += `
-	<div class="product" style="margin-bottom:15px; display:flex; gap:15px; align-items:center;">
+        <div class="product" style="margin-bottom:15px; display:flex; gap:15px; align-items:center;">
             <img src="${p.img}" style="width:60px; height:60px; object-fit:cover; border-radius:10px;">
             <div style="flex-grow:1">
                 <h4 style="margin:0; color: white;">${p.name}</h4>
@@ -614,7 +596,16 @@ window.sendOrder = () => {
     msg += `Total: ₹ ${document.getElementById("total").innerText}`;
     window.open("https://wa.me/919476091829?text=" + encodeURIComponent(msg), "_blank");
 };
+
+// Expose these for HTML click events
+window.openShop = window.openShop;
+window.closeShop = window.closeShop;
+window.openCart = window.openCart;
+window.closeCart = window.closeCart;
+window.search = window.search;
+
 </script>
 
 </body>
 </html>
+
