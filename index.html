@@ -318,10 +318,6 @@ let msg="Order Details:%0A";
 let totalPrice=0;
 let totalItems=0;
 
-msg+=`\n📦 Total Items: ${totalItems}\n`;
-msg+=`💰 Total Price: ₹${totalPrice}\n\n`;
-msg+="Please confirm this order.";
-
 cart.forEach(p=>{
 let subtotal=p.price*p.qty;
 msg+=`${p.name} ₹${p.price} x${p.qty} = ₹${subtotal}%0A`;
@@ -329,36 +325,9 @@ totalPrice+=subtotal;
 totalItems+=p.qty;
 });
 
-<script>
-function sendOrder(){
-if(cart.length==0){
-alert("Your cart is empty");
-return;
-}
-
-let msg="Order Details:\n";
-let totalPrice=0;
-let totalItems=0;
-
-cart.forEach(p=>{
-let subtotal=p.price*p.qty;
-msg+=`${p.name} ₹${p.price} x${p.qty} = ₹${subtotal}\n`;
-totalPrice+=subtotal;
-totalItems+=p.qty;
-});
-
-msg+=`\nTotal Items = ${totalItems}\n`;
-msg+=`Total = ₹${totalPrice}`;
-
-let encodedMsg = encodeURIComponent(msg);
-
-window.open(`https://wa.me/919476091829?text=${encodedMsg}`);
-}
-</script>
+msg+=`\n📦 Total Items = ${totalItems}\n`;
+msg+=`₹ Total = ${totalPrice}`;
   
-let encodedMsg =
-encodeURIComponent(msg);
-
 window.open(`https://wa.me/919476091829?text=${msg}`);
 }
 
