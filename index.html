@@ -299,41 +299,32 @@ cartItems.innerHTML+=`
 document.getElementById("total").innerText=total;
 }
 
-function changeQty(name,val){
-let item=cart.find(p=>p.name==name);
-item.qty+=val;
-if(item.qty<=0) cart=cart.filter(p=>p.name!=name);
-renderCart();
-}
-
-function removeItem(name){
-cart=cart.filter(p=>p.name!=name);
-renderCart();
-}
-
 function sendOrder(){
 if(cart.length==0){alert("Cart is empty");return;}
 
-let msg="Order Details:%0A";
+let msgLines=[];
+msgLines.push("Order Details:");
+
 let totalPrice=0;
 let totalItems=0;
 
 cart.forEach(p=>{
 let subtotal=p.price*p.qty;
-msg+=`${p.name} ₹${p.price} x${p.qty} = ₹${subtotal}%0A`;
+msgLines.push(`${p.name} ₹${p.price} x${p.qty} = ₹${subtotal}`);
 totalPrice+=subtotal;
 totalItems+=p.qty;
 });
 
-msg+=`\n📦 Total Items = ${totalItems}\n`;
-msg+=`₹ Total = ${totalPrice}`;
-  
-window.open(`https://wa.me/919476091829?text=${msg}`);
-}
+msgLines.push("");
+msgLines.push(`📦 Total Items = ${totalItems}`);
+msgLines.push(`₹ Total = ${totalPrice}`);
 
-function buyNow(name){
-addCart(name);
-openCart();
+/* join first → encode later */
+let finalMsg = encodeURIComponent(msgLines.join("\n"));
+
+let url = "https://wa.me/919476091829?text=" + finalMsg;
+
+window.open(url,"_blank");
 }
 </script>
 
