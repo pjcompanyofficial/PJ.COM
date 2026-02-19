@@ -549,8 +549,18 @@ window.goSlide = (id, i) => {
 function updateSliderUI(id) {
     const track = document.getElementById("track" + id);
     if(!track) return;
+
     const total = track.children.length;
-    track.style.transform = `translateX(-${sliderIndex[id]);
+    const index = sliderIndex[id] || 0;
+
+    track.style.transform = `translateX(-${index * 100}%)`;
+
+    // dots update
+    for(let i=0;i<total;i++){
+        const dot = document.getElementById(`dot${id}-${i}`);
+        if(dot){
+            dot.classList.toggle("active", i === index);
+        }
     }
 }
 
@@ -593,7 +603,7 @@ window.renderShop = (arr) => {
             <div class="product-slider" ontouchstart="swipeStart(event)" ontouchend="swipeEnd(event, ${pi})">
                 <button class="arrow left" onclick="slide(${pi},-1)">‹</button>
                 <div class="product-track" id="track${pi}">
-                    ${p.imgs.map(src => `<img src="${src}" onclick="openViewer('${src}')">`).join("")}
+                    ${p.imgs.map(src => `<img src="${src}" loading="lazy" onclick="openViewer('${src}')">`).join("")}
                 </div>
                 <button class="arrow right" onclick="slide(${pi},1)">›</button>
             </div>
@@ -676,7 +686,8 @@ window.sendOrder = () => {
 
 function updateCartUI() {
     const count = cart.reduce((t, i) => t + i.qty, 0);
-    document.getElementById("cartCount").innerText = count;
+    const cartCountEl = document.getElementById("cartCount");
+    if(cartCountEl) cartCountEl.innerText = count;
     if (!document.getElementById("cartPage").classList.contains("hidden")) renderCart();
 }
 
