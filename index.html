@@ -369,12 +369,40 @@
             top: -8px; right: -8px; border: 2px solid var(--primary);
         }
 
+        /* TOAST NOTIFICATION */
+        #toast {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            z-index: 20000;
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        #toast.show { bottom: 30px; }
+
         .footer { text-align: center; padding: 40px 0; opacity: 0.7; font-size: 14px; }
     </style>
 </head>
 <body>
 
 <div class="watermark-bg"></div>
+
+<!-- Toast Box -->
+<div id="toast">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    <span id="toastMsg">Added to Cart!</span>
+</div>
 
 <div class="top">
     <div class="logoBox">
@@ -527,6 +555,17 @@ const initFirebase = async () => {
 
 initFirebase();
 
+// TOAST SYSTEM
+window.showToast = (msg) => {
+    const toast = document.getElementById("toast");
+    const toastMsg = document.getElementById("toastMsg");
+    toastMsg.innerText = msg;
+    toast.classList.add("show");
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2500);
+};
+
 // SLIDER ENGINE
 window.slide = (id, dir) => {
     if (sliderIndex[id] === undefined) sliderIndex[id] = 0;
@@ -555,7 +594,6 @@ function updateSliderUI(id) {
 
     track.style.transform = `translateX(-${index * 100}%)`;
 
-    // dots update
     for(let i=0;i<total;i++){
         const dot = document.getElementById(`dot${id}-${i}`);
         if(dot){
@@ -564,7 +602,6 @@ function updateSliderUI(id) {
     }
 }
 
-// TOUCH SWIPE
 window.swipeStart = (e) => { startX = e.changedTouches[0].clientX; };
 window.swipeEnd = (e, id) => {
     let diff = e.changedTouches[0].clientX - startX;
@@ -572,7 +609,6 @@ window.swipeEnd = (e, id) => {
     if (diff > 50) window.slide(id, -1);
 };
 
-// AUTO SLIDE
 setInterval(() => {
     if (!document.getElementById("shop").classList.contains("hidden")) {
         document.querySelectorAll("[id^=track]").forEach((el) => {
@@ -582,7 +618,6 @@ setInterval(() => {
     }
 }, 4500);
 
-// FULLSCREEN VIEWER
 window.openViewer = (src) => {
     let div = document.createElement("div");
     div.className = "viewer";
@@ -591,7 +626,6 @@ window.openViewer = (src) => {
     document.body.appendChild(div);
 };
 
-// SHOP UI
 window.renderShop = (arr) => {
     const shopList = document.getElementById("list");
     if(!shopList) return;
@@ -624,7 +658,6 @@ window.renderShop = (arr) => {
     });
 };
 
-// OTHER FUNCTIONS
 window.updateShopQty = (name, delta) => {
     shopQtys[name] = Math.max(1, (shopQtys[name] || 1) + delta);
     const el = document.getElementById(`sqty-${name.replace(/\s+/g, '')}`);
@@ -637,6 +670,10 @@ window.addCart = (name) => {
     let idx = cart.findIndex(x => x.name === name);
     if(idx > -1) cart[idx].qty += qty;
     else cart.push({name: p.name, price: p.price, img: p.imgs[0], qty: qty});
+    
+    // Show Notification
+    window.showToast(`${p.name} added to cart!`);
+    
     shopQtys[name] = 1;
     const el = document.getElementById(`sqty-${name.replace(/\s+/g, '')}`);
     if(el) el.innerText = 1;
@@ -711,7 +748,6 @@ function renderCart() {
     document.getElementById("total").innerText = total;
 }
 
-// Hero Logic
 let heroIdx = 0;
 const slides = document.querySelectorAll('.slide');
 setInterval(() => {
