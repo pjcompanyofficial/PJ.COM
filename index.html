@@ -594,4 +594,27 @@ function renderCart() {
     cart.forEach((p, i) => {
         total += p.price * p.qty;
         cartDiv.innerHTML += `
-	
+	<div class="product" style="margin-bottom:15px; display:flex; gap:15px; align-items:center;">
+            <img src="${p.img}" style="width:60px; height:60px; object-fit:cover; border-radius:10px;">
+            <div style="flex-grow:1">
+                <h4 style="margin:0; color: white;">${p.name}</h4>
+                <div style="color:var(--primary)">₹ ${p.price} x ${p.qty}</div>
+            </div>
+            <span style="color:red; cursor:pointer; font-weight: bold; font-size: 18px;" onclick="removeItem(${i})">✕</span>
+        </div>`;
+    });
+    const totalEl = document.getElementById("total");
+    if(totalEl) totalEl.innerText = total;
+}
+
+window.sendOrder = () => {
+    if(!cart.length) return;
+    let msg = "New Order from PJ Store App:\n";
+    cart.forEach(p => msg += `- ${p.name} (x${p.qty})\n`);
+    msg += `Total: ₹ ${document.getElementById("total").innerText}`;
+    window.open("https://wa.me/919476091829?text=" + encodeURIComponent(msg), "_blank");
+};
+</script>
+
+</body>
+</html>
