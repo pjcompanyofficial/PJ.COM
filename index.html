@@ -31,24 +31,30 @@ box-sizing:border-box;
 margin-left:auto;
 font-size:22px;
 cursor:pointer;
-padding-right:8px;
+padding-right:10px;
 }
 
 /* TITLE */
 .title{margin-top:2.3cm;text-align:center;font-size:55px;font-family:Great Vibes}
+
+/* CURSIVE TAGLINE */
+.heroTitle{
+text-align:center;
+font-size:42px;
+font-family:"Great Vibes";
+margin-top:15px;
+color:#ffe7b0;
+}
 
 /* SLIDER */
 .slider{width:90%;margin:25px auto;overflow-x:auto;border-radius:20px}
 .track{display:flex;gap:10px}
 .track img{width:100%;border-radius:20px}
 
-/* INFO */
-.points{width:90%;margin:10px auto;background:#111;padding:15px;border-radius:15px;font-size:14px;line-height:1.7}
-
 /* BUTTON */
 .shopBtn{
 display:block;
-margin:20px auto;
+margin:25px auto;
 background:linear-gradient(#ff9a2f,#ff7a00);
 color:white;
 border:none;
@@ -59,12 +65,43 @@ box-shadow:0 6px 0 #c45c00
 }
 .shopBtn:active{transform:translateY(6px);box-shadow:0 0 0}
 
+/* IMAGE INFO SECTION */
+.infoImage{
+width:90%;
+margin:40px auto;
+background:linear-gradient(135deg,#1c1c1c,#3a2a00);
+padding:20px;
+border-radius:20px;
+position:relative;
+}
+.infoImage img{
+width:100%;
+border-radius:15px;
+}
+.infoText{
+position:absolute;
+top:35px;
+left:40px;
+width:55%;
+color:white;
+font-size:15px;
+line-height:1.7;
+}
+
+/* LOCATIONS */
+.locations{
+text-align:center;
+margin-top:30px;
+font-size:15px;
+line-height:1.9;
+}
+
 /* CONTACT */
 .contact{display:flex;justify-content:center;gap:20px;margin-top:30px}
 .contact a{background:#ff7a00;color:white;padding:10px 20px;border-radius:25px;text-decoration:none;font-size:14px}
 
 /* FOOTER */
-.footer{text-align:center;margin:60px 0;font-size:14px;opacity:.8}
+.footer{text-align:center;margin:60px 0 30px;font-size:14px;opacity:.8}
 
 /* SHOP */
 #shop,#cartPage{position:fixed;top:0;width:100%;height:100%;background:black;overflow:auto;padding:1.7cm 0 120px;z-index:9999}
@@ -83,15 +120,16 @@ box-shadow:0 6px 0 #c45c00
 <div class="top">
 <div class="logoBox">
 <img class="logo" src="https://i.postimg.cc/3w76Yfc0/file-00000000f0cc71faab033f0116f53261.jpg">
-<div style="font-size:14px;font-weight:bold">PJ Store Web</div>
+<div style="font-size:14px;font-weight:bold;color:#ffe5b4">PJ Store Web</div>
 </div>
-
 <div class="cartIcon" onclick="openCart()">🛒</div>
 </div>
 
 <div id="home">
 
 <div class="title">PJ Store</div>
+
+<div class="heroTitle">PJ classical flutes Shop</div>
 
 <div class="slider">
 <div class="track">
@@ -100,14 +138,29 @@ box-shadow:0 6px 0 #c45c00
 </div>
 </div>
 
-<div class="points">
-• Andaman ek sundar dweep samuh hai jahan traditional music ka culture strong hai.<br>
-• Ramnagar mein bamboo flute manufacturing hota hai.<br>
-• Dispatch Subashgram Diglipur se kiya jata hai.
-</div>
-
 <button class="shopBtn" onclick="openShop()">Shop Now</button>
 
+<!-- IMAGE + HISTORY -->
+<div class="infoImage">
+<img src="https://i.postimg.cc/WzBLFRnN/1771467813134.jpg">
+
+<div class="infoText">
+• Bansuri Bharat ka sabse prachin classical instrument hai.<br>
+• Iska varnan ved aur puranon mein milta hai.<br>
+• Bhagwan Krishna ki sabse priya vadya thi bansuri.<br>
+• Classical music mein alaap aur meditation ke liye use hoti hai.<br>
+• Bamboo se bani hone ke karan iska sound natural hota hai.<br>
+• Sadgi aur shanti ka pratik mana jata hai.
+</div>
+</div>
+
+<!-- LOCATIONS -->
+<div class="locations">
+📍 <b>Manufacturing Unit</b> — Ramnagar, Diglipur, N. Andaman<br>
+🏢 <b>Main Dispatch & Sales Office</b> — Subashgram, Diglipur, N. Andaman
+</div>
+
+<!-- CONTACT -->
 <div class="contact">
 
 <a href="https://wa.me/919476091829?text=Hi%20I%20am%20interested%20in%20product%20can%20you%20help%20me">
@@ -216,7 +269,6 @@ cartItems.innerHTML+=`
 <div class="product">
 <h3>${p.name}</h3>
 ₹${p.price}
-
 <div style="display:flex;gap:10px;margin-top:10px">
 <button onclick="changeQty('${p.name}',-1)">−</button>
 <b>${p.qty}</b>
