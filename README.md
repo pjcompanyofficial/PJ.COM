@@ -1,2 +1,2 @@
-# PJ.COM
+# PJ Store
 PJ office 
