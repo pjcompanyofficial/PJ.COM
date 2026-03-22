@@ -1,0 +1,4188 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PJ Store | Professional Flutes</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --coral: #ea8ea0;
+            --coral-dark: #d86a7d;
+            --coral-light: #f4b3be;
+            --orange: #f39a52;
+            --orange-dark: #e07c33;
+            --orange-light: #f8c58f;
+            --blush: #f5d5d5;
+            --blush-light: #fae8e8;
+            --cream: #faf7f4;
+            --rose: #d6828c;
+            --foreground: #2d2a26;
+            
+            /* Light mode defaults */
+            --bg-primary: #faf7f4;
+            --bg-secondary: #ffffff;
+            --text-primary: #2d2a26;
+            --text-secondary: rgba(45, 42, 38, 0.7);
+            --border-color: rgba(234, 142, 160, 0.2);
+            --card-shadow: rgba(0,0,0,0.05);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --text-primary: #f5d5d5;
+            --text-secondary: rgba(245, 213, 213, 0.7);
+            --border-color: rgba(234, 142, 160, 0.3);
+            --card-shadow: rgba(0,0,0,0.3);
+            --cream: #1a1a1a;
+            --foreground: #f5d5d5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        /* Remove Chrome click/focus blue highlight */
+        button, a, input, textarea, select, [role=button] {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:focus,
+        a:focus,
+        input:focus,
+        textarea:focus,
+        select:focus,
+        [role=button]:focus {
+            outline: none;
+        }
+
+        button:focus:not(:focus-visible),
+        a:focus:not(:focus-visible),
+        input:focus:not(:focus-visible),
+        textarea:focus:not(:focus-visible),
+        select:focus:not(:focus-visible),
+        [role=button]:focus:not(:focus-visible) {
+            outline: none;
+            box-shadow: none;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        .background-watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 320px;
+            height: 320px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: rgba(234, 142, 160, 0.03);
+            border: 1px solid rgba(234, 142, 160, 0.06);
+            box-shadow: 0 20px 70px rgba(0,0,0,0.02);
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0.5;
+        }
+
+        [data-theme="dark"] .background-watermark {
+            background: rgba(234, 142, 160, 0.05);
+            opacity: 0.3;
+        }
+
+        .background-watermark img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .page-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Great Vibes', cursive;
+            font-weight: 400;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--orange) 100%);
+            padding: 12px 20px;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(234, 142, 160, 0.3);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+            object-fit: cover;
+        }
+
+        .logo span {
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-icons button, .nav-icons a {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-icons button:hover, .nav-icons a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .cart-btn {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: white;
+            color: var(--coral);
+            font-size: 11px;
+            font-weight: 700;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--coral);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 100px;
+            padding-bottom: 30px;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 72px;
+            color: var(--coral);
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: bloomIn 0.8s ease forwards;
+        }
+
+        .hero-slider {
+            max-width: 700px;
+            margin: 0 auto;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(234, 142, 160, 0.2);
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+
+        .hero-slider:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(234, 142, 160, 0.3);
+        }
+
+        .slider-container {
+            aspect-ratio: 16/10;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            width: 24px;
+            background: var(--coral);
+        }
+
+        .hero-subtitle {
+            font-size: 36px;
+            margin-top: 24px;
+            color: var(--text-primary);
+            opacity: 0;
+            animation: bloomIn 0.8s ease 0.3s forwards;
+        }
+
+        /* Pincode Checker */
+        .pincode-section {
+            padding: 20px;
+        }
+
+        .pincode-box {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 16px;
+            background: rgba(234, 142, 160, 0.08);
+            border: 1px solid rgba(234, 142, 160, 0.2);
+            border-radius: 16px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        [data-theme="dark"] .pincode-box {
+            background: rgba(234, 142, 160, 0.1);
+            border-color: rgba(234, 142, 160, 0.3);
+        }
+
+        .pincode-box.visible {
+            animation: bloomIn 0.8s ease forwards;
+        }
+
+        .pincode-input-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .pincode-box input {
+            flex: 1;
+            padding: 14px 16px;
+            border: 1px solid var(--blush);
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        [data-theme="dark"] .pincode-box input {
+            border-color: rgba(234, 142, 160, 0.3);
+            background: #2a2a2a;
+        }
+
+        .pincode-box input:focus {
+            border-color: var(--coral);
+            box-shadow: 0 0 0 3px rgba(234, 142, 160, 0.2);
+        }
+
+        .pincode-box button {
+            padding: 14px 24px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--orange) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .pincode-box button:hover {
+            background: var(--orange-dark);
+        }
+
+        .pincode-result {
+            text-align: center;
+            font-size: 13px;
+            margin-top: 12px;
+            min-height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: var(--text-primary);
+        }
+
+        .pincode-result.success {
+            color: #22c55e;
+        }
+
+        .pincode-result.error {
+            color: var(--rose);
+        }
+
+        .detect-location {
+            text-align: center;
+            font-size: 12px;
+            color: var(--coral);
+            margin-top: 8px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .pincode-help {
+            text-align: center;
+            font-size: 12px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            margin-top: 10px;
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 10px 20px 40px;
+            text-align: center;
+        }
+
+        .video-title {
+            font-size: 30px;
+            color: var(--coral);
+            margin-bottom: 16px;
+        }
+
+        .video-frame-wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 12px 36px rgba(234, 142, 160, 0.18);
+            background: var(--bg-secondary);
+            border: 1px solid rgba(234, 142, 160, 0.14);
+        }
+
+        .video-frame {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border: 0;
+            display: block;
+        }
+
+        /* Products Grid */
+        .products-section {
+            padding: 40px 20px;
+        }
+
+        .products-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .product-card {
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px var(--card-shadow);
+            transition: transform 0.4s, box-shadow 0.4s, background 0.5s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .product-card.visible {
+            animation: bloomIn 0.8s ease forwards;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(234, 142, 160, 0.15);
+        }
+
+        .product-slider {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 16px;
+            overflow: hidden;
+            background: linear-gradient(to bottom, var(--cream), rgba(245, 213, 213, 0.3));
+        }
+
+        [data-theme="dark"] .product-slider {
+            background: linear-gradient(to bottom, #2a2a2a, rgba(234, 142, 160, 0.1));
+        }
+
+        .product-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .product-track img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 16px;
+            flex-shrink: 0;
+            cursor: zoom-in;
+        }
+
+        .product-slider {
+            touch-action: pan-y;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .slider-dots-product {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot-product {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.3);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        [data-theme="dark"] .dot-product {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .dot-product.active {
+            width: 16px;
+            background: var(--coral);
+        }
+
+        .product-info {
+            margin-top: 16px;
+        }
+
+        .product-category {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--coral);
+            font-weight: 600;
+        }
+
+        .product-name {
+            font-size: 24px;
+            margin-top: 4px;
+            color: var(--text-primary);
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 16px;
+        }
+
+        .product-price {
+            font-size: 28px;
+            color: var(--coral);
+        }
+
+        /* Horizontal Quantity Selector */
+        .qty-selector {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(234, 142, 160, 0.1);
+            padding: 6px 12px;
+            border-radius: 30px;
+        }
+
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--orange) 100%);
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(234, 142, 160, 0.3);
+        }
+
+        .qty-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(234, 142, 160, 0.4);
+        }
+
+        .qty-btn:active {
+            transform: scale(0.95);
+        }
+
+        .qty-selector span {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            margin-top: 16px;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--orange) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 0 var(--coral-dark);
+            transition: all 0.1s;
+        }
+
+        .add-to-cart:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 var(--coral-dark);
+        }
+
+        /* Info Section */
+        .info-section {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 24px;
+            background: rgba(234, 142, 160, 0.08);
+            border: 1px solid rgba(234, 142, 160, 0.2);
+            border-radius: 24px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        [data-theme="dark"] .info-section {
+            background: rgba(234, 142, 160, 0.1);
+            border-color: rgba(234, 142, 160, 0.3);
+        }
+
+        .info-section.visible {
+            animation: bloomIn 0.8s ease forwards;
+        }
+
+        .info-section h2 {
+            font-size: 36px;
+            color: var(--coral);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .check-icon {
+            width: 20px;
+            height: 20px;
+            background: rgba(234, 142, 160, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .check-icon svg {
+            width: 12px;
+            height: 12px;
+            color: var(--coral);
+        }
+
+        /* Instagram Banner */
+        .instagram-banner {
+            max-width: 600px;
+            margin: 40px auto;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(234, 142, 160, 0.2);
+            transition: transform 0.4s, box-shadow 0.4s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .instagram-banner.visible {
+            animation: bloomIn 0.8s ease forwards;
+        }
+
+        .instagram-banner:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(234, 142, 160, 0.3);
+        }
+
+        .instagram-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Location Section */
+        .location-section {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 24px;
+            background: rgba(234, 142, 160, 0.08);
+            border: 1px solid rgba(234, 142, 160, 0.2);
+            border-radius: 24px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        [data-theme="dark"] .location-section {
+            background: rgba(234, 142, 160, 0.1);
+            border-color: rgba(234, 142, 160, 0.3);
+        }
+
+        .location-section.visible {
+            animation: bloomIn 0.8s ease forwards;
+        }
+
+        .location-section h2 {
+            font-size: 36px;
+            color: var(--coral);
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .location-text {
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .location-text strong {
+            display: block;
+            margin-top: 8px;
+            color: var(--text-primary);
+        }
+
+        .map-frame {
+            width: 100%;
+            height: 280px;
+            border: none;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            text-align: center;
+            padding: 40px 20px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .contact-section.visible {
+            animation: bloomIn 0.8s ease forwards;
+        }
+
+        .contact-title {
+            color: var(--coral);
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .contact-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 14px 20px;
+            background: var(--coral);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 0 var(--coral-dark), 0 8px 16px rgba(0,0,0,0.15);
+            transition: all 0.1s;
+        }
+
+        .contact-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 var(--coral-dark);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .heart {
+            color: var(--coral);
+        }
+
+        /* Cart Drawer */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+        }
+
+        .cart-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            max-width: 420px;
+            height: 100%;
+            background: var(--bg-primary);
+            z-index: 2001;
+            transform: translateX(100%);
+            transition: transform 0.5s ease, background 0.5s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-drawer.open {
+            transform: translateX(0);
+        }
+
+        .cart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cart-header h2 {
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+        }
+
+        .close-cart {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+            color: var(--text-primary);
+        }
+
+        .close-cart:hover {
+            background: rgba(234, 142, 160, 0.2);
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .cart-empty-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(234, 142, 160, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .cart-empty h3 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .cart-empty p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .continue-shopping {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--orange) 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .continue-shopping:hover {
+            background: var(--orange-dark);
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 16px;
+            background: var(--bg-secondary);
+            padding: 16px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 20px var(--card-shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .cart-item-img {
+            width: 80px;
+            height: 100px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: linear-gradient(to bottom, var(--cream), rgba(245, 213, 213, 0.3));
+            flex-shrink: 0;
+        }
+
+        [data-theme="dark"] .cart-item-img {
+            background: linear-gradient(to bottom, #2a2a2a, rgba(234, 142, 160, 0.1));
+        }
+
+        .cart-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 8px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .cart-item-name {
+            font-size: 18px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--text-primary);
+        }
+
+        .cart-item-price {
+            color: var(--coral);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 12px;
+        }
+
+        .cart-qty {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-qty button {
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: rgba(234, 142, 160, 0.2);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+            color: var(--text-primary);
+        }
+
+        .cart-qty button:hover {
+            background: var(--blush);
+        }
+
+        .remove-item {
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--rose);
+            transition: background 0.3s;
+        }
+
+        .remove-item:hover {
+            background: rgba(214, 130, 140, 0.1);
+        }
+
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+
+        .cart-subtotal {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .cart-subtotal span {
+            color: var(--text-secondary);
+        }
+
+        .cart-subtotal strong {
+            font-size: 24px;
+            color: var(--text-primary);
+        }
+
+        .cart-note {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--orange) 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 0 var(--coral-dark);
+            transition: all 0.1s;
+        }
+
+        .checkout-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 var(--coral-dark);
+        }
+
+        /* Instagram Modal */
+        .instagram-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+            display: none;
+        }
+
+        .instagram-modal.open {
+            display: block;
+        }
+
+        .instagram-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--orange) 100%);
+        }
+
+        .close-instagram {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            background: rgba(0,0,0,0.2);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: background 0.3s;
+        }
+
+        .close-instagram:hover {
+            background: rgba(0,0,0,0.3);
+        }
+
+        .instagram-content {
+            position: relative;
+            height: 100%;
+            overflow-y: auto;
+            padding: 100px 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .instagram-card {
+            max-width: 400px;
+            width: 100%;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 24px;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .instagram-card svg {
+            width: 48px;
+            height: 48px;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .instagram-card h2 {
+            font-size: 48px;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .instagram-card p {
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .instagram-link {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--orange) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            box-shadow: 0 6px 0 var(--orange-dark), 0 10px 20px rgba(0,0,0,0.25);
+            transition: all 0.1s;
+        }
+
+        .instagram-link:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .instagram-link:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 var(--orange-dark);
+        }
+
+        .instagram-hint {
+            color: rgba(255,255,255,0.6);
+            font-size: 12px;
+            margin-top: 16px;
+        }
+
+        /* Image Viewer */
+        .image-viewer {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 4000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .image-viewer.open {
+            display: flex;
+        }
+
+        .close-viewer {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .close-viewer:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .image-viewer img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 12px;
+        }
+
+        /* Animations */
+        @keyframes bloomIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+                filter: blur(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+
+        .collection-toolbar {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            display: flex;
+            gap: 16px;
+            align-items: end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .collection-title {
+            font-size: 38px;
+            color: var(--coral);
+            margin-bottom: 4px;
+        }
+
+        .collection-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .collection-search {
+            min-width: min(100%, 360px);
+            flex: 1;
+            padding: 14px 16px;
+            border: 1px solid rgba(234, 142, 160, 0.25);
+            border-radius: 14px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            outline: none;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+        }
+
+        .collection-search:focus {
+            border-color: var(--coral);
+            box-shadow: 0 0 0 3px rgba(234, 142, 160, 0.16);
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .product-delivery {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .delivery-prompt {
+            position: relative;
+            margin-bottom: 10px;
+            padding: 12px 14px 12px 14px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(243, 154, 82, 0.95) 0%, rgba(234, 142, 160, 0.95) 100%);
+            color: #fff;
+            box-shadow: 0 10px 24px rgba(234, 142, 160, 0.22);
+            border: 1px solid rgba(255,255,255,0.28);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .delivery-prompt::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0));
+            pointer-events: none;
+        }
+
+        .delivery-prompt-main {
+            display: block;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.2px;
+            line-height: 1.35;
+            padding-right: 28px;
+        }
+
+        .delivery-prompt-sub {
+            display: block;
+            margin-top: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            opacity: 0.95;
+            line-height: 1.4;
+            padding-right: 28px;
+        }
+
+        .delivery-prompt-close {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: rgba(255,255,255,0.18);
+            color: #fff;
+            border-radius: 999px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            line-height: 1;
+            font-weight: 400;
+            z-index: 1;
+        }
+
+        .delivery-prompt-close:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .delivery-prompt.is-hidden {
+            display: none !important;
+        }
+
+        .product-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .product-btn {
+            width: 100%;
+            padding: 14px 12px;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 700;
+            transition: transform 0.1s, box-shadow 0.1s, opacity 0.2s;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--orange) 100%);
+            color: white;
+            box-shadow: 0 4px 0 var(--coral-dark);
+        }
+
+        .product-btn.alt {
+            background: transparent;
+            color: var(--coral);
+            border: 1px solid var(--coral);
+            box-shadow: none;
+        }
+
+        .product-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 var(--coral-dark);
+        }
+
+        .product-btn.alt:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        /* Customize Button - Official Theme */
+        .customize-btn {
+            width: 100%;
+            margin-top: 12px;
+            padding: 14px 12px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--orange) 100%);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 0 var(--coral-dark);
+            transition: all 0.1s;
+        }
+
+        .customize-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: white;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .customize-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 var(--coral-dark);
+        }
+
+        @media (max-width: 768px) {
+            .collection-toolbar {
+                align-items: stretch;
+            }
+            .collection-search {
+                min-width: 100%;
+            }
+            .collection-title {
+                font-size: 32px;
+            }
+            .product-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 52px;
+            }
+
+            .hero-subtitle {
+                font-size: 28px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+            }
+
+            .contact-btn {
+                width: 100%;
+            }
+        }
+
+        /* ================= CUSTOMIZATION PAGE STYLES ================= */
+        
+        /* Customization Page */
+        .customization-page {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
+            z-index: 5000;
+            overflow-y: auto;
+        }
+
+        .customization-page.active {
+            display: block;
+        }
+
+        .customization-header {
+            background: linear-gradient(135deg, var(--coral) 0%, var(--orange) 100%);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(234, 142, 160, 0.3);
+        }
+
+        .back-arrow {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .back-arrow:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateX(-3px);
+        }
+
+        .back-arrow svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .customization-header h2 {
+            color: white;
+            font-size: 28px;
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .customization-header .header-spacer {
+            width: 44px;
+        }
+
+        /* Experience Badge */
+        .experience-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, rgba(234, 142, 160, 0.1) 0%, rgba(243, 154, 82, 0.1) 100%);
+        }
+
+        .experience-badge img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--coral);
+            box-shadow: 0 8px 30px rgba(234, 142, 160, 0.3);
+        }
+
+        /* Customization Options */
+        .customization-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .customization-option {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 4px 20px var(--card-shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .customization-option:hover {
+            border-color: var(--coral);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(234, 142, 160, 0.15);
+        }
+
+        .customization-option.selected {
+            border-color: var(--coral);
+            background: rgba(234, 142, 160, 0.05);
+        }
+
+        .option-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .option-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--orange) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .option-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: white;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .option-text h3 {
+            font-size: 22px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .option-text p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .option-arrow {
+            margin-left: auto;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(234, 142, 160, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .option-arrow svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--coral);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .customization-option:hover .option-arrow {
+            background: var(--coral);
+        }
+
+        .customization-option:hover .option-arrow svg {
+            stroke: white;
+        }
+
+        /* Selection Summary */
+        .selection-summary {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px dashed rgba(234, 142, 160, 0.3);
+        }
+
+        .selection-summary h4 {
+            font-size: 16px;
+            color: var(--coral);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(234, 142, 160, 0.05);
+            border-radius: 12px;
+            margin-bottom: 8px;
+        }
+
+        .summary-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .summary-item.pattern img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .summary-item.colors {
+            flex-wrap: wrap;
+        }
+
+        .summary-color-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .summary-text {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .summary-price {
+            margin-left: auto;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--coral);
+        }
+
+        /* Flute Name Input */
+        .flute-name-section {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid var(--border-color);
+        }
+
+        .flute-name-section label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .flute-name-section input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--blush);
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        [data-theme="dark"] .flute-name-section input {
+            border-color: rgba(234, 142, 160, 0.3);
+        }
+
+        .flute-name-section input:focus {
+            border-color: var(--coral);
+            box-shadow: 0 0 0 3px rgba(234, 142, 160, 0.2);
+        }
+
+        /* Send Button */
+        .send-whatsapp-btn {
+            width: 100%;
+            padding: 18px 24px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 6px 0 #075E54, 0 10px 20px rgba(37, 211, 102, 0.3);
+            transition: all 0.1s ease;
+            margin-bottom: 20px;
+        }
+
+        .send-whatsapp-btn:active {
+            transform: translateY(6px);
+            box-shadow: 0 2px 0 #075E54;
+        }
+
+        .send-whatsapp-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        /* ================= PATTERN PAGE STYLES ================= */
+        
+        .pattern-page, .color-page {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
+            z-index: 6000;
+            overflow-y: auto;
+        }
+
+        .pattern-page.active, .color-page.active {
+            display: block;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--coral) 0%, var(--orange) 100%);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(234, 142, 160, 0.3);
+        }
+
+        .page-header h2 {
+            color: white;
+            font-size: 24px;
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .page-content {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        /* Pattern Types */
+        .pattern-types {
+            margin-bottom: 24px;
+        }
+
+        .pattern-types h3 {
+            font-size: 18px;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .pattern-type-card {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 16px;
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .pattern-type-card:hover {
+            border-color: var(--coral);
+            transform: translateY(-2px);
+        }
+
+        .pattern-type-card.selected {
+            border-color: var(--coral);
+            background: rgba(234, 142, 160, 0.05);
+        }
+
+        .pattern-type-card.free {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.05);
+        }
+
+        .pattern-type-card.free.selected {
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .pattern-type-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .pattern-type-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--coral);
+        }
+
+        .pattern-type-card.free .pattern-type-price {
+            color: #22c55e;
+        }
+
+        /* Image Upload */
+        .image-upload-section {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 2px dashed rgba(234, 142, 160, 0.4);
+            text-align: center;
+        }
+
+        .image-upload-section.has-image {
+            border-style: solid;
+            border-color: var(--coral);
+        }
+
+        .upload-area {
+            padding: 40px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            background: rgba(234, 142, 160, 0.05);
+            border-radius: 12px;
+        }
+
+        .upload-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            background: rgba(234, 142, 160, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .upload-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--coral);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .upload-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .upload-hint {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .uploaded-image-preview {
+            width: 100%;
+            max-height: 300px;
+            border-radius: 12px;
+            object-fit: contain;
+            margin-bottom: 16px;
+        }
+
+        .change-image-btn {
+            padding: 12px 24px;
+            background: rgba(234, 142, 160, 0.1);
+            color: var(--coral);
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .change-image-btn:hover {
+            background: var(--coral);
+            color: white;
+        }
+
+        /* Continue Button */
+        .continue-btn {
+            width: 100%;
+            padding: 18px 24px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--orange) 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 6px 0 var(--coral-dark), 0 10px 20px rgba(234, 142, 160, 0.3);
+            transition: all 0.1s ease;
+        }
+
+        .continue-btn:active {
+            transform: translateY(6px);
+            box-shadow: 0 2px 0 var(--coral-dark);
+        }
+
+        .continue-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .continue-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: white;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* ================= COLOR PAGE STYLES ================= */
+        
+        /* Color Count Selector */
+        .color-count-section {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 2px solid var(--border-color);
+        }
+
+        .color-count-section h3 {
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .color-count-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .color-count-btn {
+            padding: 14px 8px;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .color-count-btn:hover {
+            border-color: var(--coral);
+        }
+
+        .color-count-btn.selected {
+            background: linear-gradient(135deg, var(--coral) 0%, var(--orange) 100%);
+            border-color: var(--coral);
+        }
+
+        .color-count-btn.selected .count-number,
+        .color-count-btn.selected .count-price {
+            color: white;
+        }
+
+        .count-number {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        .count-price {
+            font-size: 12px;
+            color: var(--coral);
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* Color Selection */
+        .color-selection-section {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 2px solid var(--border-color);
+        }
+
+        .color-selection-section h3 {
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .color-selection-hint {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .pattern-color-warning {
+            background: linear-gradient(135deg, rgba(243, 154, 82, 0.15) 0%, rgba(234, 142, 160, 0.15) 100%);
+            border: 1px solid rgba(243, 154, 82, 0.3);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .pattern-color-warning strong {
+            color: var(--orange);
+        }
+
+        /* Color Search */
+        .color-search-section {
+            margin-bottom: 16px;
+        }
+
+        .color-search-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--blush);
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        [data-theme="dark"] .color-search-input {
+            border-color: rgba(234, 142, 160, 0.3);
+        }
+
+        .color-search-input:focus {
+            border-color: var(--coral);
+            box-shadow: 0 0 0 3px rgba(234, 142, 160, 0.2);
+        }
+
+        .color-search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+        }
+
+        .color-option {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        [data-theme="dark"] .color-option {
+            border-color: #2a2a2a;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .color-option.selected {
+            box-shadow: 0 0 0 3px var(--orange), 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .color-option.selected::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        [data-theme="dark"] .color-option.selected::after {
+            border-color: #2a2a2a;
+        }
+
+        .color-option.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .color-option.hidden {
+            display: none;
+        }
+
+        /* Selected Colors Display */
+        .selected-colors-display {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 16px;
+            padding: 14px;
+            background: rgba(234, 142, 160, 0.05);
+            border-radius: 12px;
+            flex-wrap: wrap;
+        }
+
+        .selected-colors-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .selected-colors-list {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .selected-color-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            background: var(--bg-primary);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            font-size: 12px;
+            color: var(--text-primary);
+        }
+
+        .selected-color-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        .remove-color-btn {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: rgba(214, 130, 140, 0.2);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--rose);
+            transition: all 0.2s ease;
+        }
+
+        .remove-color-btn:hover {
+            background: var(--rose);
+            color: white;
+        }
+
+        /* Care Tips Section - Outside Customization */
+        .care-tips-section {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 24px;
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 4px 20px var(--card-shadow);
+        }
+
+        .care-tips-section h3 {
+            font-size: 28px;
+            color: var(--coral);
+            margin-bottom: 20px;
+            text-align: center;
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .care-tip {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px;
+            background: rgba(234, 142, 160, 0.05);
+            border-radius: 14px;
+            margin-bottom: 12px;
+        }
+
+        .care-tip:last-child {
+            margin-bottom: 0;
+        }
+
+        .care-tip-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--orange) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 22px;
+        }
+
+        .care-tip-content h4 {
+            font-size: 15px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .care-tip-content p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--foreground);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        [data-theme="dark"] .toast {
+            background: #2a2a2a;
+            color: #f5d5d5;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .color-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+            
+            .color-count-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .pattern-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="background-watermark" aria-hidden="true">
+<img alt="PJ Store watermark" src="https://i.postimg.cc/3w76Yfc0/file-00000000f0cc71faab033f0116f53261.jpg"/>
+</div>
+<div class="page-content">
+<!-- Navigation -->
+<nav class="nav">
+<div class="nav-content">
+<a class="logo" href="#" onclick="scrollToSection('hero'); return false;">
+<img alt="PJ Store" src="https://i.postimg.cc/3w76Yfc0/file-00000000f0cc71faab033f0116f53261.jpg"/>
+<span>PJ STORE</span>
+</a>
+<div class="nav-links">
+<a href="#" onclick="scrollToSection('shop'); return false;">Shop</a>
+<a href="#" onclick="scrollToSection('about'); return false;">About</a>
+<a href="#" onclick="scrollToSection('location'); return false;">Location</a>
+</div>
+<div class="nav-icons">
+<button onclick="openInstagramModal()">
+<svg fill="none" height="24" stroke="white" stroke-width="2" viewbox="0 0 24 24" width="24">
+<rect height="18" rx="5" width="18" x="3" y="3"></rect>
+<circle cx="12" cy="12" r="4"></circle>
+<circle cx="17.5" cy="6.5" fill="white" r="1.5"></circle>
+</svg>
+</button>
+<a href="https://www.youtube.com/@PJCompany-432" target="_blank">
+<svg height="24" viewbox="0 0 24 24" width="24">
+<path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z" fill="white"></path>
+<path d="M9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#c45c00"></path>
+</svg>
+</a>
+<button class="cart-btn" onclick="openCart()">
+<svg fill="none" height="22" stroke="white" stroke-width="2" viewbox="0 0 24 24" width="22">
+<path d="M6 7h12l-1 14H7L6 7Z"></path>
+<path d="M9 7a3 3 0 0 1 6 0"></path>
+</svg>
+<span class="cart-count" id="cartCount">0</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="hero" id="hero">
+<h1 class="hero-title">PJ Store</h1>
+<div class="hero-slider">
+<div class="slider-container">
+<div class="slide active">
+<img alt="PJ Flute 1" src="https://i.postimg.cc/zXkJgfLD/IMG-20260218-194815-054.jpg"/>
+</div>
+<div class="slide">
+<img alt="PJ Flute 2" src="https://i.postimg.cc/N0KYS7dg/IMG-20260218-194851-468-2.jpg"/>
+</div>
+</div>
+<div class="slider-dots">
+<button class="dot active" onclick="setSlide(0)"></button>
+<button class="dot" onclick="setSlide(1)"></button>
+</div>
+</div>
+<h2 class="hero-subtitle">PJ Classical Flute Shop</h2>
+</section>
+<!-- Pincode Checker -->
+<section class="pincode-section" id="pincodeSection">
+<div class="pincode-box" id="pincodeBox">
+<div class="pincode-input-row">
+<input id="pincodeInput" maxlength="6" placeholder="Enter Delivery Pincode" type="text"/>
+<button onclick="checkPincode()">Check</button>
+</div>
+<div class="pincode-result" id="pincodeResult">No pincode entered yet — delivery will default to the farthest Speed Post rate from Andaman + 60%.</div>
+<div class="detect-location" onclick="detectLocation()">Detect Live Location Instead</div>
+<p class="pincode-help" id="pincodeHelp">Enter your pincode to unlock a lower area-based delivery charge. Without a pincode, the system applies the farthest Speed Post charge from Andaman + 60%.</p>
+</div>
+</section>
+<!-- Video Section -->
+<section class="video-section">
+<h2 class="video-title">official flute video</h2>
+<div class="video-frame-wrap">
+<iframe class="video-frame" src="https://www.youtube.com/embed/nSNTNguTP3k" title="official flute video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+</section>
+<!-- Products Section -->
+<section class="products-section" id="shop">
+  <div class="collection-toolbar">
+    <div>
+      <h2 class="collection-title">Our Collection</h2>
+      <p class="collection-subtitle">Browse all flutes, check delivery, and order on WhatsApp.</p>
+    </div>
+    <input id="collectionSearch" class="collection-search" type="search" placeholder="Search by name or size..." oninput="filterProducts(this.value)">
+  </div>
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+<!-- Instagram Banner -->
+<div class="instagram-banner" id="instagramBanner">
+<img alt="Instagram Banner" src="https://i.postimg.cc/sg32c8SP/Screenshot-20260219-102520-Instagram.png"/>
+</div>
+<!-- About Section -->
+<section class="info-section" id="about">
+<h2>Why Choose PJ Flutes</h2>
+<ul class="info-list">
+<li>
+<span class="check-icon">
+<svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+</span>
+                Handcrafted with over 9 years of professional experience.
+            </li>
+<li>
+<span class="check-icon">
+<svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+</span>
+                Made from premium quality, seasoned Assam Bamboo.
+            </li>
+<li>
+<span class="check-icon">
+<svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+</span>
+                Each flute is manually tuned to perfection.
+            </li>
+<li>
+<span class="check-icon">
+<svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+</span>
+                Direct support from the maker himself.
+            </li>
+</ul>
+</section>
+
+<!-- Care Tips Section - Outside Customization -->
+<section class="care-tips-section" id="careTips">
+    <h3>Flute Care Tips</h3>
+    <div class="care-tip">
+        <div class="care-tip-icon">🧴</div>
+        <div class="care-tip-content">
+            <h4>Oiling the Bamboo</h4>
+            <p>Ek mahine mein ek baar mustard oil (sarson ka tel) se andar aur bahar oiling karein. Isse bamboo dry hokar fat-ta (crack) nahi hai.</p>
+        </div>
+    </div>
+    <div class="care-tip">
+        <div class="care-tip-icon">🌡️</div>
+        <div class="care-tip-content">
+            <h4>Temperature Control</h4>
+            <p>Bansuri ko zyada garmi ya AC ki seedhi hawa se bachayein. Extreme temperature se bamboo ki tuning kharab ho sakti hai.</p>
+        </div>
+    </div>
+    <div class="care-tip">
+        <div class="care-tip-icon">🧤</div>
+        <div class="care-tip-content">
+            <h4>Cleaning After Play</h4>
+            <p>Bajane ke baad phoonk se bani nami (moisture) ko saaf kapde se ponch dein. Isse bansuri lambe samay tak nayi rehti hai.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Location Section -->
+<section class="location-section" id="location">
+<h2>PJ Flutes Live Location</h2>
+<p class="location-text">
+            Live location of our manufacturing hub is shown below. It is situated at
+            <strong>"PJ Flute Manufacturing Hub, Ramnagar, Diglipur, North and Middle Andaman"</strong>.
+            Here PJ Flutes are crafted, tuned, and prepared for customers with care.
+        </p>
+<iframe class="map-frame" loading="lazy" src="https://www.google.com/maps?q=PJ+Flute+Manufacturing+Hub,+Ramnagar,+Diglipur,+North+and+Middle+Andaman&amp;output=embed"></iframe>
+</section>
+<!-- Contact Section -->
+<section class="contact-section" id="contact">
+<div class="contact-title">Support Line</div>
+<div class="contact-buttons">
+<a class="contact-btn" href="https://wa.me/919476091829" target="_blank">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
+<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+</svg>
+                WhatsApp
+            </a>
+<a class="contact-btn" href="tel:9434274060">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
+<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+</svg>
+                Call Us
+            </a>
+<a class="contact-btn" href="mailto:pjcompanyofficial@gmail.com">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
+<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+<polyline points="22,6 12,13 2,6"></polyline>
+</svg>
+                Email Us
+            </a>
+</div>
+</section>
+<!-- Footer -->
+<footer class="footer">
+<p>© 2026 PJ Store. Handcrafted Perfection. Made with <span class="heart">♥</span></p>
+</footer>
+<!-- Cart Drawer -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+<div class="cart-header">
+<h2>
+<svg fill="none" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
+<path d="M6 7h12l-1 14H7L6 7Z"></path>
+<path d="M9 7a3 3 0 0 1 6 0"></path>
+</svg>
+                Your Cart (<span id="cartDrawerCount">0</span>)
+            </h2>
+<button class="close-cart" onclick="closeCart()">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20">
+<line x1="18" x2="6" y1="6" y2="18"></line>
+<line x1="6" x2="18" y1="6" y2="18"></line>
+</svg>
+</button>
+</div>
+<div class="cart-items" id="cartItems">
+<div class="cart-empty">
+<div class="cart-empty-icon">
+<svg fill="none" height="40" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24" width="40">
+<path d="M6 7h12l-1 14H7L6 7Z"></path>
+<path d="M9 7a3 3 0 0 1 6 0"></path>
+</svg>
+</div>
+<h3>Your cart is empty</h3>
+<p>Explore our collection and add some beautiful flutes to your cart.</p>
+<button class="continue-shopping" onclick="closeCart()">Continue Shopping</button>
+</div>
+</div>
+<div class="cart-footer" id="cartFooter" style="display: none;">
+<div class="cart-subtotal">
+<span>Subtotal</span>
+<strong>₹<span id="cartTotal">0</span></strong>
+</div>
+<p class="cart-note">Without a pincode, the system applies the farthest Speed Post rate from Andaman + 60%. Enter your pincode to unlock a lower delivery charge.</p>
+<button class="checkout-btn" onclick="sendCartToWhatsApp()">
+                Send Order on WhatsApp
+                <svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
+<line x1="5" x2="19" y1="12" y2="12"></line>
+<polyline points="12 5 19 12 12 19"></polyline>
+</svg>
+</button>
+</div>
+</div>
+<!-- Instagram Modal -->
+<div class="instagram-modal" id="instagramModal">
+<div class="instagram-bg" onclick="closeInstagramModal()"></div>
+<button class="close-instagram" onclick="closeInstagramModal()">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24">
+<line x1="18" x2="6" y1="6" y2="18"></line>
+<line x1="6" x2="18" y1="6" y2="18"></line>
+</svg>
+</button>
+<div class="instagram-content">
+<div class="instagram-card">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<rect height="18" rx="5" width="18" x="3" y="3"></rect>
+<circle cx="12" cy="12" r="4"></circle>
+<circle cx="17.5" cy="6.5" r="1.5"></circle>
+</svg>
+<h2>Instagram</h2>
+<p>Follow us for daily updates, behind-the-scenes, and exclusive offers!</p>
+<a class="instagram-link" href="https://www.instagram.com/prabhu_ji.company?igsh=ZmZuYjV4MTJzc3Vw" target="_blank" rel="noopener">@Prabhu ji company</a>
+<a class="instagram-link" href="https://www.instagram.com/pj.flutes1?igsh=MTQxZDVhMGdxbmE4ag==" target="_blank" rel="noopener">@PJ flutes 1</a>
+<a class="instagram-link" href="https://www.instagram.com/pj.flutes2?igsh=MWlpdTN6eWY5OHJrOA==" target="_blank" rel="noopener">@PJ flutes 2</a>
+<p class="instagram-hint">Tap the link to open Instagram app or website</p>
+</div>
+</div>
+</div>
+<!-- Image Viewer -->
+<div class="image-viewer" id="imageViewer" onclick="closeImageViewer()">
+<button class="close-viewer">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24">
+<line x1="18" x2="6" y1="6" y2="18"></line>
+<line x1="6" x2="18" y1="6" y2="18"></line>
+</svg>
+</button>
+<img alt="Product" id="viewerImage" src=""/>
+</div>
+
+<!-- ================= CUSTOMIZATION PAGE ================= -->
+<div class="customization-page" id="customizationPage">
+    <div class="customization-header">
+        <button class="back-arrow" onclick="closeCustomizationPage()">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+        </button>
+        <h2>Customize Your Flute</h2>
+        <div class="header-spacer"></div>
+    </div>
+    
+    <!-- Experience Badge -->
+    <div class="experience-badge">
+        <img src="https://i.postimg.cc/3w76Yfc0/file-00000000f0cc71faab033f0116f53261.jpg" alt="9 Years Experience">
+    </div>
+    
+    <div class="customization-container">
+        <!-- Pattern Customization Option -->
+        <div class="customization-option" onclick="openPatternPage()">
+            <div class="option-header">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <path d="M21 15l-5-5L5 21"/>
+                    </svg>
+                </div>
+                <div class="option-text">
+                    <h3>Pattern Customization</h3>
+                    <p>Upload pattern image (₹5-₹50) or choose official pattern (FREE)</p>
+                </div>
+                <div class="option-arrow">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Color Customization Option -->
+        <div class="customization-option" onclick="openColorPage()">
+            <div class="option-header">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 2a10 10 0 0 1 10 10"/>
+                    </svg>
+                </div>
+                <div class="option-text">
+                    <h3>Color Customization</h3>
+                    <p>Choose 1-7 thread colors for your flute</p>
+                </div>
+                <div class="option-arrow">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Selection Summary -->
+        <div class="selection-summary" id="selectionSummary" style="display: none;">
+            <h4>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                Your Selections
+            </h4>
+            <div id="summaryContent"></div>
+        </div>
+        
+        <!-- Flute Name Input -->
+        <div class="flute-name-section">
+            <label for="fluteNameInput">Enter Flute Name/Model</label>
+            <input type="text" id="fluteNameInput" placeholder="e.g., C Natural Base Flute">
+        </div>
+        
+        <!-- Send to WhatsApp Button -->
+        <button class="send-whatsapp-btn" onclick="sendCustomizationToWhatsApp()">
+            <svg viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Send to WhatsApp
+        </button>
+    </div>
+</div>
+
+<!-- ================= PATTERN PAGE ================= -->
+<div class="pattern-page" id="patternPage">
+    <div class="page-header">
+        <button class="back-arrow" onclick="closePatternPage()">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+        </button>
+        <h2>Pattern Customization</h2>
+    </div>
+    
+    <div class="page-content">
+        <!-- Pattern Types -->
+        <div class="pattern-types">
+            <h3>Select Pattern Type</h3>
+            <div class="pattern-grid">
+                <div class="pattern-type-card free" data-type="official" data-price="0" onclick="selectPatternType(this)">
+                    <div class="pattern-type-name">Official Pattern</div>
+                    <div class="pattern-type-price">FREE</div>
+                </div>
+                <div class="pattern-type-card" data-type="simple" data-price="5" onclick="selectPatternType(this)">
+                    <div class="pattern-type-name">Simple Pattern</div>
+                    <div class="pattern-type-price">₹5</div>
+                </div>
+                <div class="pattern-type-card" data-type="medium" data-price="15" onclick="selectPatternType(this)">
+                    <div class="pattern-type-name">Medium Pattern</div>
+                    <div class="pattern-type-price">₹15</div>
+                </div>
+                <div class="pattern-type-card" data-type="complex" data-price="30" onclick="selectPatternType(this)">
+                    <div class="pattern-type-name">Complex Pattern</div>
+                    <div class="pattern-type-price">₹30</div>
+                </div>
+                <div class="pattern-type-card" data-type="premium" data-price="40" onclick="selectPatternType(this)">
+                    <div class="pattern-type-name">Premium Pattern</div>
+                    <div class="pattern-type-price">₹40</div>
+                </div>
+                <div class="pattern-type-card" data-type="highest" data-price="50" onclick="selectPatternType(this)">
+                    <div class="pattern-type-name">Highest Pattern</div>
+                    <div class="pattern-type-price">₹50</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Image Upload -->
+        <div class="image-upload-section" id="imageUploadSection">
+            <div class="upload-area" id="uploadArea" onclick="triggerFileInput()">
+                <div class="upload-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="17 8 12 3 7 8"/>
+                        <line x1="12" y1="3" x2="12" y2="15"/>
+                    </svg>
+                </div>
+                <div class="upload-text">Upload Pattern Image</div>
+                <div class="upload-hint">Tap to select an image from your gallery</div>
+            </div>
+            <input type="file" id="patternImageInput" accept="image/*" capture="environment" style="display: none;" onchange="handlePatternImageUpload(event)">
+            <img id="uploadedPatternImage" class="uploaded-image-preview" style="display: none;">
+            <button id="changeImageBtn" class="change-image-btn" style="display: none;" onclick="triggerFileInput()">Change Image</button>
+        </div>
+        
+        <!-- Continue Button -->
+        <button class="continue-btn" id="patternContinueBtn" onclick="savePatternAndReturn()">
+            Continue
+            <svg viewBox="0 0 24 24">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<!-- ================= COLOR PAGE ================= -->
+<div class="color-page" id="colorPage">
+    <div class="page-header">
+        <button class="back-arrow" onclick="closeColorPage()">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+        </button>
+        <h2>Color Customization</h2>
+    </div>
+    
+    <div class="page-content">
+        <!-- Color Count Selector -->
+        <div class="color-count-section">
+            <h3>How many colors do you want?</h3>
+            <div class="color-count-grid">
+                <div class="color-count-btn" data-count="1" data-price="40" onclick="selectColorCount(1)">
+                    <span class="count-number">1</span>
+                    <span class="count-price">₹40</span>
+                </div>
+                <div class="color-count-btn" data-count="2" data-price="80" onclick="selectColorCount(2)">
+                    <span class="count-number">2</span>
+                    <span class="count-price">₹80</span>
+                </div>
+                <div class="color-count-btn" data-count="3" data-price="120" onclick="selectColorCount(3)">
+                    <span class="count-number">3</span>
+                    <span class="count-price">₹120</span>
+                </div>
+                <div class="color-count-btn" data-count="4" data-price="160" onclick="selectColorCount(4)">
+                    <span class="count-number">4</span>
+                    <span class="count-price">₹160</span>
+                </div>
+                <div class="color-count-btn" data-count="5" data-price="200" onclick="selectColorCount(5)">
+                    <span class="count-number">5</span>
+                    <span class="count-price">₹200</span>
+                </div>
+                <div class="color-count-btn" data-count="6" data-price="240" onclick="selectColorCount(6)">
+                    <span class="count-number">6</span>
+                    <span class="count-price">₹240</span>
+                </div>
+                <div class="color-count-btn" data-count="7" data-price="280" onclick="selectColorCount(7)">
+                    <span class="count-number">7</span>
+                    <span class="count-price">₹280</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Color Selection -->
+        <div class="color-selection-section">
+            <h3>Choose Your Colors</h3>
+            <p class="color-selection-hint">Tap on colors to select. Tap again to deselect.</p>
+            
+            <!-- Pattern Color Warning -->
+            <div class="pattern-color-warning" id="patternColorWarning" style="display: none;">
+                <strong>Note:</strong> You have selected a pattern. Please choose colors that match your pattern's color scheme. Select the first color of your pattern first, then the second color, and so on.
+            </div>
+            
+            <!-- Color Search -->
+            <div class="color-search-section">
+                <input type="text" class="color-search-input" id="colorSearchInput" placeholder="Search colors (e.g., Red, Blue, Gold...)" oninput="filterColors(this.value)">
+            </div>
+            
+            <div class="color-grid" id="colorGrid"></div>
+            
+            <!-- Selected Colors Display -->
+            <div class="selected-colors-display" id="selectedColorsDisplay" style="display: none;">
+                <span class="selected-colors-label">Selected:</span>
+                <div class="selected-colors-list" id="selectedColorsList"></div>
+            </div>
+        </div>
+        
+        <!-- Continue Button -->
+        <button class="continue-btn" id="colorContinueBtn" onclick="saveColorsAndReturn()">
+            Continue
+            <svg viewBox="0 0 24 24">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast"></div>
+
+<script>
+const products = [
+            {
+                        "id": 1,
+                        "name": "E Middle Flute",
+                        "description": "Handcrafted bamboo flute. Size: 40.64cm. Perfect for practice, performance, and soulful tones.",
+                        "price": 1100,
+                        "size": "40.64cm",
+                        "category": "Middle Flute",
+                        "images": [
+                                    "https://i.postimg.cc/502FG81g/1771519608780.jpg",
+                                    "https://i.postimg.cc/s2wMp1SZ/IMG-20260219-221951301-HDR-2.jpg",
+                                    "https://i.postimg.cc/vB45T5jn/IMG-20260219-221943546-HDR-2.jpg"
+                        ]
+            },
+            {
+                        "id": 2,
+                        "name": "D Middle Flute",
+                        "description": "Handcrafted bamboo flute. Size: 45.72cm. Perfect for practice, performance, and soulful tones.",
+                        "price": 1300,
+                        "size": "45.72cm",
+                        "category": "Middle Flute",
+                        "images": [
+                                    "https://i.postimg.cc/FFqDyHgx/1771520179168.jpg",
+                                    "https://i.postimg.cc/SRRX5b02/IMG-20260219-222754339-HDR-2.jpg",
+                                    "https://i.postimg.cc/7YCGn4MK/IMG-20260219-222851920-HDR-2.jpg"
+                        ]
+            },
+            {
+                        "id": 3,
+                        "name": "C# Middle Flute",
+                        "description": "Handcrafted bamboo flute. Size: 46.99cm. Perfect for practice, performance, and soulful tones.",
+                        "price": 1470,
+                        "size": "46.99cm",
+                        "category": "Middle Flute",
+                        "images": [
+                                    "https://i.postimg.cc/XJPcksFZ/1771520546004.jpg",
+                                    "https://i.postimg.cc/YSxhCCMh/IMG-20260219-223337971-HDR-2.jpg",
+                                    "https://i.postimg.cc/4yj3SKQR/IMG-20260219-223359439-HDR-3.jpg"
+                        ]
+            },
+            {
+                        "id": 4,
+                        "name": "C Middle Flute",
+                        "description": "Handcrafted bamboo flute. Size: 49.53cm. Perfect for practice, performance, and soulful tones.",
+                        "price": 1500,
+                        "size": "49.53cm",
+                        "category": "Middle Flute",
+                        "images": [
+                                    "https://i.postimg.cc/Px0V5XSc/1771520843131.jpg",
+                                    "https://i.postimg.cc/NjGDY2gT/IMG-20260219-223817682-HDR-2.jpg",
+                                    "https://i.postimg.cc/L6ffMRYT/IMG-20260219-223823254-HDR-2.jpg"
+                        ]
+            },
+            {
+                        "id": 5,
+                        "name": "A# Base Flute",
+                        "description": "Handcrafted bamboo flute. Size: 54.61cm. Perfect for practice, performance, and soulful tones.",
+                        "price": 1600,
+                        "size": "54.61cm",
+                        "category": "Base Flute",
+                        "images": [
+                                    "https://i.postimg.cc/3RQD8zXM/1771521406435.jpg",
+                                    "https://i.postimg.cc/9Q44Gcby/IMG-20260219-224734484-HDR-2.jpg",
+                                    "https://i.postimg.cc/PJ3xw783/IMG-20260219-224743992-HDR-2.jpg"
+                        ]
+            },
+            {
+                        "id": 6,
+                        "name": "A Base Flute",
+                        "description": "Handcrafted bamboo flute. Size: 59.69cm. Perfect for practice, performance, and soulful tones.",
+                        "price": 1700,
+                        "size": "59.69cm",
+                        "category": "Base Flute",
+                        "images": [
+                                    "https://i.postimg.cc/HsnjgTfK/1771521704557.jpg",
+                                    "https://i.postimg.cc/3x1kKwKd/IMG-20260219-225310152-HDR-2.jpg",
+                                    "https://i.postimg.cc/9MR0ttyc/IMG-20260219-225316805-HDR-2.jpg"
+                        ]
+            },
+            {
+                        "id": 7,
+                        "name": "G# Base Flute",
+                        "description": "Handcrafted bamboo flute. Size: 62.23cm. Perfect for practice, performance, and soulful tones.",
+                        "price": 1850,
+                        "size": "62.23cm",
+                        "category": "Base Flute",
+                        "images": [
+                                    "https://i.postimg.cc/hvj4c03r/1771522139146.jpg",
+                                    "https://i.postimg.cc/Pxgx6pM3/IMG-20260219-230013992-HDR-2.jpg",
+                                    "https://i.postimg.cc/PfDNCyt3/IMG-20260219-230030866-HDR-2.jpg"
+                        ]
+            },
+            {
+                        "id": 8,
+                        "name": "G Base Flute",
+                        "description": "Handcrafted bamboo flute. Size: 67.31CM. Perfect for practice, performance, and soulful tones.",
+                        "price": 1800,
+                        "size": "67.31CM",
+                        "category": "Base Flute",
+                        "images": [
+                                    "https://i.postimg.cc/T38x4GGF/1771522508719.jpg",
+                                    "https://i.postimg.cc/nLpJnkXR/IMG-20260219-234259235-HDR-2.jpg",
+                                    "https://i.postimg.cc/7ZKZFQVT/IMG-20260219-234312866-HDR-2.jpg"
+                        ]
+            }
+];
+
+const validPincodes = ["744101", "744102", "744103", "744104", "744105", "110001", "110002", "110003", "400001", "400002", "700001", "560001", "600001", "500001", "380001"];
+const FAR_DISTANCE_SPEED_POST_CHARGE = 400;
+const NO_PINCODE_MULTIPLIER = 1.6;
+
+function calculateNoPincodeCharge() {
+    return Math.round(FAR_DISTANCE_SPEED_POST_CHARGE * NO_PINCODE_MULTIPLIER);
+}
+
+function applyNoPincodeCharge(resultEl) {
+    shippingCharge = calculateNoPincodeCharge();
+    userLocationDetails = "Location unable to detect (No pincode entered)";
+    if (resultEl) {
+        resultEl.innerHTML = `Location unable to detect. Delivery charge: <b>₹${shippingCharge}</b> (farthest Speed Post rate from Andaman + 60%)`;
+        resultEl.className = 'pincode-result error';
+    }
+    renderProducts();
+    updateCartUI();
+}
+
+let cart = [];
+let quantities = {};
+let currentSlide = 0;
+let shippingCharge = calculateNoPincodeCharge();
+let userLocationDetails = "Location unable to detect (No pincode entered)";
+let currentFilter = "";
+let pincodePromptDismissed = localStorage.getItem('pj_pincode_prompt_dismissed') === '1';
+let pincodeValidated = localStorage.getItem('pj_pincode_validated') === '1';
+const sliderStates = {};
+
+// ================= CUSTOMIZATION STATE =================
+let customizationState = {
+    pattern: {
+        type: null,
+        price: 0,
+        image: null
+    },
+    colors: {
+        count: 0,
+        price: 0,
+        selected: []
+    }
+};
+
+// Available thread colors - Extended list with Golden, Silver and more
+const threadColors = [
+    { name: 'Red', hex: '#DC2626' },
+    { name: 'Black', hex: '#000000' },
+    { name: 'Maroon', hex: '#800000' },
+    { name: 'Gold', hex: '#FFD700' },
+    { name: 'Golden', hex: '#D4AF37' },
+    { name: 'Silver', hex: '#C0C0C0' },
+    { name: 'Blue', hex: '#2563EB' },
+    { name: 'Navy Blue', hex: '#1E3A8A' },
+    { name: 'Sky Blue', hex: '#0EA5E9' },
+    { name: 'Green', hex: '#16A34A' },
+    { name: 'Dark Green', hex: '#14532D' },
+    { name: 'Light Green', hex: '#4ADE80' },
+    { name: 'Purple', hex: '#9333EA' },
+    { name: 'Lavender', hex: '#A855F7' },
+    { name: 'Orange', hex: '#F97316' },
+    { name: 'Pink', hex: '#EC4899' },
+    { name: 'Hot Pink', hex: '#FF1493' },
+    { name: 'Yellow', hex: '#EAB308' },
+    { name: 'White', hex: '#FFFFFF' },
+    { name: 'Off White', hex: '#F5F5DC' },
+    { name: 'Brown', hex: '#92400E' },
+    { name: 'Chocolate', hex: '#7B3F00' },
+    { name: 'Cream', hex: '#FFFDD0' },
+    { name: 'Beige', hex: '#F5F5DC' },
+    { name: 'Turquoise', hex: '#40E0D0' },
+    { name: 'Teal', hex: '#008080' },
+    { name: 'Cyan', hex: '#06B6D4' },
+    { name: 'Magenta', hex: '#FF00FF' },
+    { name: 'Violet', hex: '#8B5CF6' },
+    { name: 'Indigo', hex: '#4B0082' },
+    { name: 'Peach', hex: '#FFDAB9' },
+    { name: 'Coral', hex: '#FF7F50' },
+    { name: 'Salmon', hex: '#FA8072' },
+    { name: 'Lime', hex: '#32CD32' },
+    { name: 'Olive', hex: '#808000' },
+    { name: 'Khaki', hex: '#F0E68C' },
+    { name: 'Plum', hex: '#DDA0DD' },
+    { name: 'Orchid', hex: '#DA70D6' },
+    { name: 'Slate', hex: '#708090' },
+    { name: 'Charcoal', hex: '#36454F' }
+];
+
+function escapeHtml(text) {
+    return String(text)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+}
+
+function getDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371;
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+}
+
+function calculateShipFromDist(dist) {
+    if (dist < 50) return 50;
+    if (dist < 800) return 120;
+    if (dist < 1500) return 200;
+    if (dist < 3000) return 300;
+    return 400;
+}
+
+function calculateShipFromState(stateName = "") {
+    const state = stateName.toLowerCase();
+    if (state.includes("andaman")) return 50;
+    if (state.includes("assam") || state.includes("west bengal") || state.includes("odisha") || state.includes("bihar")) return 180;
+    if (state.includes("delhi") || state.includes("punjab") || state.includes("jammu") || state.includes("haryana") || state.includes("uttar pradesh")) return 350;
+    if (state.includes("kerala") || state.includes("tamil") || state.includes("karnataka") || state.includes("andhra")) return 300;
+    return 250;
+}
+
+function getActiveShippingCharge() {
+    return shippingCharge > 0 ? shippingCharge : calculateNoPincodeCharge();
+}
+
+function isPincodePromptVisible() {
+    return !pincodeValidated && !pincodePromptDismissed;
+}
+
+function showPincodePrompt() {
+    return isPincodePromptVisible();
+}
+
+function hidePincodePrompt() {
+    pincodePromptDismissed = true;
+    localStorage.setItem('pj_pincode_prompt_dismissed', '1');
+    renderProducts();
+}
+
+function revealPincodePrompt() {
+    pincodePromptDismissed = false;
+    localStorage.removeItem('pj_pincode_prompt_dismissed');
+}
+
+function markPincodeValidated() {
+    pincodeValidated = true;
+    localStorage.setItem('pj_pincode_validated', '1');
+    revealPincodePrompt();
+}
+
+function scrollToPincode(event) {
+    if (event) event.stopPropagation();
+    const el = document.getElementById('pincodeSection') || document.getElementById('pincodeBox');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const input = document.getElementById('pincodeInput');
+    if (input) setTimeout(() => input.focus({ preventScroll: true }), 450);
+}
+
+function dismissPincodePrompt(event) {
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+    hidePincodePrompt();
+}
+
+function showToast(message) {
+    const toast = document.getElementById("toast");
+    if (!toast) return;
+    toast.innerText = message;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2500);
+}
+
+function startSlider() {
+    updateHeroSlider();
+    setInterval(() => {
+        const slides = document.querySelectorAll('.slide');
+        if (slides.length < 2) return;
+        currentSlide = (currentSlide + 1) % slides.length;
+        updateHeroSlider();
+    }, 4000);
+}
+
+function setSlide(index) {
+    currentSlide = index;
+    updateHeroSlider();
+}
+
+function updateHeroSlider() {
+    document.querySelectorAll('.slide').forEach((slide, i) => {
+        slide.classList.toggle('active', i === currentSlide);
+    });
+    document.querySelectorAll('.dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlide);
+    });
+}
+
+function getFilteredProducts() {
+    const q = currentFilter.trim().toLowerCase();
+    if (!q) return products;
+    return products.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.size.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q)
+    );
+}
+
+function renderProducts() {
+    const grid = document.getElementById('productsGrid');
+    if (!grid) return;
+
+    const visibleProducts = getFilteredProducts();
+
+    grid.innerHTML = visibleProducts.map((product, index) => {
+        const currentQty = quantities[product.id] || 1;
+        const deliveryText = `₹${getActiveShippingCharge()}`;
+        return `
+            <div class="product-card" style="animation-delay: ${index * 90}ms">
+                <div class="product-slider" 
+                     data-product-id="${product.id}"
+                     ontouchstart="handleProductTouchStart(event, ${product.id})"
+                     ontouchend="handleProductTouchEnd(event, ${product.id})"
+                     onmousedown="handleProductMouseDown(event, ${product.id})"
+                     onmouseup="handleProductMouseUp(event, ${product.id})"
+                     onmouseleave="handleProductMouseLeave(event, ${product.id})">
+                    <div class="product-track" id="track-${product.id}">
+                        ${product.images.map(img => `
+                            <img src="${img}" alt="${escapeHtml(product.name)}" onclick="openImageViewer('${img}')">
+                        `).join('')}
+                    </div>
+                    ${product.images.length > 1 ? `
+                        <div class="slider-dots-product">
+                            ${product.images.map((_, i) => `
+                                <button class="dot-product ${i === 0 ? 'active' : ''}" onclick="goToImage(${product.id}, ${i}, event)"></button>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+
+                <div class="product-info">
+                    <div class="product-category">${product.category}</div>
+                    <h3 class="product-name">${escapeHtml(product.name)}</h3>
+                    <p class="product-desc">${escapeHtml(product.description)}</p>
+
+                    ${showPincodePrompt() ? `
+                    <div class="delivery-prompt" data-delivery-prompt="true" onclick="scrollToPincode(event)">
+                        <button class="delivery-prompt-close" type="button" aria-label="Dismiss delivery message" onclick="dismissPincodePrompt(event)">×</button>
+                        <span class="delivery-prompt-main">Please enter your pincode</span>
+                        <span class="delivery-prompt-sub">Avoid the high delivery charge by adding your pincode.</span>
+                    </div>` : ''}
+                    <div class="product-meta">
+                        <div class="product-price">₹${product.price}</div>
+                        <div class="product-delivery">Delivery: <strong>${deliveryText}</strong></div>
+                    </div>
+
+                    <div class="product-footer">
+                        <div class="qty-selector">
+                            <button class="qty-btn" onclick="updateQty(${product.id}, -1)">−</button>
+                            <span id="qty-${product.id}">${currentQty}</span>
+                            <button class="qty-btn" onclick="updateQty(${product.id}, 1)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="product-actions">
+                        <button class="product-btn alt" onclick="addToBag(${product.id})">Add to Bag</button>
+                        <button class="product-btn" onclick="buyNow(${product.id})">Buy Now</button>
+                    </div>
+                    
+                    <!-- Customize Button - Official Theme -->
+                    <button class="customize-btn" onclick="openCustomizationPage('${escapeHtml(product.name)}')">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                        </svg>
+                        Customize
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    setupScrollReveal();
+    refreshSliderState();
+}
+
+function refreshSliderState() {
+    products.forEach(product => {
+        if (sliderStates[product.id] === undefined) sliderStates[product.id] = 0;
+        updateSlider(product.id);
+    });
+}
+
+function updateSlider(productId) {
+    const track = document.getElementById(`track-${productId}`);
+    if (!track) return;
+    const idx = sliderStates[productId] || 0;
+    track.style.transform = `translateX(-${idx * 100}%)`;
+    const dots = track.parentElement.querySelectorAll('.dot-product');
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === idx));
+}
+
+const productTouchState = {};
+
+function handleProductTouchStart(event, productId) {
+    const touch = event.touches && event.touches[0];
+    if (!touch) return;
+    productTouchState[productId] = { x: touch.clientX, y: touch.clientY, moved: false };
+}
+
+function handleProductTouchEnd(event, productId) {
+    const start = productTouchState[productId];
+    if (!start) return;
+    const touch = event.changedTouches && event.changedTouches[0];
+    if (!touch) return;
+    const dx = touch.clientX - start.x;
+    const dy = touch.clientY - start.y;
+    const absX = Math.abs(dx);
+    const absY = Math.abs(dy);
+    if (absX > 35 && absX > absY) {
+        if (dx < 0) nextImage(productId, event);
+        else prevImage(productId, event);
+    }
+    delete productTouchState[productId];
+}
+
+let mouseSwipeState = {};
+function handleProductMouseDown(event, productId) {
+    mouseSwipeState[productId] = { x: event.clientX, y: event.clientY, down: true };
+}
+function handleProductMouseUp(event, productId) {
+    const start = mouseSwipeState[productId];
+    if (!start || !start.down) return;
+    const dx = event.clientX - start.x;
+    const dy = event.clientY - start.y;
+    if (Math.abs(dx) > 35 && Math.abs(dx) > Math.abs(dy)) {
+        if (dx < 0) nextImage(productId, event);
+        else prevImage(productId, event);
+    }
+    delete mouseSwipeState[productId];
+}
+function handleProductMouseLeave(event, productId) {
+    delete mouseSwipeState[productId];
+}
+
+function prevImage(productId, e) {
+    e.stopPropagation();
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+    if (sliderStates[productId] === undefined) sliderStates[productId] = 0;
+    sliderStates[productId] = (sliderStates[productId] - 1 + product.images.length) % product.images.length;
+    updateSlider(productId);
+}
+
+function nextImage(productId, e) {
+    e.stopPropagation();
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+    if (sliderStates[productId] === undefined) sliderStates[productId] = 0;
+    sliderStates[productId] = (sliderStates[productId] + 1) % product.images.length;
+    updateSlider(productId);
+}
+
+function goToImage(productId, index, e) {
+    e.stopPropagation();
+    sliderStates[productId] = index;
+    updateSlider(productId);
+}
+
+function updateQty(productId, delta) {
+    quantities[productId] = Math.max(1, (quantities[productId] || 1) + delta);
+    const el = document.getElementById(`qty-${productId}`);
+    if (el) el.textContent = quantities[productId];
+}
+
+function addToBag(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    const qty = quantities[productId] || 1;
+    for (let i = 0; i < qty; i++) {
+        cart.push(product);
+    }
+
+    showToast(`${product.name} added to bag`);
+    quantities[productId] = 1;
+    const qtyEl = document.getElementById(`qty-${productId}`);
+    if (qtyEl) qtyEl.textContent = 1;
+    updateCartUI();
+    openCart();
+}
+
+function buildOrderMessage(items, shipping, locationText) {
+    const activeShipping = shipping > 0 ? shipping : calculateNoPincodeCharge();
+    const subtotal = items.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    const total = subtotal + activeShipping;
+    let msg = "PJ STORE ORDER\n\n";
+    items.forEach((item, idx) => {
+        msg += `${idx + 1}. ${item.name} x${item.qty} - ₹${item.price * item.qty}\n`;
+    });
+    msg += `\nSubtotal: ₹${subtotal}`;
+    msg += `\nShipping: ₹${activeShipping}`;
+    msg += `\nTotal: ₹${total}`;
+    msg += `\nLocation: ${locationText || 'Not specified'}`;
+    msg += `\nRule: Entering a valid pincode unlocks a lower area-based delivery charge.`;
+    if (activeShipping === calculateNoPincodeCharge()) {
+        msg += `\nNo pincode: farthest Speed Post rate from Andaman + 60% applied.`;
+    }
+    return msg;
+}
+
+function buildGroupedCart() {
+    return cart.reduce((acc, item) => {
+        const found = acc.find(x => x.id === item.id);
+        if (found) found.qty += 1;
+        else acc.push({ ...item, qty: 1 });
+        return acc;
+    }, []);
+}
+
+function sendWhatsAppMessage(message) {
+    const phone = "919476091829";
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank");
+}
+
+function buyNow(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+    const qty = quantities[productId] || 1;
+    const items = [{ ...product, qty }];
+    const message = buildOrderMessage(items, shippingCharge || 0, userLocationDetails);
+    sendWhatsAppMessage(message);
+}
+
+function sendCartToWhatsApp() {
+    if (!cart.length) {
+        showToast("Your bag is empty");
+        return;
+    }
+    const grouped = buildGroupedCart();
+    const message = buildOrderMessage(grouped, shippingCharge || 0, userLocationDetails);
+    sendWhatsAppMessage(message);
+}
+
+function updateCartUI() {
+    const count = cart.length;
+    const cartCount = document.getElementById('cartCount');
+    const cartDrawerCount = document.getElementById('cartDrawerCount');
+    if (cartCount) cartCount.textContent = count;
+    if (cartDrawerCount) cartDrawerCount.textContent = count;
+
+    const cartItems = document.getElementById('cartItems');
+    const cartFooter = document.getElementById('cartFooter');
+    if (!cartItems || !cartFooter) return;
+
+    if (count === 0) {
+        cartItems.innerHTML = `
+            <div class="cart-empty">
+                <div class="cart-empty-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M6 7h12l-1 14H7L6 7Z"/>
+                        <path d="M9 7a3 3 0 0 1 6 0"/>
+                    </svg>
+                </div>
+                <h3>Your bag is empty</h3>
+                <p>Explore the collection, add flutes to your bag, then place the order on WhatsApp.</p>
+                <button class="continue-shopping" onclick="closeCart()">Continue Shopping</button>
+            </div>
+        `;
+        cartFooter.style.display = 'none';
+        return;
+    }
+
+    const grouped = buildGroupedCart();
+    cartItems.innerHTML = grouped.map(item => `
+        <div class="cart-item">
+            <div class="cart-item-img">
+                <img src="${item.images[0]}" alt="${escapeHtml(item.name)}">
+            </div>
+            <div class="cart-item-info">
+                <div class="cart-item-name">${escapeHtml(item.name)}</div>
+                <div class="cart-item-price">₹${item.price}</div>
+                <div style="font-size:12px; color:var(--text-secondary); margin-top:4px;">Size: ${item.size}</div>
+                <div class="cart-item-actions">
+                    <div class="cart-qty">
+                        <button onclick="updateCartQty(${item.id}, -1)">-</button>
+                        <span>${item.qty}</span>
+                        <button onclick="updateCartQty(${item.id}, 1)">+</button>
+                    </div>
+                    <button class="remove-item" onclick="removeCartItem(${item.id})">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"/>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+    document.getElementById('cartTotal').textContent = subtotal;
+    cartFooter.style.display = 'block';
+}
+
+function updateCartQty(productId, delta) {
+    if (delta > 0) {
+        const product = products.find(p => p.id === productId);
+        if (product) cart.push(product);
+    } else {
+        const idx = cart.map((item, i) => item.id === productId ? i : -1).filter(i => i !== -1).pop();
+        if (idx !== undefined) cart.splice(idx, 1);
+    }
+    updateCartUI();
+}
+
+function removeCartItem(productId) {
+    const idx = cart.findIndex(item => item.id === productId);
+    if (idx !== -1) cart.splice(idx, 1);
+    updateCartUI();
+}
+
+function openCart() {
+    document.getElementById('cartOverlay').classList.add('open');
+    document.getElementById('cartDrawer').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    updateCartUI();
+}
+
+function closeCart() {
+    document.getElementById('cartOverlay').classList.remove('open');
+    document.getElementById('cartDrawer').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+function openInstagramModal() {
+    document.getElementById('instagramModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeInstagramModal() {
+    document.getElementById('instagramModal').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+function openImageViewer(src) {
+    document.getElementById('viewerImage').src = src;
+    document.getElementById('imageViewer').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeImageViewer() {
+    document.getElementById('imageViewer').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function filterProducts(value) {
+    currentFilter = value || '';
+    renderProducts();
+}
+
+function checkPincode() {
+    const input = document.getElementById('pincodeInput');
+    const result = document.getElementById('pincodeResult');
+    const pincode = (input.value || '').trim();
+
+    if (!pincode) {
+        applyNoPincodeCharge(result);
+        return;
+    }
+
+    if (pincode.length !== 6 || !/^\d{6}$/.test(pincode)) {
+        result.textContent = 'Please enter a valid 6-digit pincode';
+        result.className = 'pincode-result error';
+        return;
+    }
+
+    result.textContent = 'Checking delivery...';
+    result.className = 'pincode-result';
+
+    fetch(`https://api.postalpincode.in/pincode/${pincode}`)
+        .then(res => res.json())
+        .then(data => {
+            const office = data && data[0] && data[0].PostOffice && data[0].PostOffice[0];
+            if (!office) throw new Error('Invalid pincode');
+
+            const charge = calculateShipFromState(office.State);
+            shippingCharge = charge;
+            userLocationDetails = `${office.District}, ${office.State} (${pincode})`;
+            result.innerHTML = `📍 ${office.District} • Shipping: <b>₹${charge}</b> • Valid pincode = lower delivery charge`;
+            result.className = 'pincode-result success';
+            markPincodeValidated();
+            renderProducts();
+            updateCartUI();
+        })
+        .catch(() => {
+            applyNoPincodeCharge(result);
+        });
+}
+
+function detectLocation() {
+    const input = document.getElementById('pincodeInput');
+    const result = document.getElementById('pincodeResult');
+
+    if (!navigator.geolocation) {
+        applyNoPincodeCharge(result);
+        return;
+    }
+
+    result.textContent = 'Detecting location...';
+    result.className = 'pincode-result';
+
+    navigator.geolocation.getCurrentPosition(async pos => {
+        const lat = pos.coords.latitude;
+        const lon = pos.coords.longitude;
+        try {
+            const dist = getDistance(11.62, 92.72, lat, lon);
+            const reverse = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+            const data = await reverse.json();
+            const state = (data.address && data.address.state) || '';
+            const city = (data.address && (data.address.city || data.address.town || data.address.village)) || 'Your City';
+
+            shippingCharge = calculateShipFromDist(dist);
+            userLocationDetails = `${city}, ${state}`;
+            result.innerHTML = `📍 ${city} • ${Math.round(dist)}km • Shipping: <b>₹${shippingCharge}</b> • Valid pincode = lower delivery charge`;
+            result.className = 'pincode-result success';
+            if (input) input.value = '744101';
+            markPincodeValidated();
+            renderProducts();
+            updateCartUI();
+        } catch (e) {
+            applyNoPincodeCharge(result);
+        }
+    }, () => {
+        applyNoPincodeCharge(result);
+    });
+}
+
+function setupScrollReveal() {
+    const elements = document.querySelectorAll('.pincode-box, .product-card, .instagram-banner, .info-section, .location-section, .contact-section, .care-tips-section');
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    elements.forEach(el => observer.observe(el));
+}
+
+function syncFocusEffects() {
+    document.querySelectorAll('.pincode-box input, .collection-search').forEach(inp => {
+        let active = false;
+        inp.addEventListener('focus', () => {
+            if (active) return;
+            active = true;
+            inp.classList.add('typing-magic');
+            setTimeout(() => {
+                inp.classList.remove('typing-magic');
+                active = false;
+            }, 900);
+        }, { passive: true });
+    });
+}
+
+function pulseButtons() {
+    document.addEventListener('click', (e) => {
+        if (e.target && e.target.innerText && e.target.innerText.includes('Add to Bag')) {
+            e.target.style.transform = 'scale(0.96)';
+            setTimeout(() => e.target.style.transform = '', 140);
+        }
+        if (e.target && e.target.innerText && e.target.innerText.includes('Buy Now')) {
+            e.target.style.transform = 'scale(0.96)';
+            setTimeout(() => e.target.style.transform = '', 140);
+        }
+    });
+}
+
+// ================= AUTOMATIC THEME BASED ON TIME =================
+function checkAndApplyTheme() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const currentTime = hours * 60 + minutes;
+    
+    // 6:30 AM = 390 minutes, 6:30 PM = 1110 minutes
+    const morningStart = 6 * 60 + 30;  // 6:30 AM
+    const eveningStart = 18 * 60 + 30; // 6:30 PM
+    
+    const body = document.body;
+    
+    if (currentTime >= morningStart && currentTime < eveningStart) {
+        // Day time - Light mode
+        body.setAttribute('data-theme', 'light');
+    } else {
+        // Night time - Dark mode
+        body.setAttribute('data-theme', 'dark');
+    }
+}
+
+// ================= CUSTOMIZATION FUNCTIONS =================
+
+// Open Customization Page
+function openCustomizationPage(fluteName = '') {
+    const page = document.getElementById('customizationPage');
+    const fluteNameInput = document.getElementById('fluteNameInput');
+    
+    if (fluteName) {
+        fluteNameInput.value = fluteName;
+    }
+    
+    page.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    updateSelectionSummary();
+}
+
+// Close Customization Page
+function closeCustomizationPage() {
+    const page = document.getElementById('customizationPage');
+    page.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Open Pattern Page
+function openPatternPage() {
+    const page = document.getElementById('patternPage');
+    page.classList.add('active');
+}
+
+// Close Pattern Page
+function closePatternPage() {
+    const page = document.getElementById('patternPage');
+    page.classList.remove('active');
+}
+
+// Trigger File Input for Pattern Image
+function triggerFileInput() {
+    const fileInput = document.getElementById('patternImageInput');
+    if (fileInput) {
+        fileInput.click();
+    }
+}
+
+// Select Pattern Type
+function selectPatternType(element) {
+    document.querySelectorAll('.pattern-type-card').forEach(card => {
+        card.classList.remove('selected');
+    });
+    element.classList.add('selected');
+    
+    customizationState.pattern.type = element.dataset.type;
+    customizationState.pattern.price = parseInt(element.dataset.price);
+}
+
+// Handle Pattern Image Upload
+function handlePatternImageUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        customizationState.pattern.image = e.target.result;
+        
+        const preview = document.getElementById('uploadedPatternImage');
+        const uploadArea = document.getElementById('uploadArea');
+        const changeBtn = document.getElementById('changeImageBtn');
+        const uploadSection = document.getElementById('imageUploadSection');
+        
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+        uploadArea.style.display = 'none';
+        changeBtn.style.display = 'inline-block';
+        uploadSection.classList.add('has-image');
+        
+        showToast('Image uploaded successfully!');
+    };
+    reader.readAsDataURL(file);
+}
+
+// Save Pattern and Return
+function savePatternAndReturn() {
+    if (!customizationState.pattern.type) {
+        showToast('Please select a pattern type');
+        return;
+    }
+    
+    if (customizationState.pattern.type !== 'official' && !customizationState.pattern.image) {
+        showToast('Please upload a pattern image');
+        return;
+    }
+    
+    closePatternPage();
+    updateSelectionSummary();
+    showToast('Pattern saved!');
+}
+
+// Open Color Page
+function openColorPage() {
+    const page = document.getElementById('colorPage');
+    page.classList.add('active');
+    renderColorGrid();
+    
+    // Show pattern color warning if pattern is selected
+    const warning = document.getElementById('patternColorWarning');
+    if (customizationState.pattern.type && customizationState.pattern.type !== 'official') {
+        warning.style.display = 'block';
+    } else {
+        warning.style.display = 'none';
+    }
+}
+
+// Close Color Page
+function closeColorPage() {
+    const page = document.getElementById('colorPage');
+    page.classList.remove('active');
+}
+
+// Render Color Grid
+function renderColorGrid(filterText = '') {
+    const grid = document.getElementById('colorGrid');
+    
+    const filteredColors = filterText 
+        ? threadColors.filter(c => c.name.toLowerCase().includes(filterText.toLowerCase()))
+        : threadColors;
+    
+    grid.innerHTML = filteredColors.map((color, index) => {
+        const originalIndex = threadColors.findIndex(c => c.name === color.name);
+        return `
+        <div class="color-option ${isColorSelected(color.name) ? 'selected' : ''} ${isColorSelectionFull() && !isColorSelected(color.name) ? 'disabled' : ''}"
+             style="background-color: ${color.hex};"
+             data-color="${color.name}"
+             data-index="${originalIndex}"
+             title="${color.name}"
+             onclick="toggleColorSelection('${color.name}', '${color.hex}')">
+        </div>
+    `}).join('');
+}
+
+// Filter Colors by Search
+function filterColors(searchText) {
+    renderColorGrid(searchText);
+}
+
+// Check if color is selected
+function isColorSelected(colorName) {
+    return customizationState.colors.selected.some(c => c.name === colorName);
+}
+
+// Check if color selection is full
+function isColorSelectionFull() {
+    return customizationState.colors.count > 0 && 
+           customizationState.colors.selected.length >= customizationState.colors.count;
+}
+
+// Select Color Count
+function selectColorCount(count) {
+    customizationState.colors.count = count;
+    customizationState.colors.price = count * 40;
+    
+    // Remove excess colors if count reduced
+    while (customizationState.colors.selected.length > count) {
+        customizationState.colors.selected.pop();
+    }
+    
+    document.querySelectorAll('.color-count-btn').forEach(btn => {
+        btn.classList.remove('selected');
+        if (parseInt(btn.dataset.count) === count) {
+            btn.classList.add('selected');
+        }
+    });
+    
+    renderColorGrid(document.getElementById('colorSearchInput')?.value || '');
+    updateSelectedColorsDisplay();
+}
+
+// Toggle Color Selection
+function toggleColorSelection(colorName, colorHex) {
+    const index = customizationState.colors.selected.findIndex(c => c.name === colorName);
+    
+    if (index > -1) {
+        // Deselect
+        customizationState.colors.selected.splice(index, 1);
+    } else {
+        // Select
+        if (isColorSelectionFull()) {
+            showToast(`You can only select ${customizationState.colors.count} colors. Deselect one first.`);
+            return;
+        }
+        if (customizationState.colors.count === 0) {
+            showToast('Please select how many colors you want first');
+            return;
+        }
+        customizationState.colors.selected.push({ name: colorName, hex: colorHex });
+    }
+    
+    renderColorGrid(document.getElementById('colorSearchInput')?.value || '');
+    updateSelectedColorsDisplay();
+}
+
+// Remove Selected Color
+function removeSelectedColor(colorName) {
+    const index = customizationState.colors.selected.findIndex(c => c.name === colorName);
+    if (index > -1) {
+        customizationState.colors.selected.splice(index, 1);
+        renderColorGrid(document.getElementById('colorSearchInput')?.value || '');
+        updateSelectedColorsDisplay();
+    }
+}
+
+// Update Selected Colors Display
+function updateSelectedColorsDisplay() {
+    const display = document.getElementById('selectedColorsDisplay');
+    const list = document.getElementById('selectedColorsList');
+    
+    if (customizationState.colors.selected.length === 0) {
+        display.style.display = 'none';
+        return;
+    }
+    
+    display.style.display = 'flex';
+    list.innerHTML = customizationState.colors.selected.map(color => `
+        <div class="selected-color-item">
+            <div class="selected-color-dot" style="background-color: ${color.hex};"></div>
+            <span>${color.name}</span>
+            <button class="remove-color-btn" onclick="removeSelectedColor('${color.name}')">×</button>
+        </div>
+    `).join('');
+}
+
+// Save Colors and Return
+function saveColorsAndReturn() {
+    if (customizationState.colors.count === 0) {
+        showToast('Please select how many colors you want');
+        return;
+    }
+    
+    if (customizationState.colors.selected.length === 0) {
+        showToast('Please select at least one color');
+        return;
+    }
+    
+    if (customizationState.colors.selected.length !== customizationState.colors.count) {
+        showToast(`Please select exactly ${customizationState.colors.count} colors`);
+        return;
+    }
+    
+    closeColorPage();
+    updateSelectionSummary();
+    showToast('Colors saved!');
+}
+
+// Update Selection Summary
+function updateSelectionSummary() {
+    const summary = document.getElementById('selectionSummary');
+    const content = document.getElementById('summaryContent');
+    
+    let hasSelection = false;
+    let html = '';
+    
+    // Pattern summary
+    if (customizationState.pattern.type) {
+        hasSelection = true;
+        const patternName = customizationState.pattern.type === 'official' ? 'Official Pattern' : 
+                           customizationState.pattern.type.charAt(0).toUpperCase() + customizationState.pattern.type.slice(1) + ' Pattern';
+        const priceText = customizationState.pattern.price === 0 ? 'FREE' : `₹${customizationState.pattern.price}`;
+        
+        html += `
+            <div class="summary-item pattern">
+                ${customizationState.pattern.image ? `<img src="${customizationState.pattern.image}" alt="Pattern">` : ''}
+                <div>
+                    <div class="summary-text"><strong>Pattern:</strong> ${patternName}</div>
+                </div>
+                <div class="summary-price">${priceText}</div>
+            </div>
+        `;
+    }
+    
+    // Colors summary
+    if (customizationState.colors.selected.length > 0) {
+        hasSelection = true;
+        html += `
+            <div class="summary-item colors">
+                <span class="summary-text"><strong>Colors:</strong></span>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    ${customizationState.colors.selected.map(c => `
+                        <div class="summary-color-dot" style="background-color: ${c.hex};" title="${c.name}"></div>
+                    `).join('')}
+                </div>
+                <div class="summary-price">₹${customizationState.colors.price}</div>
+            </div>
+        `;
+    }
+    
+    if (hasSelection) {
+        summary.style.display = 'block';
+        content.innerHTML = html;
+    } else {
+        summary.style.display = 'none';
+    }
+}
+
+// Send Customization to WhatsApp
+function sendCustomizationToWhatsApp() {
+    const fluteName = document.getElementById('fluteNameInput').value.trim();
+    
+    if (!fluteName) {
+        showToast('Please enter flute name/model');
+        document.getElementById('fluteNameInput').focus();
+        return;
+    }
+    
+    if (!customizationState.pattern.type && customizationState.colors.selected.length === 0) {
+        showToast('Please select pattern or color customization');
+        return;
+    }
+    
+    let message = "PJ STORE - FLUTE CUSTOMIZATION REQUEST\n\n";
+    message += `Flute: ${fluteName}\n\n`;
+    
+    // Pattern details
+    if (customizationState.pattern.type) {
+        const patternName = customizationState.pattern.type === 'official' ? 'Official Pattern' : 
+                           customizationState.pattern.type.charAt(0).toUpperCase() + customizationState.pattern.type.slice(1) + ' Pattern';
+        message += `Pattern: ${patternName}\n`;
+        message += `Pattern Price: ${customizationState.pattern.price === 0 ? 'FREE' : '₹' + customizationState.pattern.price}\n\n`;
+    }
+    
+    // Color details
+    if (customizationState.colors.selected.length > 0) {
+        message += `Thread Colors (${customizationState.colors.count} colors):\n`;
+        customizationState.colors.selected.forEach((color, idx) => {
+            message += `${idx + 1}. ${color.name}\n`;
+        });
+        message += `Color Price: ₹${customizationState.colors.price}\n\n`;
+    }
+    
+    // Total
+    const totalPrice = customizationState.pattern.price + customizationState.colors.price;
+    if (totalPrice > 0) {
+        message += `Total Customization Cost: ₹${totalPrice}\n\n`;
+    }
+    
+    message += "I want to customize my flute with the above specifications.";
+    
+    // If pattern image exists, we need to handle it differently
+    if (customizationState.pattern.image && customizationState.pattern.type !== 'official') {
+        // Store message in localStorage for reference
+        localStorage.setItem('pj_customization_message', message);
+        
+        // Open WhatsApp with text
+        const phone = "919476091829";
+        const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent("I need this type pattern in my flute")}`;
+        window.open(whatsappUrl, "_blank");
+        
+        showToast('Opening WhatsApp. Please send the pattern image!');
+    } else {
+        // Open WhatsApp with full message
+        const phone = "919476091829";
+        const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, "_blank");
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Apply automatic theme based on time
+    checkAndApplyTheme();
+    
+    // Check theme every minute
+    setInterval(checkAndApplyTheme, 60000);
+    
+    const result = document.getElementById('pincodeResult');
+    if (result && !document.getElementById('pincodeInput')?.value) {
+        result.innerHTML = `No pincode entered yet — delivery will default to ₹${calculateNoPincodeCharge()} (farthest Speed Post rate from Andaman + 60%).`;
+    }
+    if (pincodeValidated) {
+        revealPincodePrompt();
+    }
+    renderProducts();
+    startSlider();
+    updateCartUI();
+    setupScrollReveal();
+    syncFocusEffects();
+    pulseButtons();
+
+    const loader = document.getElementById('pageLoader');
+    setTimeout(() => {
+        if (loader) loader.classList.add('hidden');
+    }, 1200);
+});
+
+window.addEventListener('scroll', () => {
+    document.querySelectorAll('.parallax').forEach(el => {
+        const speed = 0.15;
+        const offset = window.scrollY * speed;
+        el.style.transform = `translateY(${offset}px)`;
+    });
+});
+
+window.addEventListener('resize', () => {
+    renderProducts();
+});
+
+window.setSlide = setSlide;
+window.prevImage = prevImage;
+window.nextImage = nextImage;
+window.goToImage = goToImage;
+window.updateQty = updateQty;
+window.addToBag = addToBag;
+window.buyNow = buyNow;
+window.updateCartQty = updateCartQty;
+window.removeCartItem = removeCartItem;
+window.openCart = openCart;
+window.closeCart = closeCart;
+window.openInstagramModal = openInstagramModal;
+window.closeInstagramModal = closeInstagramModal;
+window.openImageViewer = openImageViewer;
+window.closeImageViewer = closeImageViewer;
+window.scrollToSection = scrollToSection;
+window.filterProducts = filterProducts;
+window.checkPincode = checkPincode;
+window.detectLocation = detectLocation;
+window.scrollToPincode = scrollToPincode;
+window.dismissPincodePrompt = dismissPincodePrompt;
+window.sendCartToWhatsApp = sendCartToWhatsApp;
+
+// Customization functions
+window.openCustomizationPage = openCustomizationPage;
+window.closeCustomizationPage = closeCustomizationPage;
+window.openPatternPage = openPatternPage;
+window.closePatternPage = closePatternPage;
+window.triggerFileInput = triggerFileInput;
+window.selectPatternType = selectPatternType;
+window.handlePatternImageUpload = handlePatternImageUpload;
+window.savePatternAndReturn = savePatternAndReturn;
+window.openColorPage = openColorPage;
+window.closeColorPage = closeColorPage;
+window.selectColorCount = selectColorCount;
+window.toggleColorSelection = toggleColorSelection;
+window.removeSelectedColor = removeSelectedColor;
+window.saveColorsAndReturn = saveColorsAndReturn;
+window.sendCustomizationToWhatsApp = sendCustomizationToWhatsApp;
+window.filterColors = filterColors;
+</script>
+</div>
+</body>
+</html>
