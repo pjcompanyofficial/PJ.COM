@@ -3,84 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Closed</title>
+    <title>PJ Store - Closed</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: #000000;
+            background-color: #000000; /* Black Background */
             color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
+            padding: 20px;
         }
 
-        .container {
+        .card {
             text-align: center;
-            padding: 40px;
-            border: 2px solid #ff6600;
-            border-radius: 20px;
-            background: rgba(255, 102, 0, 0.05);
-            box-shadow: 0 0 30px rgba(255, 102, 0, 0.2);
-            max-width: 500px;
-            animation: fadeIn 1.5s ease-in-out;
+            padding: 40px 30px;
+            border: 1px solid #ff6600; /* Orange Border */
+            border-radius: 24px;
+            background: rgba(255, 102, 0, 0.03); /* Subtle Orange Tint */
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 102, 0, 0.1);
+            max-width: 450px;
+            width: 100%;
+            animation: slideUp 0.8s ease-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
-            color: #ff6600;
-            font-size: 3rem;
+            color: #ff6600; /* Orange Color */
+            font-size: 2.5rem;
             margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .status-badge {
+            background-color: #ff6600;
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: inline-block;
             text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
         p {
-            font-size: 1.2rem;
-            color: #cccccc;
+            font-size: 1.1rem;
+            color: #bbbbbb;
             line-height: 1.6;
+            margin-bottom: 25px;
         }
 
-        .line {
-            width: 50px;
-            height: 4px;
-            background-color: #ff6600;
-            margin: 20px auto;
-            border-radius: 2px;
+        .contact-box {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #ff6600;
         }
 
-        .status-tag {
-            display: inline-block;
-            background-color: #ff6600;
-            color: #000;
-            padding: 5px 15px;
-            border-radius: 50px;
+        .whatsapp-link {
+            color: #ff6600;
+            text-decoration: none;
+            font-size: 1.4rem;
             font-weight: bold;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .note {
+            font-size: 0.85rem;
+            color: #ff4444;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .footer-line {
+            width: 40px;
+            height: 2px;
+            background: #333;
+            margin: 30px auto 0;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="status-tag">OFFLINE</div>
-        <h1>CLOSED</h1>
-        <div class="line"></div>
-        <p>Yeh website abhi temporary taur par band kar di gayi hai. Hum jald hi kuch naya lekar wapas aayenge.</p>
+    <div class="card">
+        <div class="status-badge">Temporarily Closed</div>
+        <h1>PJ Store</h1>
+        <p>Humari website abhi band hai. Lekin fikr na karein, hum abhi bhi aapki madad ke liye taiyar hain!</p>
+        
+        <div class="contact-box">
+            <p style="margin-bottom: 5px; color: #fff; font-size: 0.95rem;">Jankari ya order ke liye message karein:</p>
+            <a href="https://wa.me/919531939823" class="whatsapp-link">
+                +91 95319 39823
+            </a>
+            <div class="note">⚠️ No Call - Only Message</div>
+        </div>
+
+        <div class="footer-line"></div>
     </div>
 
 </body>
 </html>
-
