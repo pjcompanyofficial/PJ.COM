@@ -1,1 +1,86 @@
-BAN BY OWNER
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Closed</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            border: 2px solid #ff6600;
+            border-radius: 20px;
+            background: rgba(255, 102, 0, 0.05);
+            box-shadow: 0 0 30px rgba(255, 102, 0, 0.2);
+            max-width: 500px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #ff6600;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        .line {
+            width: 50px;
+            height: 4px;
+            background-color: #ff6600;
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        .status-tag {
+            display: inline-block;
+            background-color: #ff6600;
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="status-tag">OFFLINE</div>
+        <h1>CLOSED</h1>
+        <div class="line"></div>
+        <p>Yeh website abhi temporary taur par band kar di gayi hai. Hum jald hi kuch naya lekar wapas aayenge.</p>
+    </div>
+
+</body>
+</html>
+
